@@ -24,6 +24,34 @@
             padding: 20px 20px 80px 20px;
         }
 
+        /* Styling til den nye Range Maker knap */
+        .maker-cta-container {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeUp 1.5s ease-out;
+        }
+
+        .maker-cta-btn {
+            display: inline-block;
+            background-color: var(--neon-green);
+            color: #000;
+            padding: 18px 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .maker-cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.6);
+            background-color: #32e612;
+        }
+
         .range-card {
             background: #111;
             border-left: 5px solid;
@@ -70,7 +98,6 @@
             color: #fff;
         }
 
-        /* Layout til Tekst + Matrix */
         .range-layout {
             display: flex;
             gap: 40px;
@@ -97,7 +124,6 @@
         .hands-suited { color: #4dc4ff; } 
         .hands-offsuit { color: #ff9900; } 
 
-        /* Matrix Grid Styling */
         .range-matrix-container {
             width: 340px;
             flex-shrink: 0;
@@ -125,27 +151,16 @@
             user-select: none;
         }
 
-        /* Aktive Celler */
         .grid-cell.active.utg-color { background-color: #ff4d4d; color: #fff; font-weight: bold; }
         .grid-cell.active.hj-color { background-color: #ff9900; color: #000; font-weight: bold; }
         .grid-cell.active.co-color { background-color: #ffff00; color: #000; font-weight: bold; }
         .grid-cell.active.btn-color { background-color: var(--neon-green); color: #000; font-weight: bold; }
         .grid-cell.active.sb-color { background-color: #4dc4ff; color: #000; font-weight: bold; }
 
-        /* Mobil Responsivitet */
         @media (max-width: 850px) {
-            .range-layout {
-                flex-direction: column;
-                gap: 25px;
-            }
-            .range-matrix-container {
-                width: 100%;
-                max-width: 400px;
-                margin: 0 auto;
-            }
-            .grid-cell {
-                font-size: 0.55rem; 
-            }
+            .range-layout { flex-direction: column; gap: 25px; }
+            .range-matrix-container { width: 100%; max-width: 400px; margin: 0 auto; }
+            .grid-cell { font-size: 0.55rem; }
         }
     </style>
 </head>
@@ -159,6 +174,11 @@
             <h1 class="elegant-title-small">PREFLOP <span class="title-highlight">RANGES</span></h1>
             <p class="subtitle">Standard 6-Max Raise First In (RFI) matrix guidelines.</p>
         </section>
+
+        <!-- DEN NYE KNAP TIL RANGE MAKER -->
+        <div class="maker-cta-container">
+            <a href="range-maker.html" class="maker-cta-btn">Interactive Range Maker →</a>
+        </div>
 
         <section class="range-container">
             
@@ -258,28 +278,18 @@
 
     <div id="global-footer"></div>
 
-    <!-- JAVASCRIPT TIL AT TEGNE MATRIXEN DYNAMISK -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            
-            // Standard Poker 13x13 ranks
             const ranks = ['A','K','Q','J','T','9','8','7','6','5','4','3','2'];
 
-            // Præcise arrays der fortæller scriptet præcis hvilke celler der skal farves
             const ranges = {
                 utg: "AA,KK,QQ,JJ,TT,99,88,77,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,QJs,QTs,Q9s,JTs,T9s,AKo,AQo,AJo,ATo,KQo,KJo",
-                
                 hj: "AA,KK,QQ,JJ,TT,99,88,77,66,55,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,QJs,QTs,Q9s,JTs,J9s,T9s,T8s,AKo,AQo,AJo,ATo,KQo,KJo,KTo,QJo,JTo",
-                
-                // Tilføjet 98s herunder
                 co: "AA,KK,QQ,JJ,TT,99,88,77,66,55,44,33,22,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,K4s,K3s,QJs,QTs,Q9s,Q8s,JTs,J9s,J8s,T9s,T8s,98s,97s,87s,76s,65s,AKo,AQo,AJo,ATo,A9o,A8o,KQo,KJo,KTo,K9o,QJo,QTo,JTo",
-                
                 btn: "AA,KK,QQ,JJ,TT,99,88,77,66,55,44,33,22,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,K4s,K3s,K2s,QJs,QTs,Q9s,Q8s,Q7s,Q6s,Q5s,Q4s,Q3s,Q2s,JTs,J9s,J8s,J7s,J6s,J5s,J4s,T9s,T8s,T7s,T6s,T5s,98s,97s,96s,87s,86s,76s,75s,65s,64s,54s,AKo,AQo,AJo,ATo,A9o,A8o,A7o,A6o,A5o,A4o,A3o,KQo,KJo,KTo,K9o,K8o,QJo,QTo,Q9o,JTo,J9o,T9o,T8o,98o",
-                
                 sb: "AA,KK,QQ,JJ,TT,99,88,77,66,55,44,33,22,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,K4s,K3s,K2s,QJs,QTs,Q9s,Q8s,Q7s,Q6s,Q5s,Q4s,Q3s,Q2s,JTs,J9s,J8s,J7s,J6s,J5s,J4s,T9s,T8s,T7s,T6s,98s,97s,96s,87s,86s,85s,76s,75s,65s,64s,54s,AKo,AQo,AJo,ATo,A9o,A8o,A7o,A6o,A5o,A4o,A3o,KQo,KJo,KTo,K9o,K8o,QJo,QTo,Q9o,JTo,J9o,T9o,98o"
             };
 
-            // Funktion der bygger selve HTML kasserne for matrixen
             function buildMatrix(containerId, activeHandsStr, colorClass) {
                 const container = document.getElementById(containerId);
                 if (!container) return;
@@ -290,9 +300,9 @@
                 for(let r=0; r<13; r++) {
                     for(let c=0; c<13; c++) {
                         let cellHand = '';
-                        if(r === c) cellHand = ranks[r] + ranks[c]; // Pocket Pairs (Diagonalen)
-                        else if(r < c) cellHand = ranks[r] + ranks[c] + 's'; // Suited (Top Højre)
-                        else cellHand = ranks[c] + ranks[r] + 'o'; // Offsuit (Bund Venstre)
+                        if(r === c) cellHand = ranks[r] + ranks[c];
+                        else if(r < c) cellHand = ranks[r] + ranks[c] + 's';
+                        else cellHand = ranks[c] + ranks[r] + 'o';
 
                         let isActive = activeHands.includes(cellHand);
                         let cellClass = isActive ? 'grid-cell active ' + colorClass : 'grid-cell';
@@ -303,7 +313,6 @@
                 container.innerHTML = html;
             }
 
-            // Kør funktionen for de 5 positioner
             buildMatrix('matrix-utg', ranges.utg, 'utg-color');
             buildMatrix('matrix-hj', ranges.hj, 'hj-color');
             buildMatrix('matrix-co', ranges.co, 'co-color');
@@ -311,6 +320,5 @@
             buildMatrix('matrix-sb', ranges.sb, 'sb-color');
         });
     </script>
-
 </body>
 </html>
