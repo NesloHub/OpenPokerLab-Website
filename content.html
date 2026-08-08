@@ -265,11 +265,14 @@
                     fetch(`https://decapi.me/twitch/uptime/${streamerName}`)
                         .then(response => response.text())
                         .then(data => {
-                            // Hvis API'et svarer "Offline" eller en fejl
-                            if (data.includes("Offline") || data.includes("does not exist")) {
+                            // Gør hele svaret til små bogstaver for at undgå fejl
+                            const responseText = data.toLowerCase();
+                            
+                            // Tjek for alle de ord, der indikerer at de IKKE er live
+                            if (responseText.includes("offline") || responseText.includes("not found") || responseText.includes("error") || responseText.includes("does not exist")) {
                                 dot.classList.add('offline');
                             } else {
-                                // Hvis der returneres et tidspunkt (f.eks. "2 hours, 10 mins"), er de live!
+                                // Hvis der returneres et tidspunkt, er de live
                                 dot.classList.add('live');
                             }
                         })
