@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preflop Ranges & Charts | OpenPokerLab</title>
-    <meta name="description" content="Free 6-max GTO preflop charts. Learn exactly which hands to open from every position at the poker table.">
+    <meta name="description" content="Free 6-max GTO preflop charts. Learn exactly which hands to open from every position at the poker table with interactive grids.">
     
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -19,31 +19,30 @@
 
     <style>
         .range-container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 20px 20px 80px 20px;
         }
 
         .range-card {
             background: #111;
             border-left: 5px solid;
             padding: 25px;
-            margin-bottom: 25px;
+            margin-bottom: 35px;
             border-radius: 0 6px 6px 0;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             transition: transform 0.3s ease;
         }
 
         .range-card:hover {
-            transform: translateX(10px);
+            transform: translateX(5px);
         }
 
-        /* Farvekodning af positionerne */
-        .utg { border-color: #ff4d4d; } /* Rød (Tættest) */
-        .hj { border-color: #ff9900; }  /* Orange */
-        .co { border-color: #ffff00; }  /* Gul */
-        .btn { border-color: var(--neon-green); } /* Grøn (Bredest) */
-        .sb { border-color: #4dc4ff; }  /* Blå */
+        /* Farvekodning */
+        .utg { border-color: #ff4d4d; } 
+        .hj { border-color: #ff9900; }  
+        .co { border-color: #ffff00; }  
+        .btn { border-color: var(--neon-green); } 
 
         .range-header {
             display: flex;
@@ -51,7 +50,7 @@
             align-items: center;
             border-bottom: 1px solid #222;
             padding-bottom: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .range-title {
@@ -70,10 +69,22 @@
             color: #fff;
         }
 
+        /* Layout til Tekst + Matrix */
+        .range-layout {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .range-info {
+            flex: 1;
+        }
+
         .hand-category {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 0.95rem;
             color: #bbb;
+            line-height: 1.5;
         }
 
         .hands {
@@ -82,8 +93,58 @@
             letter-spacing: 1px;
         }
         
-        .hands-suited { color: #4dc4ff; } /* Suited hænder i blå for overblik */
-        .hands-offsuit { color: #ff9900; } /* Offsuit i orange */
+        .hands-suited { color: #4dc4ff; } 
+        .hands-offsuit { color: #ff9900; } 
+
+        /* Matrix Grid Styling */
+        .range-matrix-container {
+            width: 340px;
+            flex-shrink: 0;
+        }
+
+        .poker-grid {
+            display: grid;
+            grid-template-columns: repeat(13, 1fr);
+            gap: 1px;
+            background-color: #333; /* Giver stregerne mellem cellerne farve */
+            border: 2px solid #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .grid-cell {
+            background-color: #0a0a0a;
+            color: #333;
+            font-size: 0.65rem;
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            aspect-ratio: 1; /* Sikrer at cellerne altid er helt firkantede */
+            user-select: none;
+        }
+
+        /* Aktive Celler */
+        .grid-cell.active.utg-color { background-color: #ff4d4d; color: #fff; font-weight: bold; }
+        .grid-cell.active.hj-color { background-color: #ff9900; color: #000; font-weight: bold; }
+        .grid-cell.active.co-color { background-color: #ffff00; color: #000; font-weight: bold; }
+        .grid-cell.active.btn-color { background-color: var(--neon-green); color: #000; font-weight: bold; }
+
+        /* Mobil Responsivitet */
+        @media (max-width: 850px) {
+            .range-layout {
+                flex-direction: column;
+                gap: 25px;
+            }
+            .range-matrix-container {
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .grid-cell {
+                font-size: 0.55rem; /* Lidt mindre tekst på mobilen */
+            }
+        }
     </style>
 </head>
 <body class="content-page">
@@ -94,7 +155,7 @@
     <main class="strategy-main">
         <section class="page-header">
             <h1 class="elegant-title-small">PREFLOP <span class="title-highlight">RANGES</span></h1>
-            <p class="subtitle">Standard 6-Max Raise First In (RFI) guidelines based on GTO.</p>
+            <p class="subtitle">Standard 6-Max Raise First In (RFI) matrix guidelines.</p>
         </section>
 
         <section class="range-container">
@@ -105,12 +166,17 @@
                     <div class="range-title">1. UTG / Lojack (LJ)</div>
                     <div class="range-percentage">Opens ~18.5%</div>
                 </div>
-                <div class="hand-category"><strong>Pocket Pairs:</strong> <span class="hands">77+</span></div>
-                <div class="hand-category"><strong>Suited Ax:</strong> <span class="hands hands-suited">A2s+</span></div>
-                <div class="hand-category"><strong>Suited Broadways & Kings:</strong> <span class="hands hands-suited">K9s+, Q9s+, JTs, T9s</span></div>
-                <div class="hand-category"><strong>Suited Connectors:</strong> <span class="hands hands-suited">98s</span></div>
-                <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">ATo+, KJo+</span></div>
-                <p style="color: #666; font-size: 0.85rem; margin-top: 15px; font-style: italic;">*You play the tightest range here because 5 players act behind you.</p>
+                <div class="range-layout">
+                    <div class="range-info">
+                        <div class="hand-category"><strong>Pocket Pairs:</strong> <span class="hands">77+</span></div>
+                        <div class="hand-category"><strong>Suited Ax:</strong> <span class="hands hands-suited">A2s+</span></div>
+                        <div class="hand-category"><strong>Suited Broadways & Kings:</strong> <span class="hands hands-suited">K9s+, Q9s+, JTs, T9s</span></div>
+                        <div class="hand-category"><strong>Suited Connectors:</strong> <span class="hands hands-suited">98s</span></div>
+                        <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">ATo+, KJo+</span></div>
+                        <p style="color: #666; font-size: 0.85rem; margin-top: 15px; font-style: italic;">*You play the tightest range here because 5 players act behind you.</p>
+                    </div>
+                    <div class="range-matrix-container" id="matrix-utg"></div>
+                </div>
             </div>
 
             <!-- 2. Hijack -->
@@ -119,11 +185,16 @@
                     <div class="range-title">2. Hijack (HJ)</div>
                     <div class="range-percentage">Opens ~23.0%</div>
                 </div>
-                <div class="hand-category"><strong>Pocket Pairs:</strong> <span class="hands">55+</span></div>
-                <div class="hand-category"><strong>Suited Ax:</strong> <span class="hands hands-suited">A2s+</span></div>
-                <div class="hand-category"><strong>Suited Broadways & Kings:</strong> <span class="hands hands-suited">K5s+, Q9s+, J9s+, T8s+</span></div>
-                <div class="hand-category"><strong>Suited Connectors:</strong> <span class="hands hands-suited">98s, 87s, 76s, 65s, 54s</span></div>
-                <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">A9o+, KTo+, QTo+, JTo</span></div>
+                <div class="range-layout">
+                    <div class="range-info">
+                        <div class="hand-category"><strong>Pocket Pairs:</strong> <span class="hands">55+</span></div>
+                        <div class="hand-category"><strong>Suited Ax:</strong> <span class="hands hands-suited">A2s+</span></div>
+                        <div class="hand-category"><strong>Suited Broadways & Kings:</strong> <span class="hands hands-suited">K5s+, Q9s+, J9s+, T8s+</span></div>
+                        <div class="hand-category"><strong>Suited Connectors:</strong> <span class="hands hands-suited">98s, 87s, 76s, 65s, 54s</span></div>
+                        <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">A9o+, KTo+, QTo+, JTo</span></div>
+                    </div>
+                    <div class="range-matrix-container" id="matrix-hj"></div>
+                </div>
             </div>
 
             <!-- 3. Cutoff -->
@@ -132,11 +203,16 @@
                     <div class="range-title">3. Cutoff (CO)</div>
                     <div class="range-percentage">Opens ~30.0%</div>
                 </div>
-                <div class="hand-category"><strong>Pocket Pairs:</strong> <span class="hands">22+</span></div>
-                <div class="hand-category"><strong>Suited Ax:</strong> <span class="hands hands-suited">A2s+</span></div>
-                <div class="hand-category"><strong>Suited Broadways & Kings:</strong> <span class="hands hands-suited">K3s+, Q8s+, J8s+, T8s+</span></div>
-                <div class="hand-category"><strong>Suited Connectors & Gappers:</strong> <span class="hands hands-suited">97s+, 87s, 76s, 65s, 54s</span></div>
-                <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">A8o+, K9o+, QTo+, JTo</span></div>
+                <div class="range-layout">
+                    <div class="range-info">
+                        <div class="hand-category"><strong>Pocket Pairs:</strong> <span class="hands">22+</span></div>
+                        <div class="hand-category"><strong>Suited Ax:</strong> <span class="hands hands-suited">A2s+</span></div>
+                        <div class="hand-category"><strong>Suited Broadways & Kings:</strong> <span class="hands hands-suited">K3s+, Q8s+, J8s+, T8s+</span></div>
+                        <div class="hand-category"><strong>Suited Connectors & Gappers:</strong> <span class="hands hands-suited">97s+, 87s, 76s, 65s</span></div>
+                        <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">A8o+, K9o+, QTo+, JTo</span></div>
+                    </div>
+                    <div class="range-matrix-container" id="matrix-co"></div>
+                </div>
             </div>
 
             <!-- 4. Button -->
@@ -145,32 +221,73 @@
                     <div class="range-title">4. Button (BTN)</div>
                     <div class="range-percentage">Opens ~45-48%</div>
                 </div>
-                <div class="hand-category"><strong>Pocket Pairs:</strong> <span class="hands">22+</span></div>
-                <div class="hand-category"><strong>Suited Ax:</strong> <span class="hands hands-suited">A2s+</span></div>
-                <div class="hand-category"><strong>Suited Broadways & Kings:</strong> <span class="hands hands-suited">K2s+, Q2s+, J4s+, T5s+</span></div>
-                <div class="hand-category"><strong>Suited Connectors & Gappers:</strong> <span class="hands hands-suited">96s+, 86s+, 75s+, 64s+, 54s</span></div>
-                <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">A2o+, K5o+, Q9o+, J9o+, T8o+, 98o</span></div>
-                <p style="color: #666; font-size: 0.85rem; margin-top: 15px; font-style: italic;">*The best position in poker. Attack the blinds relentlessly with a very wide range.</p>
-            </div>
-
-            <!-- 5. Small Blind (Beholdt for komplet 6-max overblik) -->
-            <div class="range-card sb">
-                <div class="range-header">
-                    <div class="range-title">5. Small Blind (SB) vs Big Blind</div>
-                    <div class="range-percentage">Opens ~40.0%</div>
+                <div class="range-layout">
+                    <div class="range-info">
+                        <div class="hand-category"><strong>Pocket Pairs:</strong> <span class="hands">22+</span></div>
+                        <div class="hand-category"><strong>Suited Ax:</strong> <span class="hands hands-suited">A2s+</span></div>
+                        <div class="hand-category"><strong>Suited Broadways & Kings:</strong> <span class="hands hands-suited">K2s+, Q2s+, J4s+, T5s+</span></div>
+                        <div class="hand-category"><strong>Suited Connectors & Gappers:</strong> <span class="hands hands-suited">96s+, 86s+, 75s+, 64s+, 54s</span></div>
+                        <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">A3o+, K8o+, Q9o+, J9o+, T8o+, 98o</span></div>
+                        <p style="color: #666; font-size: 0.85rem; margin-top: 15px; font-style: italic;">*The best position in poker. Attack the blinds relentlessly with a very wide range.</p>
+                    </div>
+                    <div class="range-matrix-container" id="matrix-btn"></div>
                 </div>
-                <div class="hand-category"><strong>Pocket Pairs:</strong> <span class="hands">22+</span></div>
-                <div class="hand-category"><strong>Suited Ax:</strong> <span class="hands hands-suited">A2s+</span></div>
-                <div class="hand-category"><strong>Suited Broadways & Kings:</strong> <span class="hands hands-suited">K2s+, Q5s+, J7s+, T7s+</span></div>
-                <div class="hand-category"><strong>Suited Connectors & Gappers:</strong> <span class="hands hands-suited">97s+, 86s+, 76s, 65s, 54s</span></div>
-                <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">A2o+, K9o+, Q9o+, J9o+, T9o</span></div>
-                <p style="color: #666; font-size: 0.85rem; margin-top: 15px; font-style: italic;">*Note: When SB opens, the standard sizing should be larger (3x or 3.5x) due to being out of position postflop.</p>
             </div>
 
         </section>
     </main>
 
     <div id="global-footer"></div>
+
+    <!-- JAVASCRIPT TIL AT TEGNE MATRIXEN DYNAMISK -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // Standard Poker 13x13 ranks
+            const ranks = ['A','K','Q','J','T','9','8','7','6','5','4','3','2'];
+
+            // Præcise arrays der fortæller scriptet præcis hvilke celler der skal farves
+            const ranges = {
+                utg: "AA,KK,QQ,JJ,TT,99,88,77,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,QJs,QTs,Q9s,JTs,T9s,98s,AKo,AQo,AJo,ATo,KQo,KJo",
+                
+                hj: "AA,KK,QQ,JJ,TT,99,88,77,66,55,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,QJs,QTs,Q9s,JTs,J9s,T9s,T8s,98s,87s,76s,65s,54s,AKo,AQo,AJo,ATo,A9o,KQo,KJo,KTo,QJo,QTo,JTo",
+                
+                co: "AA,KK,QQ,JJ,TT,99,88,77,66,55,44,33,22,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,K4s,K3s,QJs,QTs,Q9s,Q8s,JTs,J9s,J8s,T9s,T8s,98s,97s,87s,76s,65s,AKo,AQo,AJo,ATo,A9o,A8o,KQo,KJo,KTo,K9o,QJo,QTo,JTo",
+                
+                btn: "AA,KK,QQ,JJ,TT,99,88,77,66,55,44,33,22,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,K4s,K3s,K2s,QJs,QTs,Q9s,Q8s,Q7s,Q6s,Q5s,Q4s,Q3s,Q2s,JTs,J9s,J8s,J7s,J6s,J5s,J4s,T9s,T8s,T7s,T6s,T5s,98s,97s,96s,87s,86s,76s,75s,65s,64s,54s,AKo,AQo,AJo,ATo,A9o,A8o,A7o,A6o,A5o,A4o,A3o,KQo,KJo,KTo,K9o,K8o,QJo,QTo,Q9o,JTo,J9o,T9o,T8o,98o"
+            };
+
+            // Funktion der bygger selve HTML kasserne for matrixen
+            function buildMatrix(containerId, activeHandsStr, colorClass) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                const activeHands = activeHandsStr.split(',');
+                let html = '<div class="poker-grid">';
+                
+                for(let r=0; r<13; r++) {
+                    for(let c=0; c<13; c++) {
+                        let cellHand = '';
+                        if(r === c) cellHand = ranks[r] + ranks[c]; // Pocket Pairs (Diagonalen)
+                        else if(r < c) cellHand = ranks[r] + ranks[c] + 's'; // Suited (Top Højre)
+                        else cellHand = ranks[c] + ranks[r] + 'o'; // Offsuit (Bund Venstre)
+
+                        let isActive = activeHands.includes(cellHand);
+                        let cellClass = isActive ? 'grid-cell active ' + colorClass : 'grid-cell';
+                        html += '<div class="' + cellClass + '">' + cellHand + '</div>';
+                    }
+                }
+                html += '</div>';
+                container.innerHTML = html;
+            }
+
+            // Kør funktionen for de 4 positioner
+            buildMatrix('matrix-utg', ranges.utg, 'utg-color');
+            buildMatrix('matrix-hj', ranges.hj, 'hj-color');
+            buildMatrix('matrix-co', ranges.co, 'co-color');
+            buildMatrix('matrix-btn', ranges.btn, 'btn-color');
+        });
+    </script>
 
 </body>
 </html>
