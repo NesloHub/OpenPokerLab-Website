@@ -3,42 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenPokerLab | Free Open-Source Poker Software & Tools</title>
-    <!-- Open Graph / Discord / Facebook Preview -->
+    <title>OpenPokerLab | Free Poker Software & Strategy</title>
+    <meta name="description" content="Open-source poker tools, curated premium software, and free strategy content for players looking to find their edge.">
+    
+    <!-- Open Graph / Social Media Previews -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://openpokerlab.org/">
     <meta property="og:title" content="OpenPokerLab | Free Poker Software & Strategy">
     <meta property="og:description" content="Open-source poker tools, curated premium software, and free strategy content for players looking to find their edge.">
     <meta property="og:image" content="https://openpokerlab.org/og-image.png">
-
+    
     <!-- Twitter / X Preview -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://openpokerlab.org/">
     <meta name="twitter:title" content="OpenPokerLab | Free Poker Software & Strategy">
     <meta name="twitter:description" content="Open-source poker tools, curated premium software, and free strategy content for players looking to find their edge.">
     <meta name="twitter:image" content="https://openpokerlab.org/og-image.png">
-    <meta name="description" content="Download free poker tools including Poker Studio, equity calculators, and bankroll management strategies. Built by the community, for the community.">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="favicon.png?v=2">
-    <meta property="og:title" content="OpenPokerLab | Advanced GTO & Exploit Tools">
-    <meta property="og:description" content="An open-source initiative dedicated to helping poker players maximize their edge.">
-    <meta property="og:type" content="website">
-</head>
-<body class="front-page">
 
-    <!-- Her bliver menuen automatisk skudt ind af vores menu.js script -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Specifik styling til Forsiden -->
+    <style>
+        .hero-section {
+            text-align: center;
+            padding: 100px 20px 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        .hero-title .highlight {
+            color: var(--neon-green, #39ff14);
+            text-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            font-weight: 300;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 16px 35px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .cta-primary {
+            background: var(--neon-green, #39ff14);
+            color: #000;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+        }
+
+        .cta-primary:hover {
+            background: #32e612;
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid #333;
+        }
+
+        .cta-secondary:hover {
+            border-color: var(--neon-green, #39ff14);
+            color: var(--neon-green, #39ff14);
+            background: rgba(57, 255, 20, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto 100px auto;
+            padding: 0 20px;
+        }
+
+        .feature-box {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            padding: 40px 30px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .feature-box:hover {
+            border-color: #333;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .feature-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .feature-box p {
+            color: #777;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        .feature-link {
+            color: var(--neon-green, #39ff14);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+        
+        .feature-link:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-section {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+<body class="content-page">
+
+    <!-- Dynamisk header -->
     <div id="global-header"></div>
     <script src="menu.js"></script>
 
-    <main>
-        <section class="hero">
-            <h1 class="elegant-title">OPENPOKER <span class="title-highlight">LAB</span></h1>
-            <!-- Den nye minimalistiske beskrivelse -->
-            <p class="hero-mission">An open-source initiative dedicated to helping all poker players maximize their edge.</p>
-        </section>
-    </main>
-<!-- Her skyder menu.js footeren ind -->
+    <!-- HERO SEKTION -->
+    <section class="hero-section">
+        <h1 class="hero-title">ENGINEER YOUR <span class="highlight">EDGE.</span></h1>
+        <p class="hero-subtitle">
+            Welcome to the lab. A curated, open-source hub featuring free poker software, advanced GTO web tools, and a directory of the best strategy content on the internet. No paywalls, no bullshit.
+        </p>
+        <div class="cta-buttons">
+            <a href="software.html" class="cta-btn cta-primary">ENTER THE LAB</a>
+            <a href="content.html" class="cta-btn cta-secondary">BROWSE CONTENT</a>
+        </div>
+    </section>
+
+    <!-- FEATURES GRID -->
+    <section class="features-grid">
+        
+        <!-- Feature 1: Software -->
+        <div class="feature-box">
+            <h3>SOFTWARE & TOOLS</h3>
+            <p>Download powerful open-source desktop software like PokerStove and RNG overlays. Access essential free web tools, GTO preflop trainers, and global tournament databases directly from our directory.</p>
+            <a href="software.html" class="feature-link">EXPLORE SOFTWARE →</a>
+        </div>
+
+        <!-- Feature 2: Content -->
+        <div class="feature-box">
+            <h3>CURATED STREAMS</h3>
+            <p>Stop wasting time searching. We've handpicked the absolute best analytical YouTube strategy channels and Twitch streamers. Features a built-in live status checker so you know exactly who is grinding right now.</p>
+            <a href="content.html" class="feature-link">WATCH LIVE →</a>
+        </div>
+
+        <!-- Feature 3: Sites & Rake -->
+        <div class="feature-box">
+            <h3>RAKE ANALYSIS</h3>
+            <p>Not all poker rooms are created equal. Use our integrated Prime Dope Rake Calculator to compare cash game structures across major sites and find the most profitable environments for your stakes.</p>
+            <a href="sites.html" class="feature-link">COMPARE ROOMS →</a>
+        </div>
+
+        <!-- Feature 4: Bankroll -->
+        <div class="feature-box">
+            <h3>BANKROLL TRACKING</h3>
+            <p>Professional poker requires professional financial management. Discover the best mobile apps and desktop tools to track your sessions, visualize your variance, and manage your bankroll safely.</p>
+            <a href="bankroll.html" class="feature-link">MANAGE FUNDS →</a>
+        </div>
+
+    </section>
+
+    <!-- Dynamisk footer -->
     <div id="global-footer"></div>
 
 </body>
