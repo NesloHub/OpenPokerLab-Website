@@ -16,22 +16,22 @@
 
 > *We believe that high-quality poker tools should be accessible to everyone, without expensive monthly subscriptions.*
 
-Welcome to the official repository for **[OpenPokerLab.org](https://openpokerlab.org)**[cite: 7]. OpenPokerLab is an open-source initiative dedicated to providing free, top-tier poker software, advanced equity calculators, and comprehensive strategy guides for the community[cite: 7].
+Welcome to the official repository for **[OpenPokerLab.org](https://openpokerlab.org)**. OpenPokerLab is an open-source initiative dedicated to providing free, top-tier poker software, advanced equity calculators, and comprehensive strategy guides for the community.
 
 ---
 
 ## ✨ Features
 
-*   💻 **Open-Source Poker Software:** Transparent, community-driven tools[cite: 7].
-*   🧮 **Math-Based Strategy Guides:** Elevate your game with solid, math-backed insights[cite: 7].
-*   📉 **Bankroll Variance Calculators:** Track, simulate, and understand your swings[cite: 7].
-*   🎯 **Exploitative Strategy:** Learn how to deviate and maximize your EV against different player types[cite: 7].
+*   💻 **Open-Source Poker Software:** Transparent, community-driven tools.
+*   🧮 **Math-Based Strategy Guides:** Elevate your game with solid, math-backed insights.
+*   📉 **Bankroll Variance Calculators:** Track, simulate, and understand your swings.
+*   🎯 **Exploitative Strategy:** Learn how to deviate and maximize your EV against different player types.
 
 ---
 
 ## 🤝 How to Contribute
 
-OpenPokerLab thrives on community contributions! We welcome everyone to explore the code, report issues, or contribute directly to the project[cite: 7].
+OpenPokerLab thrives on community contributions! We welcome everyone to explore the code, report issues, or contribute directly to the project.
 
 1. **Explore:** Feel free to browse the repository and see how things work.
 2. **Report Issues:** Found a bug or have a feature request? Open an issue!
