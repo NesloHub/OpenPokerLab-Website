@@ -106,7 +106,7 @@
             display: grid;
             grid-template-columns: repeat(13, 1fr);
             gap: 1px;
-            background-color: #333; /* Giver stregerne mellem cellerne farve */
+            background-color: #333;
             border: 2px solid #333;
             border-radius: 4px;
             overflow: hidden;
@@ -120,7 +120,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            aspect-ratio: 1; /* Sikrer at cellerne altid er helt firkantede */
+            aspect-ratio: 1; 
             user-select: none;
         }
 
@@ -142,7 +142,7 @@
                 margin: 0 auto;
             }
             .grid-cell {
-                font-size: 0.55rem; /* Lidt mindre tekst på mobilen */
+                font-size: 0.55rem; 
             }
         }
     </style>
@@ -183,15 +183,14 @@
             <div class="range-card hj">
                 <div class="range-header">
                     <div class="range-title">2. Hijack (HJ)</div>
-                    <div class="range-percentage">Opens ~23.0%</div>
+                    <div class="range-percentage">Opens ~21.0%</div>
                 </div>
                 <div class="range-layout">
                     <div class="range-info">
                         <div class="hand-category"><strong>Pocket Pairs:</strong> <span class="hands">55+</span></div>
                         <div class="hand-category"><strong>Suited Ax:</strong> <span class="hands hands-suited">A2s+</span></div>
                         <div class="hand-category"><strong>Suited Broadways & Kings:</strong> <span class="hands hands-suited">K5s+, Q9s+, J9s+, T8s+</span></div>
-                        <div class="hand-category"><strong>Suited Connectors:</strong> <span class="hands hands-suited">98s, 87s, 76s, 65s, 54s</span></div>
-                        <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">A9o+, KTo+, QTo+, JTo</span></div>
+                        <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">ATo+, KTo+, QJo, JTo</span></div>
                     </div>
                     <div class="range-matrix-container" id="matrix-hj"></div>
                 </div>
@@ -250,7 +249,8 @@
             const ranges = {
                 utg: "AA,KK,QQ,JJ,TT,99,88,77,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,QJs,QTs,Q9s,JTs,T9s,98s,AKo,AQo,AJo,ATo,KQo,KJo",
                 
-                hj: "AA,KK,QQ,JJ,TT,99,88,77,66,55,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,QJs,QTs,Q9s,JTs,J9s,T9s,T8s,98s,87s,76s,65s,54s,AKo,AQo,AJo,ATo,A9o,KQo,KJo,KTo,QJo,QTo,JTo",
+                // Opdateret Hijack range (fjernet 98s-54s, A9o, QTo)
+                hj: "AA,KK,QQ,JJ,TT,99,88,77,66,55,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,QJs,QTs,Q9s,JTs,J9s,T9s,T8s,AKo,AQo,AJo,ATo,KQo,KJo,KTo,QJo,JTo",
                 
                 co: "AA,KK,QQ,JJ,TT,99,88,77,66,55,44,33,22,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,K4s,K3s,QJs,QTs,Q9s,Q8s,JTs,J9s,J8s,T9s,T8s,98s,97s,87s,76s,65s,AKo,AQo,AJo,ATo,A9o,A8o,KQo,KJo,KTo,K9o,QJo,QTo,JTo",
                 
