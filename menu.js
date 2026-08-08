@@ -1,8 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
     
-    // ==========================================
-    // 1. HEADER & MENU LOGIK
-    // ==========================================
     const menuHTML = `
         <header>
             <a href="index.html" class="logo" style="display: flex; align-items: center; text-decoration: none;">
@@ -14,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <li><a href="index.html">HOME</a></li>
                     <li><a href="beginner.html">BEGINNER</a></li>
                     <li><a href="ranges.html">RANGES</a></li>
+                    <li><a href="range-maker.html" style="color: var(--neon-green);">MAKER</a></li>
                     <li><a href="glossary.html">GLOSSARY</a></li>
                     <li><a href="software.html">SOFTWARE</a></li>
                     <li><a href="strategy.html">STRATEGY</a></li>
@@ -43,9 +41,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // ==========================================
-    // 2. FOOTER & JURIDISK DISCLAIMER LOGIK
-    // ==========================================
     const footerHTML = `
         <footer class="site-footer" style="margin-top: 60px; padding: 40px 20px; border-top: 1px solid #1a1a1a; color: #666; font-size: 0.75rem; line-height: 1.6; text-align: center; background-color: #050505;">
             <div style="max-width: 900px; margin: 0 auto;">
