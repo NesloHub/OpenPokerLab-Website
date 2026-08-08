@@ -1,6 +1,6 @@
 # OpenPokerLab Website 
 
-Welcome to the official repository for [OpenPokerLab.org](https://www.openpokerlab.org).
+Welcome to the official repository for [OpenPokerLab.org](https://openpokerlab.org).
 
 OpenPokerLab is an open-source initiative providing free poker software, equity calculators, and strategy guides for the community. We believe that high-quality poker tools should be accessible to everyone, without expensive monthly subscriptions.
 
