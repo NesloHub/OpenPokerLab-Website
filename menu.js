@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // 1. Definer selve menuens HTML
+    // 1. Definer selve menuens HTML (nu med .png logo)
     const menuHTML = `
         <header>
             <a href="index.html" class="logo" style="display: flex; align-items: center; text-decoration: none;">
@@ -22,13 +22,24 @@ document.addEventListener("DOMContentLoaded", function() {
     // 2. Skyd menuen ind på siden
     document.getElementById("global-header").innerHTML = menuHTML;
 
-    // 3. Find ud af hvilken side vi er på, og sæt "active" klassen automatisk
-    const currentLocation = window.location.pathname.split("/").pop();
+    // 3. Den skudsikre metode til at finde den aktive fane
+    // Henter navnet på den side vi er på, uden alt det foran (som https://...)
+    let currentPage = window.location.pathname.split('/').pop();
+    
+    // Hvis siden hedder ingenting (vi står bare på roden af domænet), er vi på index.html
+    if (currentPage === "") {
+        currentPage = "index.html";
+    }
+
     const navLinks = document.querySelectorAll("#nav-links a");
 
     navLinks.forEach(link => {
-        // Tjekker om linkets href matcher filnavnet (eller hvis det er forsiden)
-        if (link.getAttribute("href") === currentLocation || (currentLocation === "" && link.getAttribute("href") === "index.html")) {
+        const linkHref = link.getAttribute("href");
+        
+        // Vi tjekker to ting: 
+        // 1. Matcher filnavnet præcist? (f.eks. "software.html")
+        // 2. Matcher det HVIS webhotellet har skjult ".html"? (f.eks. "software")
+        if (currentPage === linkHref || currentPage === linkHref.replace('.html', '')) {
             link.classList.add("active");
         }
     });
