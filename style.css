@@ -499,3 +499,70 @@ nav a:hover, nav a.active {
     background-color: rgba(0, 168, 255, 0.15);
     color: #4dc4ff;
 }
+
+/* =========================================
+   9. FREE CONTENT GRID (CONTENT.HTML)
+========================================= */
+.content-section {
+    max-width: 1000px;
+    margin: 0 auto 60px auto;
+    padding: 0 40px;
+    animation: fadeUp 2s ease-out;
+}
+
+.category-title {
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 5px;
+    margin-bottom: 25px;
+    color: var(--neon-green);
+    border-bottom: 1px solid #222;
+    padding-bottom: 10px;
+}
+
+.card-grid {
+    display: grid;
+    /* Dette sørger for automatisk at placere kortene ved siden af hinanden */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* Selve kortet der bygger på dit eksisterende design */
+.content-card {
+    border: 1px solid #222; 
+    border-radius: 4px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    transition: all 0.4s ease;
+}
+
+.content-card:hover {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.1);
+    transform: translateY(-5px); /* Løfter kortet blødt opad */
+}
+
+.content-card h3 {
+    font-weight: 400;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    margin: 15px 0 10px 0;
+    color: var(--text-color);
+}
+
+.content-card p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-weight: 300;
+    margin-bottom: 25px;
+    flex-grow: 1; /* Sikrer at knappen altid skubbes ned i bunden af kassen */
+}
+
+/* Tilpasser din eksisterende knap til at fylde bredden i kortet */
+.content-card .download-link {
+    text-align: center;
+    width: 100%;
+}
