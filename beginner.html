@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Basics for Beginners | OpenPokerLab</title>
+    <meta name="description" content="Learn the fundamentals of Texas Hold'em. Master hand rankings, table positions, and the flow of the game.">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://openpokerlab.org/beginner.html">
+    <meta property="og:title" content="OpenPokerLab | Beginner's Guide">
+    <meta property="og:description" content="Learn the fundamentals of Texas Hold'em. Master hand rankings, table positions, and the flow of the game.">
+    <meta property="og:image" content="https://openpokerlab.org/og-image.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        .basics-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .ranking-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .ranking-list li {
+            padding: 15px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            align-items: center;
+        }
+
+        .ranking-list li:last-child {
+            border-bottom: none;
+        }
+
+        .rank-number {
+            font-weight: 600;
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            width: 40px;
+        }
+
+        .rank-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 180px;
+            color: #fff;
+        }
+
+        .rank-desc {
+            color: #aaa;
+            font-weight: 300;
+            font-size: 0.95rem;
+        }
+
+        /* Positions Styling */
+        .position-box {
+            background: #111;
+            border-left: 4px solid #444;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .position-box.early { border-color: #ff4d4d; }
+        .position-box.middle { border-color: #ff9900; }
+        .position-box.late { border-color: var(--neon-green); }
+        .position-box.blinds { border-color: #4dc4ff; }
+
+        .position-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .position-desc {
+            color: #999;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body class="content-page">
+
+    <!-- Dynamisk header -->
+    <div id="global-header"></div>
+    <script src="menu.js"></script>
+
+    <main class="strategy-main">
+        <section class="page-header">
+            <h1 class="elegant-title-small">BEGINNER <span class="title-highlight">LAB</span></h1>
+            <p class="subtitle">The absolute fundamentals of No Limit Texas Hold'em.</p>
+        </section>
+
+        <section class="strategy-resources">
+            <div class="basics-grid">
+                
+                <!-- THE HAND RANKINGS -->
+                <div class="resource-box">
+                    <div class="box-content" style="max-width: 100%; width: 100%;">
+                        <span class="tag">RULES</span>
+                        <h3>1. Hand Rankings</h3>
+                        <p>In Texas Hold'em, you combine your 2 hole cards with the 5 community cards to make the best possible 5-card hand. Here are the rankings from highest to lowest:</p>
+                        
+                        <ul class="ranking-list">
+                            <li>
+                                <span class="rank-number">1</span>
+                                <span class="rank-name">Royal Flush</span>
+                                <span class="rank-desc">A, K, Q, J, 10, all of the same suit. The unbeatable hand.</span>
+                            </li>
+                            <li>
+                                <span class="rank-number">2</span>
+                                <span class="rank-name">Straight Flush</span>
+                                <span class="rank-desc">Five cards in a sequence, all of the same suit (e.g., 5-6-7-8-9 of hearts).</span>
+                            </li>
+                            <li>
+                                <span class="rank-number">3</span>
+                                <span class="rank-name">Four of a Kind</span>
+                                <span class="rank-desc">Four cards of the same rank (e.g., four Aces).</span>
+                            </li>
+                            <li>
+                                <span class="rank-number">4</span>
+                                <span class="rank-name">Full House</span>
+                                <span class="rank-desc">Three of a kind combined with a pair (e.g., three 10s and two 7s).</span>
+                            </li>
+                            <li>
+                                <span class="rank-number">5</span>
+                                <span class="rank-name">Flush</span>
+                                <span class="rank-desc">Any five cards of the same suit, not in sequence.</span>
+                            </li>
+                            <li>
+                                <span class="rank-number">6</span>
+                                <span class="rank-name">Straight</span>
+                                <span class="rank-desc">Five cards in a sequence, but not of the same suit.</span>
+                            </li>
+                            <li>
+                                <span class="rank-number">7</span>
+                                <span class="rank-name">Three of a Kind</span>
+                                <span class="rank-desc">Three cards of the same rank.</span>
+                            </li>
+                            <li>
+                                <span class="rank-number">8</span>
+                                <span class="rank-name">Two Pair</span>
+                                <span class="rank-desc">Two different pairs (e.g., two Kings and two 8s).</span>
+                            </li>
+                            <li>
+                                <span class="rank-number">9</span>
+                                <span class="rank-name">One Pair</span>
+                                <span class="rank-desc">Two cards of the same rank.</span>
+                            </li>
+                            <li>
+                                <span class="rank-number">10</span>
+                                <span class="rank-name">High Card</span>
+                                <span class="rank-desc">When you have none of the above, the highest single card plays.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- TABLE POSITIONS -->
+                <div class="resource-box">
+                    <div class="box-content" style="max-width: 100%; width: 100%;">
+                        <span class="tag">STRATEGY</span>
+                        <h3>2. Table Positions (6-Max)</h3>
+                        <p style="margin-bottom: 20px;">Position is the most important concept in poker. Acting *after* your opponents gives you "positional advantage" because you get to see what they do before making your decision. Here is the layout of a standard 6-player online table:</p>
+                        
+                        <div class="position-box early">
+                            <div class="position-title">Under the Gun (UTG) <span style="color: #ff4d4d; font-size: 0.8rem;">EARLY POSITION</span></div>
+                            <div class="position-desc">The first player to act before the flop. This is the worst position at the table, so you should only play your absolute strongest hands from here.</div>
+                        </div>
+
+                        <div class="position-box middle">
+                            <div class="position-title">Hijack (HJ) <span style="color: #ff9900; font-size: 0.8rem;">MIDDLE POSITION</span></div>
+                            <div class="position-desc">Acts after UTG. You have a slightly better position, allowing you to open your starting hand range just a bit more.</div>
+                        </div>
+
+                        <div class="position-box late">
+                            <div class="position-title">Cutoff (CO) & Button (BTN) <span style="color: var(--neon-green); font-size: 0.8rem;">LATE POSITION</span></div>
+                            <div class="position-desc">The golden seats. The Button is the best position in poker because you act last on every betting round after the flop. You should play the majority of your hands from these two seats.</div>
+                        </div>
+
+                        <div class="position-box blinds">
+                            <div class="position-title">Small Blind (SB) & Big Blind (BB) <span style="color: #4dc4ff; font-size: 0.8rem;">THE BLINDS</span></div>
+                            <div class="position-desc">These players are forced to put money in the pot before the cards are dealt. After the flop, they must act *first*, making them very difficult positions to play from.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- THE FLOW OF THE GAME -->
+                <div class="resource-box">
+                    <div class="box-content" style="max-width: 100%; width: 100%;">
+                        <span class="tag">GAMEPLAY</span>
+                        <h3>3. The Flow of the Game</h3>
+                        <p>A hand of Texas Hold'em is divided into four distinct betting rounds. If at any point all players fold except for one, that player wins the pot immediately.</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 25px;">
+                            
+                            <div style="background: #111; padding: 20px; border-radius: 4px; border: 1px solid #222;">
+                                <h4 style="color: #fff; margin-bottom: 10px;">1. Preflop</h4>
+                                <p style="color: #888; font-size: 0.9rem; line-height: 1.5;">Everyone is dealt 2 private hole cards. The first betting round takes place based only on the strength of these two cards.</p>
+                            </div>
+
+                            <div style="background: #111; padding: 20px; border-radius: 4px; border: 1px solid #222;">
+                                <h4 style="color: #fff; margin-bottom: 10px;">2. The Flop</h4>
+                                <p style="color: #888; font-size: 0.9rem; line-height: 1.5;">The dealer places 3 community cards face-up in the middle of the table. A second betting round begins.</p>
+                            </div>
+
+                            <div style="background: #111; padding: 20px; border-radius: 4px; border: 1px solid #222;">
+                                <h4 style="color: #fff; margin-bottom: 10px;">3. The Turn</h4>
+                                <p style="color: #888; font-size: 0.9rem; line-height: 1.5;">A 4th community card is dealt face-up. The pot is getting bigger, and the third betting round takes place.</p>
+                            </div>
+
+                            <div style="background: #111; padding: 20px; border-radius: 4px; border: 1px solid #222;">
+                                <h4 style="color: #fff; margin-bottom: 10px;">4. The River</h4>
+                                <p style="color: #888; font-size: 0.9rem; line-height: 1.5;">The 5th and final community card is dealt. The final betting round occurs. If two or more players remain, they show their cards (Showdown).</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Dynamisk footer -->
+    <div id="global-footer"></div>
+
+</body>
+</html>
