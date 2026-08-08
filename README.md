@@ -1,4 +1,4 @@
-# OpenPokerLab Website 🃏
+# OpenPokerLab Website 
 
 Welcome to the official repository for [OpenPokerLab.org](https://www.openpokerlab.org).
 
