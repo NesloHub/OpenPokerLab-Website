@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const menuHTML = `
         <header>
             <a href="index.html" class="logo" style="display: flex; align-items: center; text-decoration: none;">
-                <img src="logo.jpg" alt="OpenPokerLab Logo" style="height: 45px; margin-right: 15px; border-radius: 4px;">
+                <img src="logo.png" alt="OpenPokerLab Logo" style="height: 45px; margin-right: 15px; border-radius: 4px;">
                 OPENPOKER<span class="neon-text-small">LAB</span>
             </a>
             <nav>
