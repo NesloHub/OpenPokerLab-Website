@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Glossary & Dictionary | OpenPokerLab</title>
+    <meta name="description" content="The ultimate poker dictionary. Learn the meaning of C-bet, 3-bet, GTO, float, and all the essential poker terms.">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://openpokerlab.org/glossary.html">
+    <meta property="og:title" content="OpenPokerLab | Poker Glossary">
+    <meta property="og:description" content="The ultimate poker dictionary. Learn all the essential poker terms.">
+    <meta property="og:image" content="https://openpokerlab.org/og-image.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        .glossary-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px 80px 40px;
+        }
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .term-card {
+            background: #111;
+            border: 1px solid #222;
+            padding: 25px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .term-card:hover {
+            border-color: var(--neon-green);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(57, 255, 20, 0.1);
+        }
+
+        .term-title {
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .term-def {
+            color: #bbb;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body class="content-page">
+
+    <div id="global-header"></div>
+    <script src="menu.js"></script>
+
+    <main class="strategy-main">
+        <section class="page-header">
+            <h1 class="elegant-title-small">POKER <span class="title-highlight">GLOSSARY</span></h1>
+            <p class="subtitle">Speak the language of the lab. Master the terminology.</p>
+        </section>
+
+        <section class="glossary-container">
+            <div class="glossary-grid">
+                
+                <div class="term-card">
+                    <div class="term-title">3-Bet</div>
+                    <div class="term-def">The third bet in a sequence. Preflop, the big blind is the 1st bet, an open-raise is the 2nd bet, and a re-raise is the 3-bet.</div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-title">C-Bet (Continuation Bet)</div>
+                    <div class="term-def">A bet made on the flop by the player who took the initiative and made the last aggressive action preflop.</div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-title">Donk Bet</div>
+                    <div class="term-def">A bet made out of position into the preflop aggressor, preventing them from making a C-bet. Historically seen as a "fishy" play, but modern solvers use it in specific spots.</div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-title">Equity</div>
+                    <div class="term-def">Your mathematical share of the pot based on the probability of your hand winning at showdown. If the pot is $100 and you have a 25% chance to win, your equity is $25.</div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-title">Float</div>
+                    <div class="term-def">Calling a bet with a weak hand (or draw) with the specific intention of bluffing the opponent on a later street if they show weakness.</div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-title">GTO (Game Theory Optimal)</div>
+                    <div class="term-def">A scientifically calculated, unexploitable style of play where a player balances their bluffs and value bets perfectly, making the opponent indifferent to calling or folding.</div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-title">HUD (Heads-Up Display)</div>
+                    <div class="term-def">Software (like PokerTracker 4) that displays live statistical data about your opponents directly on the poker table next to their avatars.</div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-title">RFI (Raise First In)</div>
+                    <div class="term-def">When you are the first player to enter the pot voluntarily by making a raise preflop. (Limping is not an RFI).</div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-title">Squeeze</div>
+                    <div class="term-def">Making a large re-raise (3-bet) preflop after one player has opened and one or more players have already called. Designed to squeeze the callers out of the pot.</div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-title">Variance</div>
+                    <div class="term-def">The statistical measure of upswings and downswings in a player's bankroll caused by luck (running above or below expected value).</div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-title">VPIP</div>
+                    <div class="term-def">"Voluntarily Put in Pot". The percentage of hands a player chooses to play preflop. A crucial HUD stat to determine if an opponent is tight or loose.</div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-title">PFR</div>
+                    <div class="term-def">"Preflop Raise". The percentage of hands a player aggressively raises preflop. Used alongside VPIP to profile opponents (e.g., VPIP 25 / PFR 20 indicates an aggressive regular).</div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="global-footer"></div>
+
+</body>
+</html>

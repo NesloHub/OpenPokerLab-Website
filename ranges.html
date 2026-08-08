@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preflop Ranges & Charts | OpenPokerLab</title>
+    <meta name="description" content="Free 6-max GTO preflop charts. Learn exactly which hands to open from every position at the poker table.">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://openpokerlab.org/ranges.html">
+    <meta property="og:title" content="OpenPokerLab | Preflop Ranges">
+    <meta property="og:description" content="Free 6-max GTO preflop charts. Learn exactly which hands to open from every position at the poker table.">
+    <meta property="og:image" content="https://openpokerlab.org/og-image.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        .range-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .range-card {
+            background: #111;
+            border-left: 5px solid;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .range-card:hover {
+            transform: translateX(10px);
+        }
+
+        /* Farvekodning af positionerne */
+        .utg { border-color: #ff4d4d; } /* Rød (Tættest) */
+        .hj { border-color: #ff9900; }  /* Orange */
+        .co { border-color: #ffff00; }  /* Gul */
+        .btn { border-color: var(--neon-green); } /* Grøn (Bredest) */
+        .sb { border-color: #4dc4ff; }  /* Blå */
+
+        .range-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .range-title {
+            font-size: 1.4rem;
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .range-percentage {
+            background: #222;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .hand-category {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: #bbb;
+        }
+
+        .hands {
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .hands-suited { color: #4dc4ff; } /* Suited hænder i blå for overblik */
+        .hands-offsuit { color: #ff9900; } /* Offsuit i orange */
+    </style>
+</head>
+<body class="content-page">
+
+    <div id="global-header"></div>
+    <script src="menu.js"></script>
+
+    <main class="strategy-main">
+        <section class="page-header">
+            <h1 class="elegant-title-small">PREFLOP <span class="title-highlight">RANGES</span></h1>
+            <p class="subtitle">Standard 6-Max Raise First In (RFI) guidelines based on GTO.</p>
+        </section>
+
+        <section class="range-container">
+            
+            <div class="range-card utg">
+                <div class="range-header">
+                    <div class="range-title">Under the Gun (UTG)</div>
+                    <div class="range-percentage">Opens ~15%</div>
+                </div>
+                <div class="hand-category"><strong>Pairs:</strong> <span class="hands">77+</span></div>
+                <div class="hand-category"><strong>Suited:</strong> <span class="hands hands-suited">ATs+, KTs+, QJs, JTs</span></div>
+                <div class="hand-category"><strong>Offsuit:</strong> <span class="hands hands-offsuit">AQo+</span></div>
+                <p style="color: #666; font-size: 0.85rem; margin-top: 15px; font-style: italic;">*You play the tightest range here because 5 players act behind you.</p>
+            </div>
+
+            <div class="range-card hj">
+                <div class="range-header">
+                    <div class="range-title">Hijack (HJ)</div>
+                    <div class="range-percentage">Opens ~20%</div>
+                </div>
+                <div class="hand-category"><strong>Pairs:</strong> <span class="hands">55+</span></div>
+                <div class="hand-category"><strong>Suited:</strong> <span class="hands hands-suited">A8s+, K9s+, QTs+, J9s+, T9s</span></div>
+                <div class="hand-category"><strong>Offsuit:</strong> <span class="hands hands-offsuit">AJo+, KQo</span></div>
+            </div>
+
+            <div class="range-card co">
+                <div class="range-header">
+                    <div class="range-title">Cutoff (CO)</div>
+                    <div class="range-percentage">Opens ~28%</div>
+                </div>
+                <div class="hand-category"><strong>Pairs:</strong> <span class="hands">22+</span></div>
+                <div class="hand-category"><strong>Suited:</strong> <span class="hands hands-suited">A2s+, K7s+, Q9s+, J8s+, T8s+, 98s, 87s</span></div>
+                <div class="hand-category"><strong>Offsuit:</strong> <span class="hands hands-offsuit">ATo+, KTo+, QTo+, JTo</span></div>
+            </div>
+
+            <div class="range-card btn">
+                <div class="range-header">
+                    <div class="range-title">The Button (BTN)</div>
+                    <div class="range-percentage">Opens ~45%</div>
+                </div>
+                <div class="hand-category"><strong>Pairs:</strong> <span class="hands">22+</span></div>
+                <div class="hand-category"><strong>Suited:</strong> <span class="hands hands-suited">A2s+, K2s+, Q2s+, J6s+, T6s+, 96s+, 85s+, 75s+, 65s, 54s</span></div>
+                <div class="hand-category"><strong>Offsuit:</strong> <span class="hands hands-offsuit">A2o+, K8o+, Q8o+, J8o+, T8o+</span></div>
+                <p style="color: #666; font-size: 0.85rem; margin-top: 15px; font-style: italic;">*The best position in poker. Attack the blinds relentlessly with a very wide range.</p>
+            </div>
+
+            <div class="range-card sb">
+                <div class="range-header">
+                    <div class="range-title">Small Blind (SB) vs Big Blind</div>
+                    <div class="range-percentage">Opens ~40%</div>
+                </div>
+                <div class="hand-category"><strong>Pairs:</strong> <span class="hands">22+</span></div>
+                <div class="hand-category"><strong>Suited:</strong> <span class="hands hands-suited">A2s+, K2s+, Q5s+, J7s+, T7s+, 97s+, 86s+, 76s, 65s, 54s</span></div>
+                <div class="hand-category"><strong>Offsuit:</strong> <span class="hands hands-offsuit">A2o+, K9o+, Q9o+, J9o+, T9o</span></div>
+                <p style="color: #666; font-size: 0.85rem; margin-top: 15px; font-style: italic;">*Note: When SB opens, the standard sizing should be larger (3x or 3.5x) due to being out of position postflop.</p>
+            </div>
+
+        </section>
+    </main>
+
+    <div id="global-footer"></div>
+
+</body>
+</html>
