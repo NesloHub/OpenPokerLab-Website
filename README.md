@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="logo.jpg" width="250" alt="OpenPokerLab Logo">
+<img src="logo.png" width="250" alt="OpenPokerLab Logo">
 
 # 🃏 OpenPokerLab
 
