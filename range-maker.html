@@ -76,6 +76,10 @@
             width: 100%;
             max-width: 600px;
             margin-bottom: 40px;
+            /* Forhindrer browseren i at vælge tekst, når man "maler" med musen */
+            user-select: none; 
+            -webkit-user-select: none;
+            -moz-user-select: none;
         }
 
         .poker-grid {
@@ -98,8 +102,7 @@
             justify-content: center;
             align-items: center;
             aspect-ratio: 1; 
-            user-select: none;
-            cursor: pointer; 
+            cursor: crosshair; 
             transition: background-color 0.1s ease;
         }
 
@@ -170,7 +173,7 @@
     <main class="strategy-main">
         <section class="page-header">
             <h1 class="elegant-title-small">RANGE <span class="title-highlight">MAKER</span></h1>
-            <p class="subtitle">Click the matrix to build your custom range. Save and load via JSON.</p>
+            <p class="subtitle">Click and drag on the matrix to paint your custom range. Save and load via JSON.</p>
         </section>
 
         <section class="maker-container">
@@ -209,15 +212,19 @@
 
     <div id="global-footer"></div>
 
-    <!-- JAVASCRIPT TIL INTERAKTIVITET OG JSON -->
+    <!-- JAVASCRIPT TIL INTERAKTIVITET, MALE-FUNKTION OG JSON -->
     <script>
+        // Tilføjer variabler til at holde styr på, om vi "maler" eller "visker ud"
+        let isDragging = false;
+        let dragMode = 'add'; // kan være 'add' eller 'remove'
+
         document.addEventListener("DOMContentLoaded", function() {
             const ranks = ['A','K','Q','J','T','9','8','7','6','5','4','3','2'];
             const container = document.getElementById('interactive-matrix');
             
-            let html = '<div class="poker-grid">';
+            let html = '<div class="poker-grid" id="poker-grid">';
             
-            // Tegn matrixen med standard String Concatenation for at undgå fejl i browseren
+            // Tegn matrixen
             for(let r=0; r<13; r++) {
                 for(let c=0; c<13; c++) {
                     let cellHand = '';
@@ -240,13 +247,46 @@
             html += '</div>';
             container.innerHTML = html;
 
-            // Gør cellerne klikbare (Toggle Active)
             const cells = document.querySelectorAll('.grid-cell');
+            const grid = document.getElementById('poker-grid');
+
+            // Forhindrer standard "træk-billede" adfærd i browseren
+            grid.addEventListener('dragstart', (e) => e.preventDefault());
+
+            // Gør cellerne klikbare (Click & Drag)
             cells.forEach(cell => {
-                cell.addEventListener('click', function() {
-                    this.classList.toggle('active');
+                
+                // Når musen trykkes ned på en celle
+                cell.addEventListener('mousedown', function(e) {
+                    e.preventDefault(); // Stopper tekstmarkering
+                    isDragging = true;
+                    
+                    if (this.classList.contains('active')) {
+                        this.classList.remove('active');
+                        dragMode = 'remove'; // Vi er i gang med at viske ud
+                    } else {
+                        this.classList.add('active');
+                        dragMode = 'add'; // Vi er i gang med at male
+                    }
                     updateStats();
                 });
+
+                // Når musen trækkes hen over en ny celle
+                cell.addEventListener('mouseenter', function(e) {
+                    if (isDragging) {
+                        if (dragMode === 'add') {
+                            this.classList.add('active');
+                        } else {
+                            this.classList.remove('active');
+                        }
+                        updateStats();
+                    }
+                });
+            });
+
+            // Stop male-funktionen, når musen slippes (også hvis det sker uden for grid'et)
+            document.addEventListener('mouseup', function() {
+                isDragging = false;
             });
         });
 
@@ -330,7 +370,6 @@
             };
             reader.readAsText(file);
             
-            // Nulstil fil-input så man kan vælge den samme fil igen senere hvis man vil
             event.target.value = '';
         }
     </script>
