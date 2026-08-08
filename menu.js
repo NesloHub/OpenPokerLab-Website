@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     <li><a href="index.html">HOME</a></li>
                     <li><a href="beginner.html">BEGINNER</a></li>
                     <li><a href="ranges.html">RANGES</a></li>
-                    <li><a href="range-maker.html" style="color: var(--neon-green);">MAKER</a></li>
                     <li><a href="glossary.html">GLOSSARY</a></li>
                     <li><a href="software.html">SOFTWARE</a></li>
                     <li><a href="strategy.html">STRATEGY</a></li>
