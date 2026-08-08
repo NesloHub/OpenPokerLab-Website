@@ -566,3 +566,29 @@ nav a:hover, nav a.active {
     text-align: center;
     width: 100%;
 }
+
+/* =========================================
+   10. TWITCH STATUS DOTS
+========================================= */
+.status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-left: 8px;
+    background-color: #555; /* Neutral grå imens den loader */
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    transition: all 0.4s ease;
+}
+
+/* Grøn glød når LIVE */
+.status-dot.live {
+    background-color: var(--neon-green);
+    box-shadow: 0 0 12px var(--neon-green);
+}
+
+/* Rød farve når OFFLINE */
+.status-dot.offline {
+    background-color: #ff4d4d;
+    box-shadow: 0 0 8px rgba(255, 77, 77, 0.3);
+}
