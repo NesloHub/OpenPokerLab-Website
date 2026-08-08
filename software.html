@@ -3,62 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poker Software & Tools | OpenPokerLab</title>
-    <meta name="description" content="Download free open-source poker software, calculators, and strategy tools.">
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://openpokerlab.org/software.html">
-    <meta property="og:title" content="OpenPokerLab | Free Poker Software">
-    <meta property="og:description" content="Download free open-source poker software, calculators, and strategy tools.">
-    <meta property="og:image" content="https://openpokerlab.org/og-image.png">
-    <meta name="twitter:card" content="summary_large_image">
-
+    <title>Free & Premium Poker Software | OpenPokerLab</title>
+    <meta name="description" content="Download completely free poker tools and discover the best premium software like GTO Wizard, Holdem Manager, and PokerTracker.">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Tilpasset to-kolonne layout til software-siden -->
+    <style>
+        .software-dual-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 80px 20px;
+        }
+
+        .software-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+            align-items: start;
+        }
+
+        .column-header {
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+
+        .column-header.free {
+            color: var(--neon-green);
+            border-color: var(--neon-green);
+        }
+
+        .column-header.paid {
+            color: #ff9900;
+            border-color: #ff9900;
+        }
+
+        .column-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .software-card-compact {
+            padding: 25px;
+        }
+
+        /* Responsivt design: Stabler kolonnerne på mindre skærme */
+        @media (max-width: 900px) {
+            .software-columns {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+        }
+    </style>
 </head>
 <body class="content-page">
 
-    <!-- Dynamisk header -->
+    <!-- Her bliver menuen automatisk skudt ind af vores menu.js script -->
     <div id="global-header"></div>
     <script src="menu.js"></script>
 
-    <section class="page-header">
-        <h1 class="elegant-title-small">SOFTWARE <span class="title-highlight">& TOOLS</span></h1>
-        <p class="subtitle">DOWNLOAD FREE OPEN-SOURCE PROGRAMS TO ENGINEER YOUR EDGE</p>
-    </section>
+    <main class="strategy-main">
+        <section class="page-header">
+            <h1 class="elegant-title-small">SOFTWARE <span class="title-highlight">LAB</span></h1>
+            <p class="subtitle">Open-source solutions alongside industry-standard software.</p>
+        </section>
 
-    <!-- DOWNLOAD SEKTION -->
-    <section class="content-section">
-        <div class="card-grid">
-            
-            <div class="content-card">
-                <span class="tag" style="color: var(--neon-green);">WINDOWS / MAC</span>
-                <h3>Poker Studio</h3>
-                <p>An advanced open-source GTO and Exploit Engine. Build custom trees and analyze deep strategy without expensive subscriptions.</p>
-                <a href="#" class="download-link">DOWNLOAD SOON</a>
+        <section class="software-dual-container">
+            <div class="software-columns">
+                
+                <!-- KOLONNE 1: GRATIS OPEN-SOURCE SOFTWARE -->
+                <div class="software-column">
+                    <h2 class="column-header free">100% FREE OPEN-SOURCE</h2>
+                    
+                    <div class="column-cards">
+                        
+                        <!-- Poker Studio -->
+                        <div class="resource-box featured software-card software-card-compact">
+                            <div class="software-image-container">
+                                <img src="PokerStudio.png" alt="Poker Studio Interface" class="software-preview">
+                            </div>
+                            <div class="software-details">
+                                <div class="box-content software-content" style="max-width: 100%;">
+                                    <span class="tag">FLAGSHIP ENGINE</span>
+                                    <h3>Poker Studio</h3>
+                                    <h4>Advanced GTO & Exploit Engine</h4>
+                                    <p>An all-in-one desktop application designed for deep analysis. Includes a powerful <strong>Preflop Solver</strong> for GTO and exploitative calculations, alongside an intuitive <strong>Range Maker</strong> to easily create custom ranges.</p>
+                                </div>
+                                <a href="https://drive.google.com/file/d/1Q8mwNEYcSifJyONOMknX6plWZ9kjqTgj/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="download-link" style="width: 100%; text-align: center; margin-top: 15px;">DOWNLOAD (G-DRIVE) ↓</a>
+                            </div>
+                        </div>
+
+                        <!-- PokerStove -->
+                        <div class="resource-box software-card software-card-compact">
+                            <div class="software-image-container">
+                                <img src="PokerStove.png" alt="PokerStove Interface" class="software-preview">
+                            </div>
+                            <div class="software-details">
+                                <div class="box-content software-content" style="max-width: 100%;">
+                                    <span class="tag">LEGACY CALCULATOR</span>
+                                    <h3>PokerStove</h3>
+                                    <h4>Open Source Windows Release</h4>
+                                    <p>The classic, lightning-fast Texas Hold'em equity calculator. Perfect for running quick preflop and postflop range-vs-range calculations without consuming CPU power.</p>
+                                </div>
+                                <a href="https://github.com/andrewprock/pokerstove/tree/master/win32" target="_blank" rel="noopener noreferrer" class="download-link" style="width: 100%; text-align: center; margin-top: 15px;">DOWNLOAD (GITHUB) ↓</a>
+                            </div>
+                        </div>
+
+                        <!-- RNGclick -->
+                        <div class="resource-box software-card software-card-compact">
+                            <div class="software-image-container">
+                                <img src="RNGclick.png" alt="RNGclick Interface" class="software-preview">
+                            </div>
+                            <div class="software-details">
+                                <div class="box-content software-content" style="max-width: 100%;">
+                                    <span class="tag">UTILITY / RNG</span>
+                                    <h3>RNGclick</h3>
+                                    <h4>Lightweight Random Number Generator</h4>
+                                    <p>A simple, non-intrusive RNG overlay designed to help you perfectly balance your mixed frequencies and GTO decisions in real-time while grinding.</p>
+                                </div>
+                                <a href="https://github.com/jeff-mcclure/RNGclick" target="_blank" rel="noopener noreferrer" class="download-link" style="width: 100%; text-align: center; margin-top: 15px;">DOWNLOAD (GITHUB) ↓</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- KOLONNE 2: BETALTE & FREEMIUM PRODUKTER -->
+                <div class="software-column">
+                    <h2 class="column-header paid">PREMIUM & FREEMIUM</h2>
+                    
+                    <div class="column-cards">
+
+                        <!-- GTO Wizard -->
+                        <div class="resource-box">
+                            <div class="box-content" style="max-width: 100%;">
+                                <span class="tag" style="color: #ff9900;">GTO SOLVER (FREE PREFLOP)</span>
+                                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 5px; margin-top: 10px;">
+                                    <img src="gtowizard.png" alt="GTO Wizard Logo" style="height: 35px; border-radius: 4px;">
+                                    <h3 style="margin: 0;">GTO Wizard</h3>
+                                </div>
+                                <h4 style="margin-top: 5px;">Poker Software for Studying Spots</h4>
+                                <p>The leading cloud-based solver. <strong>Free features include 100% free preflop solutions/charts</strong> and daily practice hands. Premium subscriptions unlock full postflop spot analysis and custom hand uploads.</p>
+                                <a href="https://gtowizard.com" target="_blank" class="download-link" style="display: block; width: 100%; text-align: center; margin-top: 15px;">VISIT SITE</a>
+                            </div>
+                        </div>
+
+                        <!-- Jurojin Poker -->
+                        <div class="resource-box">
+                            <div class="box-content" style="max-width: 100%;">
+                                <span class="tag" style="color: #ff9900;">MULTI-TABLING (FREE TIER)</span>
+                                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 5px; margin-top: 10px;">
+                                    <img src="jurojin.png" alt="Jurojin Logo" style="height: 35px; border-radius: 4px;">
+                                    <h3 style="margin: 0;">Jurojin Poker</h3>
+                                </div>
+                                <h4 style="margin-top: 5px;">Window Manager & Layout Tools</h4>
+                                <p>Essential tool for multi-tablers. <strong>Free features include full functionality for microstakes players (e.g. NL2/NL5)</strong>, custom hotkeys, pot-size overlays, and automatic table tiling.</p>
+                                <a href="https://jurojinpoker.com/" target="_blank" class="download-link" style="display: block; width: 100%; text-align: center; margin-top: 15px;">VISIT SITE</a>
+                            </div>
+                        </div>
+
+                        <!-- Hand2Note -->
+                        <div class="resource-box">
+                            <div class="box-content" style="max-width: 100%;">
+                                <span class="tag" style="color: #ff9900;">ADVANCED HUD (FREE BASELINE)</span>
+                                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 5px; margin-top: 10px;">
+                                    <img src="hand2note.png" alt="Hand2Note Logo" style="height: 35px; border-radius: 4px;">
+                                    <h3 style="margin: 0;">Hand2Note (H2N)</h3>
+                                </div>
+                                <h4 style="margin-top: 5px;">Next-Gen Dynamic Tracking</h4>
+                                <p>Incredibly fast tracking software designed for mass data analysis. <strong>Offers a fully functional free version</strong> for static HUDs, while paid licenses unlock positional and dynamic HUDs.</p>
+                                <a href="https://hand2note.com/" target="_blank" class="download-link" style="display: block; width: 100%; text-align: center; margin-top: 15px;">VISIT SITE</a>
+                            </div>
+                        </div>
+
+                        <!-- PokerTracker 4 -->
+                        <div class="resource-box">
+                            <div class="box-content" style="max-width: 100%;">
+                                <span class="tag" style="color: #ff9900;">DATABASE & HUD</span>
+                                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 5px; margin-top: 10px;">
+                                    <img src="pt4.png" alt="PokerTracker 4 Logo" style="height: 35px; border-radius: 4px;">
+                                    <h3 style="margin: 0;">PokerTracker 4 (PT4)</h3>
+                                </div>
+                                <h4 style="margin-top: 5px;">The Classic Industry Standard</h4>
+                                <p>Imports hand histories, displays real-time HUD stats on opponents, and offers deep analytical filters to find leaks in your game. Requires a one-time license purchase (with a free trial available).</p>
+                                <a href="https://www.pokertracker.com/" target="_blank" class="download-link" style="display: block; width: 100%; text-align: center; margin-top: 15px;">VISIT SITE</a>
+                            </div>
+                        </div>
+
+                        <!-- Hold'em Manager 3 -->
+                        <div class="resource-box">
+                            <div class="box-content" style="max-width: 100%;">
+                                <span class="tag" style="color: #ff9900;">DATABASE & HUD</span>
+                                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 5px; margin-top: 10px;">
+                                    <img src="hm3.png" alt="Hold'em Manager 3 Logo" style="height: 35px; border-radius: 4px;">
+                                    <h3 style="margin: 0;">Hold'em Manager 3 (HM3)</h3>
+                                </div>
+                                <h4 style="margin-top: 5px;">Visual Analysis & Game Tracking</h4>
+                                <p>Features a highly graphical user interface, situational pop-ups for HUDs, and extensive post-session visual reports to monitor your winrate and variance. Offers a free 14-day trial.</p>
+                                <a href="https://www.holdemmanager.com/" target="_blank" class="download-link" style="display: block; width: 100%; text-align: center; margin-top: 15px;">VISIT SITE</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: var(--neon-green);">WINDOWS</span>
-                <h3>PokerStove</h3>
-                <p>The classic, lightning-fast equity calculator. Evaluate preflop and postflop equity distributions in seconds.</p>
-                <a href="https://github.com/pokerstove/pokerstove" target="_blank" class="download-link">VIEW ON GITHUB</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: var(--neon-green);">WINDOWS / MAC</span>
-                <h3>RNGclick</h3>
-                <p>A simple desktop randomizer overlay to help you balance your mixed strategy frequencies perfectly in real-time.</p>
-                <a href="#" class="download-link">DOWNLOAD SOON</a>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Dynamisk footer -->
-    <div id="global-footer"></div>
+        </section>
+        
+        <footer class="site-footer" style="text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.8rem;">
+            <p>&copy; 2026 OpenPokerLab. All rights reserved.</p>
+        </footer>
+    </main>
 
 </body>
 </html>
