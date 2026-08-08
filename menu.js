@@ -12,12 +12,14 @@ document.addEventListener("DOMContentLoaded", function() {
             <nav>
                 <ul id="nav-links">
                     <li><a href="index.html">HOME</a></li>
-                    <li><a href="beginner.html">BEGINNERS</a></li>
+                    <li><a href="beginner.html">BEGINNER</a></li>
+                    <li><a href="ranges.html">RANGES</a></li>
+                    <li><a href="glossary.html">GLOSSARY</a></li>
                     <li><a href="software.html">SOFTWARE</a></li>
                     <li><a href="strategy.html">STRATEGY</a></li>
                     <li><a href="bankroll.html">BANKROLL</a></li>
-                    <li><a href="content.html">FREE CONTENT</a></li>
-                    <li><a href="sites.html">POKER SITES</a></li>
+                    <li><a href="content.html">CONTENT</a></li>
+                    <li><a href="sites.html">SITES</a></li>
                 </ul>
             </nav>
         </header>
