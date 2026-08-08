@@ -1,0 +1,430 @@
+/* =========================================
+   1. GRUNDLÆGGENDE OPSÆTNING & VARIABLER
+========================================= */
+:root {
+    --bg-color: #050505;
+    --text-color: #ffffff;
+    --neon-green: #39ff14;
+    --font-main: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+}
+
+/* Sørger for at forsiden ikke kan scrolle, mens indholdssider kan */
+body.front-page {
+    overflow: hidden; 
+}
+body.content-page {
+    overflow-y: auto; 
+}
+
+/* =========================================
+   2. HEADER & NAVIGATION (FÆLLES FOR ALLE SIDER)
+========================================= */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 60px; 
+}
+
+.logo {
+    font-weight: 400;
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    text-decoration: none; /* Fjerner stregen under linket */
+    color: var(--text-color); /* Sørger for at det forbliver hvidt */
+    
+    /* Gør teksten umarkérbar */
+    -webkit-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none; 
+}
+
+.neon-text-small {
+    color: var(--neon-green);
+    text-shadow: 0 0 8px rgba(57, 255, 20, 0.6);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 50px; 
+}
+
+nav a {
+    color: #888888; 
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+nav a:hover, nav a.active {
+    color: var(--text-color); 
+    text-shadow: 0 0 10px var(--neon-green);
+}
+
+/* =========================================
+   3. FORSIDEN (INDEX.HTML)
+========================================= */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 120px); 
+    text-align: center;
+}
+
+/* Den elegante titel på forsiden */
+.elegant-title {
+    font-size: 4.5vw; 
+    font-weight: 300; 
+    letter-spacing: 20px; 
+    text-transform: uppercase;
+    margin-left: 20px; 
+    animation: fadeUp 2s ease-out; 
+    
+    /* Giver 'VELOCITY' en subtil hvid/sølv glød */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 0 20px rgba(255, 255, 255, 0.1);
+    
+    /* Forhindrer brugeren i at markere teksten */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none; /* Standard */
+    cursor: default; /* Sørger for, at musen forbliver en pil og ikke en tekst-markør */
+}
+
+/* Forstærket neon-glød på ordet 'POKER' */
+.title-highlight {
+    color: var(--neon-green);
+    font-weight: 400;
+    
+    /* Bygger gløden op i lag for en ægte neon-effekt */
+    text-shadow: 0 0 10px var(--neon-green), 
+                 0 0 20px var(--neon-green), 
+                 0 0 40px rgba(57, 255, 20, 0.6),
+                 0 0 80px rgba(57, 255, 20, 0.2);
+}
+
+/* =========================================
+   4. STRATEGY SIDEN (STRATEGY.HTML)
+========================================= */
+.page-header {
+    text-align: center;
+    padding: 80px 20px 40px 20px;
+}
+
+.elegant-title-small {
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 15px;
+    text-transform: uppercase;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    animation: fadeUp 1.5s ease-out;
+}
+
+.subtitle {
+    color: #888;
+    font-weight: 300;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    animation: fadeUp 2s ease-out;
+}
+
+.strategy-resources {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 40px 80px 40px;
+}
+
+.resource-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    animation: fadeUp 2.5s ease-out;
+}
+
+.resource-box {
+    border: 1px solid #222; 
+    border-radius: 4px;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    transition: all 0.4s ease;
+}
+
+.resource-box.featured {
+    border-color: rgba(57, 255, 20, 0.3);
+    background: radial-gradient(circle at top left, rgba(57, 255, 20, 0.03), transparent 50%);
+}
+
+.resource-box:hover {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.1);
+    transform: translateX(10px); 
+}
+
+.box-content {
+    max-width: 70%;
+}
+
+.tag {
+    display: inline-block;
+    color: var(--neon-green);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.box-content h3 {
+    font-weight: 400;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.box-content h4 {
+    font-weight: 300;
+    color: #aaa;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.box-content p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+.download-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    border: 1px solid #444;
+    padding: 12px 25px;
+    transition: all 0.4s ease;
+}
+
+.download-link:hover {
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+}
+
+/* =========================================
+   5. ANIMATIONER
+========================================= */
+@keyframes fadeUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+/* =========================================
+   6. SOFTWARE-SPECIFIKT LAYOUT (MED BILLEDE)
+========================================= */
+.software-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 30px;
+}
+
+.software-image-container {
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #222;
+    background-color: #000; /* Sikrer at billedets baggrund smelter pænt sammen */
+}
+
+.software-preview {
+    width: 100%;
+    display: block;
+    opacity: 0.85; /* Gør billedet en anelse mørkt indtil man holder musen over */
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.software-card:hover .software-preview {
+    opacity: 1; /* Lyser op ved hover */
+}
+
+.software-details {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.software-content {
+    max-width: 75%;
+}
+
+.software-content strong {
+    color: var(--text-color);
+    font-weight: 400;
+}
+
+
+
+/* =========================================
+   7. MOBILVENLIGHED (RESPONSIVT DESIGN)
+========================================= */
+@media (max-width: 768px) {
+    /* Centrerer logo og menu på små skærme */
+    header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 25px 20px;
+    }
+    
+    nav ul {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Tilpasser den store titel på forsiden */
+    .elegant-title {
+        font-size: 8vw; /* Skalerer op på små skærme */
+        letter-spacing: 10px; /* Halverer afstanden så ordet kan være der */
+        margin-left: 10px;
+    }
+    
+    .elegant-title-small {
+        font-size: 2rem;
+        letter-spacing: 8px;
+        margin-left: 8px;
+    }
+
+    /* Stabler indholdet i software- og strategi-kasserne oven på hinanden */
+    .software-details {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 25px;
+    }
+
+    .box-content, .software-content {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .resource-box {
+        flex-direction: column;
+        padding: 25px 15px;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .strategy-resources {
+        padding: 20px 15px 60px 15px;
+    }
+}
+
+/* =========================================
+   8. FORSIDE MISSION & LOMMEREGNER
+========================================= */
+
+/* Mission tekst på forsiden */
+.hero {
+    flex-direction: column; /* Sørger for at teksten lander under titlen */
+}
+
+.hero-mission {
+    margin-top: 25px;
+    color: #666;
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    font-weight: 300;
+    text-transform: uppercase;
+    animation: fadeUp 2.5s ease-out;
+    max-width: 600px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* Lommeregner UI */
+.calculator-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.calc-input, .calc-select {
+    width: 100%;
+    background: #0a0a0a;
+    border: 1px solid #333;
+    color: var(--text-color);
+    padding: 15px;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.calc-select {
+    cursor: pointer;
+    appearance: none; /* Fjerner standard pilen på nogle browsere for renere look */
+}
+
+.calc-input:focus, .calc-select:focus {
+    border-color: var(--neon-green);
+    box-shadow: inset 0 0 10px rgba(57, 255, 20, 0.1);
+}
+
+.calc-btn {
+    background-color: transparent;
+    color: var(--neon-green);
+    border: 1px solid var(--neon-green);
+    padding: 15px;
+    cursor: pointer;
+    font-family: var(--font-main);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    border-radius: 4px;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.calc-btn:hover {
+    background-color: var(--neon-green);
+    color: var(--bg-color);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+}
+
+.calc-result {
+    font-size: 2.5rem;
+    color: var(--neon-green);
+    font-weight: 300;
+    margin-top: 5px;
+    transition: all 0.3s;
+}
