@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon.png">
 
-    <!-- Specifik styling til content-siden og Live/Offline knapper -->
+    <!-- Specifik styling til content-siden og Live/Offline badges -->
     <style>
         .content-dual-container {
             max-width: 1200px;
@@ -59,8 +59,8 @@
             flex-grow: 1;
         }
 
-        /* Live / Offline Knap Styling */
-        .status-btn {
+        /* Live / Offline Status Badge Styling */
+        .status-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -69,17 +69,15 @@
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 1px;
-            text-decoration: none;
-            transition: all 0.3s ease;
         }
 
-        .status-btn.live {
+        .status-badge.live {
             background: rgba(57, 255, 20, 0.1);
             border: 1px solid var(--neon-green, #39ff14);
             color: var(--neon-green, #39ff14);
         }
 
-        .status-btn.live::before {
+        .status-badge.live::before {
             content: '';
             width: 8px;
             height: 8px;
@@ -89,13 +87,13 @@
             animation: pulse 1.5s infinite;
         }
 
-        .status-btn.offline {
+        .status-badge.offline {
             background: rgba(255, 77, 77, 0.1);
             border: 1px solid #ff4d4d;
             color: #ff4d4d;
         }
 
-        .status-btn.offline::before {
+        .status-badge.offline::before {
             content: '';
             width: 8px;
             height: 8px;
@@ -140,200 +138,218 @@
                     
                     <div class="column-cards">
                         
+                        <!-- 1. NeviRPoker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/NeviRPoker" alt="NeviRPoker" class="creator-avatar">
                                     <h3>NeviRPoker</h3>
                                 </div>
-                                <p>A dedicated full-time NL50 online grinder. His content provides a highly realistic look into what it takes to beat the modern micro/low stakes games, offering practical advice on escaping the lower limits.</p>
+                                <p>A dedicated full-time NL50 online grinder. His content provides a highly realistic look into what it takes to beat the modern micro/low stakes games, offering practical advice on escaping the lower limits[cite: 1].</p>
                                 <a href="https://www.youtube.com/@NeviRPoker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 2. JNandez -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/JNandez87" alt="JNandez" class="creator-avatar">
                                     <h3>JNandez</h3>
                                 </div>
-                                <p>The ultimate authority on Pot Limit Omaha (PLO). JNandez breaks down complex 4-card GTO strategies, solver mechanics, and high-stakes PLO concepts in an incredibly structured and easy-to-digest format.</p>
+                                <p>The ultimate authority on Pot Limit Omaha (PLO). JNandez breaks down complex 4-card GTO strategies, solver mechanics, and high-stakes PLO concepts in an incredibly structured and easy-to-digest format[cite: 1].</p>
                                 <a href="https://www.youtube.com/@JNandez87" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 3. Spraggy -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/Spraggy" alt="Spraggy" class="creator-avatar">
                                     <h3>Spraggy</h3>
                                 </div>
-                                <p>PokerStars Team Pro Benjamin Spragg. His YouTube channel features highly entertaining highlights from his high-stakes MTT streams, mixing dry humor with excellent insights into modern tournament play.</p>
+                                <p>PokerStars Team Pro Benjamin Spragg. His YouTube channel features highly entertaining highlights from his high-stakes MTT streams, mixing dry humor with excellent insights into modern tournament play[cite: 1].</p>
                                 <a href="https://www.youtube.com/@Spraggy" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 4. hungryhorsepoker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/hungryhorsepoker" alt="hungryhorsepoker" class="creator-avatar">
                                     <h3>hungryhorsepoker</h3>
                                 </div>
-                                <p>A solid cash game grinder traversing both the online streets and the live felt. Expect realistic session reviews, live vlogs, and practical hand breakdowns focusing on exploitative adjustments.</p>
+                                <p>A solid cash game grinder traversing both the online streets and the live felt. Expect realistic session reviews, live vlogs, and practical hand breakdowns focusing on exploitative adjustments[cite: 1].</p>
                                 <a href="https://www.youtube.com/@hungryhorsepoker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 5. RaiseYourEdge -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/RaiseYourEdge" alt="RaiseYourEdge" class="creator-avatar">
                                     <h3>RaiseYourEdge</h3>
                                 </div>
-                                <p>Founded by high-stakes crusher 'bencb'. This is one of the most elite resources for tournament strategy, ranges, and crucially, poker mindset and psychology for aspiring professionals.</p>
+                                <p>Founded by high-stakes crusher 'bencb'. This is one of the most elite resources for tournament strategy, ranges, and crucially, poker mindset and psychology for aspiring professionals[cite: 1].</p>
                                 <a href="https://www.youtube.com/@RaiseYourEdge" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 6. eastyyy22 -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/eastyyy22" alt="eastyyy22" class="creator-avatar">
                                     <h3>eastyyy22</h3>
                                 </div>
-                                <p>A highly skilled UK-based professional documenting his journey through mid and high stakes. His videos are packed with deep strategic thinking and top-tier session reviews.</p>
+                                <p>A highly skilled UK-based professional documenting his journey through mid and high stakes. His videos are packed with deep strategic thinking and top-tier session reviews[cite: 1].</p>
                                 <a href="https://www.youtube.com/@eastyyy22" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 7. Weazel1991 -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/Weazel1991" alt="Weazel1991" class="creator-avatar">
                                     <h3>Weazel1991</h3>
                                 </div>
-                                <p>Known for his incredibly deep dives into poker theory. Weazel's content often explores advanced solver outputs, node-locking, and intricate cash game mechanics meant for serious students of the game.</p>
+                                <p>Known for his incredibly deep dives into poker theory. Weazel's content often explores advanced solver outputs, node-locking, and intricate cash game mechanics meant for serious students of the game[cite: 1].</p>
                                 <a href="https://www.youtube.com/@Weazel1991" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 8. LijaPoker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/LijaPoker" alt="LijaPoker" class="creator-avatar">
                                     <h3>LijaPoker</h3>
                                 </div>
-                                <p>A disciplined grinder offering great insight into building an online bankroll from the ground up. Excellent content for developing a solid baseline strategy and avoiding common leaks.</p>
+                                <p>A disciplined grinder offering great insight into building an online bankroll from the ground up. Excellent content for developing a solid baseline strategy and avoiding common leaks[cite: 1].</p>
                                 <a href="https://www.youtube.com/@LijaPoker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 9. trmpoker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/trmpoker" alt="trmpoker" class="creator-avatar">
                                     <h3>trmpoker</h3>
                                 </div>
-                                <p>Focuses on structured learning frameworks. TRM Poker provides clear, step-by-step breakdowns of various spots and board textures, making it easier to systematize your decision-making.</p>
+                                <p>Focuses on structured learning frameworks. TRM Poker provides clear, step-by-step breakdowns of various spots and board textures, making it easier to systematize your decision-making[cite: 1].</p>
                                 <a href="https://www.youtube.com/@trmpoker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 10. saulocostapoker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/saulocostapoker" alt="saulocostapoker" class="creator-avatar">
                                     <h3>saulocostapoker</h3>
                                 </div>
-                                <p>Saulo Costa is a brilliant modern cash game coach. His videos are goldmines of GTO strategy, exploiting solver heuristics, and managing the aggressive dynamics of high-stakes cash games.</p>
+                                <p>Saulo Costa is a brilliant modern cash game coach. His videos are goldmines of GTO strategy, exploiting solver heuristics, and managing the aggressive dynamics of high-stakes cash games[cite: 1].</p>
                                 <a href="https://www.youtube.com/@saulocostapoker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 11. BlackRain79Poker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/BlackRain79Poker" alt="BlackRain79Poker" class="creator-avatar">
                                     <h3>BlackRain79Poker</h3>
                                 </div>
-                                <p>Nathan Williams is arguably the most successful microstakes player in history. His channel focuses purely on maximum-exploit strategies tailored to beat beginners and low-stakes regulars.</p>
+                                <p>Nathan Williams is arguably the most successful microstakes player in history. His channel focuses purely on maximum-exploit strategies tailored to beat beginners and low-stakes regulars[cite: 1].</p>
                                 <a href="https://www.youtube.com/@BlackRain79Poker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 12. CeegeePoker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/CeegeePoker" alt="CeegeePoker" class="creator-avatar">
                                     <h3>CeegeePoker</h3>
                                 </div>
-                                <p>An online professional offering practical live-play sessions, hand history reviews, and insights into beating modern mid-stakes cash games with a solid, balanced approach.</p>
+                                <p>An online professional offering practical live-play sessions, hand history reviews, and insights into beating modern mid-stakes cash games with a solid, balanced approach[cite: 1].</p>
                                 <a href="https://www.youtube.com/@CeegeePoker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 13. GTOWizard -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/GTOWizard" alt="GTOWizard" class="creator-avatar">
                                     <h3>GTOWizard</h3>
                                 </div>
-                                <p>The official channel of the industry-leading solver tool. Expect incredibly dense, high-level webinars from top coaches breaking down exact GTO frequencies and node locks for every conceivable spot.</p>
+                                <p>The official channel of the industry-leading solver tool. Expect incredibly dense, high-level webinars from top coaches breaking down exact GTO frequencies and node locks for every conceivable spot[cite: 1].</p>
                                 <a href="https://www.youtube.com/@GTOWizard" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 14. AlvinTeachesPoker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/AlvinTeachesPoker" alt="AlvinTeachesPoker" class="creator-avatar">
                                     <h3>AlvinTeachesPoker</h3>
                                 </div>
-                                <p>Alvin provides highly analytical, math-based coaching for No Limit Hold'em. If you want to understand the raw mechanics behind sizing and range interaction, this is the place.</p>
+                                <p>Alvin provides highly analytical, math-based coaching for No Limit Hold'em. If you want to understand the raw mechanics behind sizing and range interaction, this is the place[cite: 1].</p>
                                 <a href="https://www.youtube.com/@AlvinTeachesPoker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 15. 2CardConfidence -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/2CardConfidence" alt="2CardConfidence" class="creator-avatar">
                                     <h3>2CardConfidence</h3>
                                 </div>
-                                <p>Dedicated to merging technical strategy with mental game stability. Focuses heavily on building confidence, overcoming variance, and executing solid fundamentals at the cash tables.</p>
+                                <p>Dedicated to merging technical strategy with mental game stability. Focuses heavily on building confidence, overcoming variance, and executing solid fundamentals at the cash tables[cite: 1].</p>
                                 <a href="https://www.youtube.com/@2CardConfidence" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 16. UpswingPoker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/UpswingPoker" alt="UpswingPoker" class="creator-avatar">
                                     <h3>UpswingPoker</h3>
                                 </div>
-                                <p>Founded by Doug Polk and Ryan Fee, Upswing's channel is a massive library of free educational content covering MTTs, Cash Games, and PLO, taught by some of the world's absolute best players.</p>
+                                <p>Founded by Doug Polk and Ryan Fee, Upswing's channel is a massive library of free educational content covering MTTs, Cash Games, and PLO, taught by some of the world's absolute best players[cite: 1].</p>
                                 <a href="https://www.youtube.com/@UpswingPoker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 17. RYECashGames -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/RYECashGames" alt="RYECashGames" class="creator-avatar">
                                     <h3>RYECashGames</h3>
                                 </div>
-                                <p>The dedicated cash game branch of Raise Your Edge. Features elite analysis of 6-max dynamics, zoom pools, and deep-stack play, catering specifically to cash game specialists.</p>
+                                <p>The dedicated cash game branch of Raise Your Edge. Features elite analysis of 6-max dynamics, zoom pools, and deep-stack play, catering specifically to cash game specialists[cite: 1].</p>
                                 <a href="https://www.youtube.com/@RYECashGames" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
 
+                        <!-- 18. UriPelegPoker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/youtube/UriPelegPoker" alt="UriPelegPoker" class="creator-avatar">
                                     <h3>UriPelegPoker</h3>
                                 </div>
-                                <p>Uri Peleg is a legendary high-stakes cash crusher. He is renowned for taking complex GTO baseline strategies and bending them to create devastating, red-line crushing exploits against other regulars.</p>
+                                <p>Uri Peleg is a legendary high-stakes cash crusher. He is renowned for taking complex GTO baseline strategies and bending them to create devastating, red-line crushing exploits against other regulars[cite: 1].</p>
                                 <a href="https://www.youtube.com/@UriPelegPoker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH CHANNEL</a>
                             </div>
                         </div>
@@ -349,103 +365,120 @@
                     
                     <div class="column-cards">
 
+                        <!-- 1. Wolfkind7 -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/twitch/wolfkind7" alt="Wolfkind7" class="creator-avatar">
                                     <h3>Wolfkind7</h3>
-                                    <!-- Eksempel på LIVE knap -->
-                                    <a href="https://www.twitch.tv/wolfkind7" target="_blank" class="status-btn live">LIVE</a>
+                                    <span class="status-badge live">LIVE</span>
                                 </div>
-                                <p>A dedicated No Limit Hold'em cash game grinder. Wolfkind7's stream offers an authentic look into the daily volume, variance, and decision-making required to consistently beat online cash games.</p>
+                                <p>A dedicated No Limit Hold'em cash game grinder. Wolfkind7's stream offers an authentic look into the daily volume, variance, and decision-making required to consistently beat online cash games[cite: 1].</p>
+                                <a href="https://www.twitch.tv/wolfkind7" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH LIVE</a>
                             </div>
                         </div>
 
+                        <!-- 2. ChippyPoker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/twitch/chippypoker" alt="ChippyPoker" class="creator-avatar">
                                     <h3>ChippyPoker</h3>
-                                    <a href="https://www.twitch.tv/chippypoker" target="_blank" class="status-btn offline">OFFLINE</a>
+                                    <span class="status-badge offline">OFFLINE</span>
                                 </div>
-                                <p>Typical No Limit Hold'em cash game grinder. A great channel to study standard regular-table dynamics, table selection, and solid ABC-to-advanced strategy application.</p>
+                                <p>Typical No Limit Hold'em cash game grinder. A great channel to study standard regular-table dynamics, table selection, and solid ABC-to-advanced strategy application[cite: 1].</p>
+                                <a href="https://www.twitch.tv/chippypoker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH LIVE</a>
                             </div>
                         </div>
 
+                        <!-- 3. 3nduranc3 -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/twitch/3nduranc3" alt="3nduranc3" class="creator-avatar">
                                     <h3>3nduranc3</h3>
-                                    <a href="https://www.twitch.tv/3nduranc3" target="_blank" class="status-btn offline">OFFLINE</a>
+                                    <span class="status-badge offline">OFFLINE</span>
                                 </div>
-                                <p>A highly analytical mixed grinder who battles in both Pot Limit Omaha (PLO) and No Limit Hold'em cash games. Excellent for players looking to broaden their skill sets across different game types.</p>
+                                <p>A highly analytical mixed grinder who battles in both Pot Limit Omaha (PLO) and No Limit Hold'em cash games. Excellent for players looking to broaden their skill sets across different game types[cite: 1].</p>
+                                <a href="https://www.twitch.tv/3nduranc3" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH LIVE</a>
                             </div>
                         </div>
 
+                        <!-- 4. rake2high -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/twitch/rake2high" alt="rake2high" class="creator-avatar">
                                     <h3>rake2high</h3>
-                                    <a href="https://www.twitch.tv/rake2high" target="_blank" class="status-btn live">LIVE</a>
+                                    <span class="status-badge live">LIVE</span>
                                 </div>
-                                <p>True to his name, this channel is all about navigating and beating the structures of modern online cash games. Focused on exploiting player pool tendencies and maximizing winrates.</p>
+                                <p>True to his name, this channel is all about navigating and beating the structures of modern online cash games. Focused on exploiting player pool tendencies and maximizing winrates[cite: 1].</p>
+                                <a href="https://www.twitch.tv/rake2high" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH LIVE</a>
                             </div>
                         </div>
 
+                        <!-- 5. davidkayepoker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/twitch/davidkayepoker" alt="davidkayepoker" class="creator-avatar">
                                     <h3>davidkayepoker</h3>
-                                    <a href="https://www.twitch.tv/davidkayepoker" target="_blank" class="status-btn offline">OFFLINE</a>
+                                    <span class="status-badge offline">OFFLINE</span>
                                 </div>
-                                <p>A PokerStars Team Pro based in the US. David streams a healthy mix of cash games and mid-to-high stakes tournaments, combining a relaxed, welcoming atmosphere with sharp strategy.</p>
+                                <p>A tournament and cash game grinder based in the US. David streams a healthy mix of formats, combining a relaxed, welcoming atmosphere with sharp, profitable strategy[cite: 1].</p>
+                                <a href="https://www.twitch.tv/davidkayepoker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH LIVE</a>
                             </div>
                         </div>
 
+                        <!-- 6. eastyyy22 -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/twitch/eastyyy22" alt="eastyyy22" class="creator-avatar">
                                     <h3>eastyyy22</h3>
-                                    <a href="https://www.twitch.tv/eastyyy22" target="_blank" class="status-btn offline">OFFLINE</a>
+                                    <span class="status-badge offline">OFFLINE</span>
                                 </div>
-                                <p>Live stream of eastyyy22's highly technical cash game and MTT sessions. Watch a seasoned professional articulate his thought process in real-time as he navigates tough spots.</p>
+                                <p>Live stream of eastyyy22's highly technical sessions. Watch a seasoned professional articulate his thought process in real-time as he navigates tough spots on the online felt[cite: 1].</p>
+                                <a href="https://www.twitch.tv/eastyyy22" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH LIVE</a>
                             </div>
                         </div>
 
+                        <!-- 7. weazel_1991 -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/twitch/weazel_1991" alt="weazel_1991" class="creator-avatar">
                                     <h3>weazel_1991</h3>
-                                    <a href="https://www.twitch.tv/weazel_1991" target="_blank" class="status-btn offline">OFFLINE</a>
+                                    <span class="status-badge offline">OFFLINE</span>
                                 </div>
-                                <p>The live counterpart to his analytical YouTube channel. Tune in for methodical gameplay, deep theory discussions with chat, and solver-oriented decision making on the virtual felt.</p>
+                                <p>The live counterpart to his analytical YouTube channel. Tune in for methodical gameplay, deep theory discussions with chat, and solver-oriented decision making[cite: 1].</p>
+                                <a href="https://www.twitch.tv/weazel_1991" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH LIVE</a>
                             </div>
                         </div>
 
+                        <!-- 8. lijapoker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/twitch/lijapoker" alt="lijapoker" class="creator-avatar">
                                     <h3>lijapoker</h3>
-                                    <a href="https://www.twitch.tv/lijapoker" target="_blank" class="status-btn offline">OFFLINE</a>
+                                    <span class="status-badge offline">OFFLINE</span>
                                 </div>
-                                <p>Live online grind focusing heavily on maintaining discipline and executing a structured game plan. A fantastic channel for motivation and picking up solid baseline strategies.</p>
+                                <p>Live online grind focusing heavily on maintaining discipline and executing a structured game plan. A fantastic channel for motivation and picking up solid baseline strategies[cite: 1].</p>
+                                <a href="https://www.twitch.tv/lijapoker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH LIVE</a>
                             </div>
                         </div>
 
+                        <!-- 9. ceegeepoker -->
                         <div class="resource-box">
                             <div class="box-content" style="max-width: 100%;">
                                 <div class="creator-header">
                                     <img src="https://unavatar.io/twitch/ceegeepoker" alt="ceegeepoker" class="creator-avatar">
                                     <h3>ceegeepoker</h3>
-                                    <a href="https://www.twitch.tv/ceegeepoker" target="_blank" class="status-btn offline">OFFLINE</a>
+                                    <span class="status-badge offline">OFFLINE</span>
                                 </div>
-                                <p>A stream heavily dedicated to mass-tabling and efficiently beating mid-stakes cash games. Watch Ceegee navigate tricky spots and demonstrate how to balance high volume with high winrates.</p>
+                                <p>A stream heavily dedicated to mass-tabling and efficiently beating mid-stakes cash games. Watch Ceegee navigate tricky spots and demonstrate how to balance high volume with high winrates[cite: 1].</p>
+                                <a href="https://www.twitch.tv/ceegeepoker" target="_blank" class="download-link" style="display: block; text-align: center; margin-top: 15px;">WATCH LIVE</a>
                             </div>
                         </div>
 
