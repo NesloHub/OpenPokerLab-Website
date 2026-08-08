@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // 1. Definer selve menuens HTML (nu med .png logo)
+    
+    // ==========================================
+    // 1. HEADER & MENU LOGIK
+    // ==========================================
     const menuHTML = `
         <header>
             <a href="index.html" class="logo" style="display: flex; align-items: center; text-decoration: none;">
@@ -19,28 +22,53 @@ document.addEventListener("DOMContentLoaded", function() {
         </header>
     `;
 
-    // 2. Skyd menuen ind på siden
-    document.getElementById("global-header").innerHTML = menuHTML;
+    const globalHeader = document.getElementById("global-header");
+    if (globalHeader) {
+        globalHeader.innerHTML = menuHTML;
+    }
 
-    // 3. Den skudsikre metode til at finde den aktive fane
-    // Henter navnet på den side vi er på, uden alt det foran (som https://...)
     let currentPage = window.location.pathname.split('/').pop();
-    
-    // Hvis siden hedder ingenting (vi står bare på roden af domænet), er vi på index.html
     if (currentPage === "") {
         currentPage = "index.html";
     }
 
     const navLinks = document.querySelectorAll("#nav-links a");
-
     navLinks.forEach(link => {
         const linkHref = link.getAttribute("href");
-        
-        // Vi tjekker to ting: 
-        // 1. Matcher filnavnet præcist? (f.eks. "software.html")
-        // 2. Matcher det HVIS webhotellet har skjult ".html"? (f.eks. "software")
         if (currentPage === linkHref || currentPage === linkHref.replace('.html', '')) {
             link.classList.add("active");
         }
     });
+
+    // ==========================================
+    // 2. FOOTER & JURIDISK DISCLAIMER LOGIK
+    // ==========================================
+    const footerHTML = `
+        <footer class="site-footer" style="margin-top: 60px; padding: 40px 20px; border-top: 1px solid #1a1a1a; color: #666; font-size: 0.75rem; line-height: 1.6; text-align: center; background-color: #050505;">
+            <div style="max-width: 900px; margin: 0 auto;">
+                
+                <p style="margin-bottom: 15px;">
+                    <strong>Disclaimer & Terms of Use:</strong> OpenPokerLab is an independent, open-source educational platform. We are not affiliated with, endorsed by, or sponsored by any third-party poker rooms or software providers mentioned on this site. All product names, logos, and brands are property of their respective owners.
+                </p>
+                
+                <p style="margin-bottom: 15px;">
+                    Poker involves financial risk. The software, content, and strategy guides provided on this site are for educational and informational purposes only and do not constitute financial advice. All open-source software is provided "as-is" without warranty of any kind. Please review the Terms of Service of your specific poker room regarding the use of third-party tools while playing.
+                </p>
+                
+                <p style="margin-bottom: 25px; color: #888;">
+                    🔞 <strong>18+ Only.</strong> Please play responsibly. If you or someone you know has a gambling problem, seek help at <a href="https://www.begambleaware.org/" target="_blank" rel="noopener noreferrer" style="color: var(--neon-green); text-decoration: none; border-bottom: 1px solid var(--neon-green);">BeGambleAware.org</a>.
+                </p>
+                
+                <p style="margin-top: 20px; font-size: 0.7rem; color: #444;">
+                    &copy; 2026 OpenPokerLab.org. All rights reserved. Built by the community, for the community.
+                </p>
+                
+            </div>
+        </footer>
+    `;
+
+    const globalFooter = document.getElementById("global-footer");
+    if (globalFooter) {
+        globalFooter.innerHTML = footerHTML;
+    }
 });
