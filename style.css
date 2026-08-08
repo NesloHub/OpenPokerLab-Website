@@ -428,3 +428,74 @@ nav a:hover, nav a.active {
     margin-top: 5px;
     transition: all 0.3s;
 }
+/* --- FREE CONTENT GRID STYLES --- */
+
+.content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Det smarte grid, der selv tilpasser sig mobil og computer */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* Selve kortets design */
+.content-card {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 25px;
+    text-decoration: none; /* Fjerner den grimme blå streg under links */
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: block;
+}
+
+/* Den elegante hover-effekt */
+.content-card:hover {
+    transform: translateY(-5px); /* Løfter kortet 5 pixels op */
+    border-color: #39ff14; /* Vores neongrønne OpenPokerLab farve */
+    box-shadow: 0 10px 20px rgba(57, 255, 20, 0.15); /* Blød grøn skygge */
+}
+
+.content-card h3 {
+    margin: 15px 0 10px 0;
+    font-size: 22px;
+}
+
+.content-card p {
+    color: #cccccc;
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Designet af de små tags */
+.tag {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Platformsspecifikke farver */
+.tag-youtube {
+    background-color: rgba(255, 0, 0, 0.15);
+    color: #ff4d4d;
+}
+
+.tag-twitch {
+    background-color: rgba(145, 70, 255, 0.15);
+    color: #b380ff;
+}
+
+.tag-blog {
+    background-color: rgba(0, 168, 255, 0.15);
+    color: #4dc4ff;
+}
