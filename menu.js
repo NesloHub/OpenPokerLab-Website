@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <nav>
                 <ul id="nav-links">
                     <li><a href="index.html">HOME</a></li>
+                    <li><a href="beginner.html">BEGINNERS</a></li>
                     <li><a href="software.html">SOFTWARE</a></li>
                     <li><a href="strategy.html">STRATEGY</a></li>
                     <li><a href="bankroll.html">BANKROLL</a></li>
