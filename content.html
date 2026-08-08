@@ -6,50 +6,61 @@
     <title>Free Content - OpenPokerLab</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="content-page">
 
-    <!-- Din standard menu (Husk at tilføje denne på dine andre sider også) -->
-    <nav class="navbar">
-        <div class="logo">OpenPokerLab</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="software.html">Software</a></li>
-            <li><a href="strategy.html">Strategy</a></li>
-            <li><a href="content.html">Free Content</a></li>
-        </ul>
-    </nav>
-
-    <header class="header-section">
-        <h1>Free Poker Resources</h1>
-        <p>Curated streams, videos, and articles to improve your game.</p>
+    <!-- Din eksisterende Header -->
+    <header>
+        <a href="index.html" class="logo">OPENPOKER<span class="neon-text-small">LAB</span></a>
+        <nav>
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="software.html">SOFTWARE</a></li>
+                <li><a href="strategy.html">STRATEGY</a></li>
+                <li><a href="content.html" class="active">FREE CONTENT</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Grid Sektionen -->
-    <section class="content-container">
-        <div class="content-grid">
+    <!-- Side Overskrift (Samme stil som Strategy-siden) -->
+    <section class="page-header">
+        <h1 class="elegant-title-small">FREE CONTENT</h1>
+        <p class="subtitle">CURATED STREAMS, VIDEOS, AND ARTICLES TO IMPROVE YOUR GAME</p>
+    </section>
 
-            <!-- YouTube Kort -->
-            <a href="https://www.youtube.com/@JonathanLittle" target="_blank" class="content-card">
-                <span class="tag tag-youtube">YouTube</span>
-                <h3>Jonathan Little</h3>
-                <p>Excellent channel for tournament strategy and hand breakdowns.</p>
-            </a>
+    <!-- Indholdslisten -->
+    <section class="strategy-resources">
+        <div class="resource-grid">
+            
+            <!-- YouTube Resource -->
+            <div class="resource-box">
+                <div class="box-content">
+                    <!-- Inline style her for at give YouTube et rødt tag, uden at vi skal rode i din CSS -->
+                    <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
+                    <h3>Jonathan Little</h3>
+                    <p>Excellent channel for tournament strategy, hand breakdowns, and beginner-friendly GTO concepts.</p>
+                </div>
+                <a href="https://www.youtube.com/@JonathanLittle" target="_blank" class="download-link">VISIT CHANNEL</a>
+            </div>
 
-            <!-- Twitch Kort -->
-            <a href="https://www.twitch.tv/lexveldhuis" target="_blank" class="content-card">
-                <span class="tag tag-twitch">Twitch</span>
-                <h3>Lex Veldhuis</h3>
-                <p>High stakes MTT streams with great live commentary and analysis.</p>
-            </a>
+            <!-- Twitch Resource -->
+            <div class="resource-box">
+                <div class="box-content">
+                    <span class="tag" style="color: #b380ff;">TWITCH</span>
+                    <h3>Lex Veldhuis</h3>
+                    <p>High stakes MTT streams with incredible live commentary, analysis, and a great community.</p>
+                </div>
+                <a href="https://www.twitch.tv/lexveldhuis" target="_blank" class="download-link">WATCH STREAM</a>
+            </div>
 
-            <!-- Blog Kort -->
-            <a href="https://upswingpoker.com/blog/" target="_blank" class="content-card">
-                <span class="tag tag-blog">Blog</span>
-                <h3>Upswing Poker Blog</h3>
-                <p>Deep-dive articles on GTO theory, preflop charts, and cash games.</p>
-            </a>
-
-            <!-- Tilføj nemt flere kort herunder ved at kopiere koden ovenfor -->
+            <!-- Blog Resource -->
+            <div class="resource-box">
+                <div class="box-content">
+                    <span class="tag" style="color: #4dc4ff;">BLOG</span>
+                    <h3>Upswing Poker Blog</h3>
+                    <p>Deep-dive articles on GTO theory, preflop charts, cash games, and mindset strategies.</p>
+                </div>
+                <a href="https://upswingpoker.com/blog/" target="_blank" class="download-link">READ ARTICLES</a>
+            </div>
 
         </div>
     </section>
