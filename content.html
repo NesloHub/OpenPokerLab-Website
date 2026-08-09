@@ -3,468 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Content - OpenPokerLab</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Curated Poker Content & Streams | OpenPokerLab</title>
+    <meta name="description" content="Discover the best educational poker content on YouTube and watch top professional players live on Twitch.">
     
-    <!-- Ekstra styling til de nye avatarer og den pulserende live-prik -->
+    <!-- Open Graph / Social Media Previews -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://openpokerlab.org/content.html">
+    <meta property="og:title" content="OpenPokerLab | Poker Content & Streams">
+    <meta property="og:description" content="Discover the best educational poker content and watch top players live.">
+    <meta property="og:image" content="https://openpokerlab.org/og-image.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    
     <style>
-        .creator-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 15px;
-            margin-bottom: 10px;
-        }
-
-        .creator-avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 2px solid #333;
-            object-fit: cover;
-        }
-
-        .creator-header h3 {
-            margin: 0;
-            font-size: 1.2rem;
+        .content-section-title {
             color: #fff;
+            font-size: 1.8rem;
+            margin: 40px 0 20px 0;
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .streamer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
         }
 
-        .status-dot {
+        .streamer-card {
+            background: #111;
+            border: 1px solid #222;
+            padding: 25px;
+            border-radius: 6px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .streamer-card:hover {
+            border-color: var(--neon-green);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(57, 255, 20, 0.1);
+        }
+
+        .streamer-platform {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .platform-twitch { color: #9146FF; }
+        .platform-youtube { color: #FF0000; }
+
+        .streamer-name {
+            color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .streamer-desc {
+            color: #bbb;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .streamer-btn {
             display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-left: 8px;
-            transition: background-color 0.3s ease;
+            background: transparent;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: all 0.3s;
         }
 
-        .status-dot.live {
-            background: #39ff14;
-            box-shadow: 0 0 8px #39ff14;
-            animation: pulse 1.5s infinite;
-        }
-
-        .status-dot.offline {
-            background: #ff4d4d;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.7; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.7; }
+        .streamer-card:hover .streamer-btn {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
         }
     </style>
 </head>
 <body class="content-page">
 
-    <!-- Dynamisk menu (Hentes via menu.js) -->
+    <!-- Dynamic header injected via menu.js -->
     <div id="global-header"></div>
     <script src="menu.js"></script>
 
-    <section class="page-header">
-        <h1 class="elegant-title-small">FREE CONTENT</h1>
-        <p class="subtitle">CURATED STREAMS, VIDEOS, AND ARTICLES TO IMPROVE YOUR GAME</p>
-    </section>
+    <main class="strategy-main" style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+        <section class="page-header">
+            <h1 class="elegant-title-small">CURATED <span class="title-highlight">CONTENT</span></h1>
+            <p class="subtitle">The best educational channels and live streams to improve your game.</p>
+        </section>
 
-    <!-- TWITCH SEKTION (Med Live Status) -->
-    <section class="content-section">
-        <h2 class="category-title">TWITCH STREAMS</h2>
-        <div class="card-grid">
+        <!-- Twitch Section -->
+        <h2 class="content-section-title">Live on Twitch</h2>
+        <div class="streamer-grid">
             
-            <div class="content-card twitch-card" data-streamer="wolfkind7">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/wolfkind7" alt="Wolfkind7" class="creator-avatar">
-                    <h3>Wolfkind7</h3>
-                </div>
-                <p>Dedicated cashgame grinder primarily focusing on standard No Limit Hold'em gameplay.</p>
-                <a href="https://www.twitch.tv/wolfkind7" target="_blank" class="download-link">WATCH STREAM</a>
+            <!-- 1. Neslogg (Placed first as requested) -->
+            <div class="streamer-card">
+                <span class="streamer-platform platform-twitch">TWITCH.TV</span>
+                <h3 class="streamer-name">Neslogg</h3>
+                <p class="streamer-desc">High-level poker action and analysis. A great stream to learn from while enjoying an interactive community.</p>
+                <a href="https://www.twitch.tv/neslogg" target="_blank" rel="noopener noreferrer" class="streamer-btn">Watch Live</a>
             </div>
 
-            <div class="content-card twitch-card" data-streamer="chippypoker">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/chippypoker" alt="ChippyPoker" class="creator-avatar">
-                    <h3>ChippyPoker</h3>
-                </div>
-                <p>Solid cashgame grinder showing the ropes in typical No Limit Hold'em formats.</p>
-                <a href="https://www.twitch.tv/chippypoker" target="_blank" class="download-link">WATCH STREAM</a>
+            <!-- 2. Lex Veldhuis -->
+            <div class="streamer-card">
+                <span class="streamer-platform platform-twitch">TWITCH.TV</span>
+                <h3 class="streamer-name">Lex Veldhuis</h3>
+                <p class="streamer-desc">One of the biggest poker streamers in the world. High-stakes MTTs with great commentary and entertainment.</p>
+                <a href="https://www.twitch.tv/lexveldhuis" target="_blank" rel="noopener noreferrer" class="streamer-btn">Watch Live</a>
             </div>
 
-            <div class="content-card twitch-card" data-streamer="3nduranc3">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/3nduranc3" alt="3nduranc3" class="creator-avatar">
-                    <h3>3nduranc3</h3>
-                </div>
-                <p>Versatile cashgame grinder sharing high-level play in both PLO and No Limit Hold'em.</p>
-                <a href="https://www.twitch.tv/3nduranc3" target="_blank" class="download-link">WATCH STREAM</a>
+            <!-- 3. Spraggy -->
+            <div class="streamer-card">
+                <span class="streamer-platform platform-twitch">TWITCH.TV</span>
+                <h3 class="streamer-name">Spraggy</h3>
+                <p class="streamer-desc">PokerStars Pro streaming mid-to-high stakes tournaments with a heavy dose of British humor and sarcasm.</p>
+                <a href="https://www.twitch.tv/spraggy" target="_blank" rel="noopener noreferrer" class="streamer-btn">Watch Live</a>
             </div>
-
-            <div class="content-card twitch-card" data-streamer="rake2high">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/rake2high" alt="Rake2high" class="creator-avatar">
-                    <h3>Rake2high</h3>
-                </div>
-                <p>Experienced cashgame grinder streaming regular online sessions and thought processes.</p>
-                <a href="https://www.twitch.tv/rake2high" target="_blank" class="download-link">WATCH STREAM</a>
-            </div>
-
-            <div class="content-card twitch-card" data-streamer="davidkayepoker">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/davidkayepoker" alt="DavidKayePoker" class="creator-avatar">
-                    <h3>DavidKayePoker</h3>
-                </div>
-                <p>Entertaining mixed-format streams featuring both tournament (MTT) and cash game grinding.</p>
-                <a href="https://www.twitch.tv/davidkayepoker" target="_blank" class="download-link">WATCH STREAM</a>
-            </div>
-
-            <div class="content-card twitch-card" data-streamer="eastyyy22">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/eastyyy22" alt="Eastyyy22" class="creator-avatar">
-                    <h3>Eastyyy22</h3>
-                </div>
-                <p>Consistent and educational online cash game streams with great live commentary.</p>
-                <a href="https://www.twitch.tv/eastyyy22" target="_blank" class="download-link">WATCH STREAM</a>
-            </div>
-
-            <div class="content-card twitch-card" data-streamer="weazel_1991">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/weazel_1991" alt="Weazel_1991" class="creator-avatar">
-                    <h3>Weazel_1991</h3>
-                </div>
-                <p>Focused online cash game sessions demonstrating solid fundamentals and exploit strategies.</p>
-                <a href="https://www.twitch.tv/weazel_1991" target="_blank" class="download-link">WATCH STREAM</a>
-            </div>
-
-            <div class="content-card twitch-card" data-streamer="lijapoker">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/lijapoker" alt="Lijapoker" class="creator-avatar">
-                    <h3>Lijapoker</h3>
-                </div>
-                <p>Follow the daily grind of an online poker regular navigating the cash game tables.</p>
-                <a href="https://www.twitch.tv/lijapoker" target="_blank" class="download-link">WATCH STREAM</a>
-            </div>
-
-            <div class="content-card twitch-card" data-streamer="ceegeepoker">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/ceegeepoker" alt="Ceegeepoker" class="creator-avatar">
-                    <h3>Ceegeepoker</h3>
-                </div>
-                <p>Fun, strategic, and interactive cash game streams with a highly engaged community.</p>
-                <a href="https://www.twitch.tv/ceegeepoker" target="_blank" class="download-link">WATCH STREAM</a>
-            </div>
-
-            <!-- NYE TWITCH STREAMERS -->
             
-            <div class="content-card twitch-card" data-streamer="nassgebiet">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/nassgebiet" alt="Nassgebiet" class="creator-avatar">
-                    <h3>Nassgebiet</h3>
-                </div>
-                <p>Dedicated poker grinder focusing on high-volume cash games and engaging community interaction.</p>
-                <a href="https://www.twitch.tv/nassgebiet" target="_blank" class="download-link">WATCH STREAM</a>
+            <!-- 4. TonkaaaaP -->
+            <div class="streamer-card">
+                <span class="streamer-platform platform-twitch">TWITCH.TV</span>
+                <h3 class="streamer-name">Tonkaaaa</h3>
+                <p class="streamer-desc">High-stakes tournament crusher providing deep technical analysis of deep-run situations.</p>
+                <a href="https://www.twitch.tv/tonkaaaa" target="_blank" rel="noopener noreferrer" class="streamer-btn">Watch Live</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <h2 class="content-section-title">Educational YouTube</h2>
+        <div class="streamer-grid">
+            
+            <!-- 1. Finding Equilibrium -->
+            <div class="streamer-card">
+                <span class="streamer-platform platform-youtube">YOUTUBE.COM</span>
+                <h3 class="streamer-name">Finding Equilibrium</h3>
+                <p class="streamer-desc">Incredible deep-dives into GTO strategy, analyzing famous televised hands using solver technology.</p>
+                <a href="https://www.youtube.com/c/FindingEquilibrium" target="_blank" rel="noopener noreferrer" class="streamer-btn">Visit Channel</a>
             </div>
 
-            <div class="content-card twitch-card" data-streamer="ffellini">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/ffellini" alt="Ffellini" class="creator-avatar">
-                    <h3>Ffellini</h3>
-                </div>
-                <p>Solid online poker streams featuring analytical gameplay, session reviews, and regular grinds.</p>
-                <a href="https://www.twitch.tv/ffellini" target="_blank" class="download-link">WATCH STREAM</a>
+            <!-- 2. Jonathan Little -->
+            <div class="streamer-card">
+                <span class="streamer-platform platform-youtube">YOUTUBE.COM</span>
+                <h3 class="streamer-name">Jonathan Little</h3>
+                <p class="streamer-desc">Hundreds of free strategy videos ranging from beginner fundamentals to advanced tournament concepts.</p>
+                <a href="https://www.youtube.com/c/PokerCoaching" target="_blank" rel="noopener noreferrer" class="streamer-btn">Visit Channel</a>
             </div>
 
-            <div class="content-card twitch-card" data-streamer="innerpsycho">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/innerpsycho" alt="Innerpsycho" class="creator-avatar">
-                    <h3>Innerpsycho</h3>
-                </div>
-                <p>Highly entertaining high-stakes cash game sessions. Watch massive pots and top-tier decision making.</p>
-                <a href="https://www.twitch.tv/innerpsycho" target="_blank" class="download-link">WATCH STREAM</a>
-            </div>
-
-            <div class="content-card twitch-card" data-streamer="mishainner24">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/mishainner24" alt="Mishainner24" class="creator-avatar">
-                    <h3>Mishainner24</h3>
-                </div>
-                <p>Engaging poker streams covering various stakes with an emphasis on continuous improvement and fun.</p>
-                <a href="https://www.twitch.tv/mishainner24" target="_blank" class="download-link">WATCH STREAM</a>
-            </div>
-
-            <div class="content-card twitch-card" data-streamer="wisternjl">
-                <span class="tag" style="color: #b380ff; display: flex; align-items: center; width: fit-content;">
-                    TWITCH <span class="status-dot"></span>
-                </span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/twitch/wisternjl" alt="WisternJL" class="creator-avatar">
-                    <h3>WisternJL</h3>
-                </div>
-                <p>PokerStars Ambassador known for highly entertaining MTT grinds, deep runs, and great community vibes.</p>
-                <a href="https://www.twitch.tv/wisternjl" target="_blank" class="download-link">WATCH STREAM</a>
+            <!-- 3. Raise Your Edge -->
+            <div class="streamer-card">
+                <span class="streamer-platform platform-youtube">YOUTUBE.COM</span>
+                <h3 class="streamer-name">Raise Your Edge</h3>
+                <p class="streamer-desc">Bencb shares high-level tournament strategy, mindset coaching, and aggressive exploit tactics.</p>
+                <a href="https://www.youtube.com/c/RaiseYourEdge" target="_blank" rel="noopener noreferrer" class="streamer-btn">Visit Channel</a>
             </div>
 
         </div>
-    </section>
 
-    <!-- YOUTUBE SEKTION -->
-    <section class="content-section">
-        <h2 class="category-title">YOUTUBE CHANNELS</h2>
-        <div class="card-grid">
-            
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/NeviRPoker" alt="NeviRPoker" class="creator-avatar">
-                    <h3>NeviRPoker</h3>
-                </div>
-                <p>Insightful content from a full-time NL50 grinder, perfect for small to mid-stakes players.</p>
-                <a href="https://www.youtube.com/@NeviRPoker" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
+    </main>
 
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/JNandez87" alt="JNandez" class="creator-avatar">
-                    <h3>JNandez</h3>
-                </div>
-                <p>The go-to resource for Pot Limit Omaha (PLO) grinding, strategy, and solver analysis.</p>
-                <a href="https://www.youtube.com/@JNandez87" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/Spraggy" alt="Spraggy" class="creator-avatar">
-                    <h3>Spraggy</h3>
-                </div>
-                <p>Highly entertaining and educational tournament grinding from a PokerStars Pro.</p>
-                <a href="https://www.youtube.com/@Spraggy" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/hungryhorsepoker" alt="HungryHorsePoker" class="creator-avatar">
-                    <h3>HungryHorsePoker</h3>
-                </div>
-                <p>Excellent cash game grinder providing strategies for both online and live poker environments.</p>
-                <a href="https://www.youtube.com/@hungryhorsepoker" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/RaiseYourEdge" alt="RaiseYourEdge" class="creator-avatar">
-                    <h3>RaiseYourEdge</h3>
-                </div>
-                <p>Elite-level tournament (MTT) strategy, ranges, and mindset coaching from Bencb.</p>
-                <a href="https://www.youtube.com/@RaiseYourEdge" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-            
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/eastyyy22" alt="Eastyyy22" class="creator-avatar">
-                    <h3>Eastyyy22</h3>
-                </div>
-                <p>High-quality YouTube content complementing the Twitch grind with hand reviews and cash strategy.</p>
-                <a href="https://www.youtube.com/@eastyyy22" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/Weazel1991" alt="Weazel1991" class="creator-avatar">
-                    <h3>Weazel1991</h3>
-                </div>
-                <p>In-depth hand analysis, session reviews, and educational content for cash game players.</p>
-                <a href="https://www.youtube.com/@Weazel1991" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/LijaPoker" alt="LijaPoker" class="creator-avatar">
-                    <h3>LijaPoker</h3>
-                </div>
-                <p>Documenting the grind through the ranks with practical cash game strategy and tips.</p>
-                <a href="https://www.youtube.com/@LijaPoker" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/trmpoker" alt="TRMPoker" class="creator-avatar">
-                    <h3>TRMPoker</h3>
-                </div>
-                <p>Valuable cash game insights, theoretical discussions, and focused gameplay reviews.</p>
-                <a href="https://www.youtube.com/@trmpoker" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/saulocostapoker" alt="SauloCostaPoker" class="creator-avatar">
-                    <h3>SauloCostaPoker</h3>
-                </div>
-                <p>High-level cash game theory and coaching aimed at moving players through the stakes.</p>
-                <a href="https://www.youtube.com/@saulocostapoker" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/BlackRain79Poker" alt="BlackRain79Poker" class="creator-avatar">
-                    <h3>BlackRain79Poker</h3>
-                </div>
-                <p>The ultimate guide to crushing the micro stakes with highly exploitative beginner strategies.</p>
-                <a href="https://www.youtube.com/@BlackRain79Poker" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/CeegeePoker" alt="CeegeePoker" class="creator-avatar">
-                    <h3>CeegeePoker</h3>
-                </div>
-                <p>Stream highlights, big pots, and entertaining strategy breakdowns from the cash game tables.</p>
-                <a href="https://www.youtube.com/@CeegeePoker" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/GTOWizard" alt="GTOWizard" class="creator-avatar">
-                    <h3>GTOWizard</h3>
-                </div>
-                <p>Deep dives into Game Theory Optimal (GTO) play, solver mechanics, and advanced math.</p>
-                <a href="https://www.youtube.com/@GTOWizard" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/AlvinTeachesPoker" alt="AlvinTeachesPoker" class="creator-avatar">
-                    <h3>AlvinTeachesPoker</h3>
-                </div>
-                <p>Excellent channel for breaking down complex solver concepts into practical exploit strategies.</p>
-                <a href="https://www.youtube.com/@AlvinTeachesPoker" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/2CardConfidence" alt="2CardConfidence" class="creator-avatar">
-                    <h3>2CardConfidence</h3>
-                </div>
-                <p>Focuses heavily on the mental game, building confidence, and maintaining a strong poker mindset.</p>
-                <a href="https://www.youtube.com/@2CardConfidence" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/UpswingPoker" alt="UpswingPoker" class="creator-avatar">
-                    <h3>UpswingPoker</h3>
-                </div>
-                <p>Comprehensive strategy breakdowns, preflop charts, and high-level theory across formats.</p>
-                <a href="https://www.youtube.com/@UpswingPoker" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/RYECashGames" alt="RYECashGames" class="creator-avatar">
-                    <h3>RYECashGames</h3>
-                </div>
-                <p>The cash game dedicated branch of Raise Your Edge, focusing on deep stack dynamics.</p>
-                <a href="https://www.youtube.com/@RYECashGames" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-            <div class="content-card">
-                <span class="tag" style="color: #ff4d4d;">YOUTUBE</span>
-                <div class="creator-header">
-                    <img src="https://unavatar.io/youtube/UriPelegPoker" alt="UriPelegPoker" class="creator-avatar">
-                    <h3>UriPelegPoker</h3>
-                </div>
-                <p>Elite high-stakes strategy focusing on the balance between GTO and max exploitative play.</p>
-                <a href="https://www.youtube.com/@UriPelegPoker" target="_blank" class="download-link">VISIT CHANNEL</a>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Det forbedrede Twitch Live Status Script -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const twitchCards = document.querySelectorAll('.twitch-card');
-            
-            twitchCards.forEach(card => {
-                const streamerName = card.getAttribute('data-streamer');
-                const dot = card.querySelector('.status-dot');
-                
-                if (streamerName && dot) {
-                    fetch(`https://decapi.me/twitch/uptime/${streamerName}`)
-                        .then(response => response.text())
-                        .then(data => {
-                            const responseText = data.toLowerCase();
-                            
-                            // Nu tjekker vi POSITIVT om Twitch returnerer en tidsenhed (hvilket betyder de er live)
-                            // Før tjekkede scriptet om der IKKE stod offline, hvilket fejlede ved "Too many requests" fejl
-                            if (responseText.includes("hour") || responseText.includes("minute") || responseText.includes("second") || responseText.includes("day")) {
-                                dot.classList.add('live');
-                            } else {
-                                // Ved "offline", "not found", "too many requests" eller anden tekst
-                                dot.classList.add('offline');
-                            }
-                        })
-                        .catch(error => {
-                            console.error("Kunne ikke hente status for", streamerName);
-                            dot.classList.add('offline');
-                        });
-                }
-            });
-        });
-    </script>
+    <!-- Dynamic footer injected via menu.js -->
+    <div id="global-footer"></div>
 
 </body>
 </html>
