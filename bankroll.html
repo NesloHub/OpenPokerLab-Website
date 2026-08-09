@@ -3,16 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bankroll Management & Tracking | OpenPokerLab</title>
-    <meta name="description" content="Professional poker bankroll management tools. Track your sessions, calculate variance, and protect your funds.">
-    
-    <!-- Open Graph / Social Media Previews -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://openpokerlab.org/bankroll.html">
-    <meta property="og:title" content="OpenPokerLab | Bankroll Management">
-    <meta property="og:description" content="Track your sessions, calculate variance, and protect your poker bankroll.">
-    <meta property="og:image" content="https://openpokerlab.org/og-image.png">
-
+    <title>Free Poker Bankroll Calculator | OpenPokerLab</title>
+    <meta name="description" content="Calculate your poker variance and manage your funds effectively with our free interactive bankroll calculator. Essential tool for serious poker players.">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon.png">
@@ -26,63 +18,128 @@
     <main class="strategy-main">
         <section class="page-header">
             <h1 class="elegant-title-small">BANKROLL <span class="title-highlight">MANAGEMENT</span></h1>
-            <p class="subtitle">Track your sessions, analyze variance, and protect your most important asset.</p>
+            <p class="subtitle">Protect your edge. Survive the variance.</p>
         </section>
 
         <section class="strategy-resources">
             <div class="resource-grid">
                 
-                <!-- Poker Bankroll Tracker App -->
+                <!-- Bankroll Information -->
                 <div class="resource-box featured">
                     <div class="box-content" style="max-width: 100%;">
-                        <span class="tag" style="background: rgba(57, 255, 20, 0.1); color: var(--neon-green); padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px;">BEST MOBILE APP</span>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-                            <h3 style="margin: 0; font-size: 1.4rem; color: #fff;">Poker Bankroll Tracker</h3>
-                            <a href="https://pokerbankrolltracker.net/" target="_blank" rel="noopener noreferrer" class="download-link" style="background: var(--neon-green); color: #000; padding: 8px 15px; text-decoration: none; font-weight: 600; border-radius: 4px; font-size: 0.85rem;">VISIT SITE</a>
-                        </div>
-                        <p style="margin-top: 15px; margin-bottom: 15px; color: #bbb; line-height: 1.6;">The ultimate mobile app for live and online players. Keep a detailed log of your buy-ins, cashes, and expenses directly from your phone.</p>
+                        <span class="tag">THEORY</span>
+                        <h3>The Golden Rules of BRM</h3>
+                        <p style="margin-top: 15px; margin-bottom: 15px;">Bankroll Management (BRM) is the mathematical shield that prevents you from going broke during inevitable downswings. Even the best players in the world experience variance.</p>
                         
-                        <ul style="color: #999; line-height: 1.8; font-weight: 300; margin-left: 20px; font-size: 0.9rem;">
-                            <li>Log cash games and tournaments easily.</li>
-                            <li>Detailed statistics, graphs, and ROI calculations.</li>
-                            <li>Share action and swap percentages with friends.</li>
+                        <ul style="color: #bbb; line-height: 1.8; font-weight: 300; margin-left: 20px;">
+                            <li><strong>Cash Games (NLHE):</strong> Minimum 40-50 Buy-ins for your limit. If you play aggressively, aim for 100 Buy-ins.</li>
+                            <li><strong>Tournaments (MTTs):</strong> High variance requires a minimum of 100-200 average Buy-ins.</li>
+                            <li><strong>Spin & Go / Jackpots:</strong> Extreme variance. 200+ Buy-ins is mandatory.</li>
+                            <li><strong>Shot Taking:</strong> Only take a shot at a higher limit if you have 5-10 extra buy-ins to lose, and strictly drop down if you lose them.</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Primedope Variance Calculator -->
+                <!-- Interactive Bankroll Calculator -->
                 <div class="resource-box">
-                    <div class="box-content" style="max-width: 100%;">
-                        <span class="tag" style="background: rgba(77, 196, 255, 0.1); color: #4dc4ff; padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px;">FREE WEB TOOL</span>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-                            <h3 style="margin: 0; font-size: 1.4rem; color: #fff;">Primedope Variance Calc</h3>
-                            <a href="https://www.primedope.com/poker-variance-calculator/" target="_blank" rel="noopener noreferrer" class="download-link" style="border: 1px solid #444; color: #fff; padding: 8px 15px; text-decoration: none; font-weight: 600; border-radius: 4px; font-size: 0.85rem;">CALCULATE</a>
-                        </div>
-                        <p style="margin-top: 15px; margin-bottom: 15px; color: #bbb; line-height: 1.6;">A completely free, browser-based tool to simulate your poker variance. Input your win rate and standard deviation to see the brutal reality of poker downswings.</p>
+                    <div class="box-content" style="max-width: 100%; width: 100%;">
+                        <span class="tag">UTILITY</span>
+                        <h3>BRM Calculator</h3>
+                        <p>Enter your standard buy-in and game type to calculate your required minimum bankroll.</p>
                         
-                        <ul style="color: #999; line-height: 1.8; font-weight: 300; margin-left: 20px; font-size: 0.9rem;">
-                            <li>Simulate up to 100 million hands.</li>
-                            <li>Calculate your precise Risk of Ruin (RoR).</li>
-                            <li>Essential for determining required bankroll size.</li>
-                        </ul>
+                        <div class="calculator-container">
+                            <input type="number" id="buyin" class="calc-input" placeholder="Enter Average Buy-in ($)" min="1">
+                            
+                            <select id="gametype" class="calc-select">
+                                <option value="40">Cash Game (Standard 40x)</option>
+                                <option value="100">Cash Game (Conservative 100x)</option>
+                                <option value="150">MTT / Tournaments (150x)</option>
+                                <option value="250">Spin & Go (250x)</option>
+                            </select>
+
+                            <button onclick="calculateBRM()" class="calc-btn">CALCULATE</button>
+                            
+                            <div style="text-align: center; margin-top: 15px;">
+                                <h4 style="color: #666; font-weight: 300;">Required Bankroll:</h4>
+                                <div id="calc-result" class="calc-result">$0</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Poker Income Tracker -->
+                <!-- Bankroll Ladder Challenge -->
                 <div class="resource-box">
-                    <div class="box-content" style="max-width: 100%;">
-                        <span class="tag" style="background: rgba(255, 153, 0, 0.1); color: #ff9900; padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px;">iOS & ANDROID</span>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-                            <h3 style="margin: 0; font-size: 1.4rem; color: #fff;">Poker Income</h3>
-                            <a href="http://pokerincome.com/" target="_blank" rel="noopener noreferrer" class="download-link" style="border: 1px solid #444; color: #fff; padding: 8px 15px; text-decoration: none; font-weight: 600; border-radius: 4px; font-size: 0.85rem;">VISIT SITE</a>
-                        </div>
-                        <p style="margin-top: 15px; margin-bottom: 15px; color: #bbb; line-height: 1.6;">One of the original and most trusted tracking apps for live poker grinders. Features an intuitive interface for quick entries during long casino sessions.</p>
+                    <div class="box-content" style="max-width: 100%; width: 100%;">
+                        <span class="tag">CHALLENGE</span>
+                        <h3>The Bankroll Ladder</h3>
+                        <p>Follow the strict move-up and drop-down thresholds to safely climb the stakes. Deposit $60 and start at NL2.</p>
                         
-                        <ul style="color: #999; line-height: 1.8; font-weight: 300; margin-left: 20px; font-size: 0.9rem;">
-                            <li>Track hourly rates by location and game type.</li>
-                            <li>Export data for tax and record-keeping purposes.</li>
-                            <li>Customizable filters for detailed session analysis.</li>
-                        </ul>
+                        <div class="ladder-container">
+                            
+                            <!-- NL2 -->
+                            <div class="ladder-step">
+                                <div class="ladder-stake">NL2</div>
+                                <div class="ladder-metrics">
+                                    <span class="metric-up">↑ Move Up: $150</span>
+                                    <span class="metric-down"></span> 
+                                </div>
+                            </div>
+
+                            <!-- NL5 -->
+                            <div class="ladder-step">
+                                <div class="ladder-stake">NL5</div>
+                                <div class="ladder-metrics">
+                                    <span class="metric-up">↑ Move Up: $300</span>
+                                    <span class="metric-down">↓ Drop Down: $125</span>
+                                </div>
+                            </div>
+
+                            <!-- NL10 -->
+                            <div class="ladder-step">
+                                <div class="ladder-stake">NL10</div>
+                                <div class="ladder-metrics">
+                                    <span class="metric-up">↑ Move Up: $750</span>
+                                    <span class="metric-down">↓ Drop Down: $250</span>
+                                </div>
+                            </div>
+
+                            <!-- NL25 -->
+                            <div class="ladder-step">
+                                <div class="ladder-stake">NL25</div>
+                                <div class="ladder-metrics">
+                                    <span class="metric-up">↑ Move Up: $1,500</span>
+                                    <span class="metric-down">↓ Drop Down: $625</span>
+                                </div>
+                            </div>
+
+                            <!-- NL50 -->
+                            <div class="ladder-step">
+                                <div class="ladder-stake">NL50</div>
+                                <div class="ladder-metrics">
+                                    <span class="metric-up">↑ Move Up: $3,000</span>
+                                    <span class="metric-down">↓ Drop Down: $1,250</span>
+                                </div>
+                            </div>
+
+                            <!-- NL100 -->
+                            <div class="ladder-step">
+                                <div class="ladder-stake">NL100</div>
+                                <div class="ladder-metrics">
+                                    <span class="metric-up">↑ Move Up: $6,000</span>
+                                    <span class="metric-down">↓ Drop Down: $2,500</span>
+                                </div>
+                            </div>
+
+                            <!-- NL200 -->
+                            <div class="ladder-step">
+                                <div class="ladder-stake">NL200</div>
+                                <div class="ladder-metrics">
+                                    <span class="metric-up">↑ Move Up: $12,000</span>
+                                    <span class="metric-down">↓ Drop Down: $5,000</span>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
@@ -91,8 +148,26 @@
         
     </main>
 
-    <!-- Dynamic footer injected via menu.js -->
+    <!-- Dynamic footer placeholder -->
     <div id="global-footer"></div>
 
+    <!-- JavaScript for the Calculator -->
+    <script>
+        function calculateBRM() {
+            const buyin = document.getElementById('buyin').value;
+            const multiplier = document.getElementById('gametype').value;
+            const resultElement = document.getElementById('calc-result');
+
+            if(buyin && buyin > 0) {
+                const total = buyin * multiplier;
+                // Format the number nicely with commas
+                resultElement.innerHTML = "$" + total.toLocaleString('en-US');
+                resultElement.style.textShadow = "0 0 15px var(--neon-green)";
+            } else {
+                resultElement.innerHTML = "Enter Buy-in";
+                resultElement.style.textShadow = "none";
+            }
+        }
+    </script>
 </body>
 </html>
