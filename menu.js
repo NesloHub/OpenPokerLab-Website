@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 </p>
                 
                 <p style="margin-bottom: 25px; color: #888;">
-                    🔞 <strong>18+ Only.</strong> Please play responsibly. If you or someone you know has a gambling problem, seek help at <a href="https://www.gamblingtherapy.org" target="_blank" rel="noopener noreferrer" style="color: var(--neon-green); text-decoration: none; border-bottom: 1px solid var(--neon-green);">GamblingTherapy.org</a>.
+                    🔞 <strong>18+ Only.</strong> Please play responsibly. If you or someone you know has a gambling problem, seek help at <a href="https://www.gamblingtherapy.org" target="_blank" rel="noopener noreferrer" style="color: var(--neon-green); text-decoration: none; border-bottom: 1px solid var(--neon-green);">GamblingTherapy.org</a> or <a href="http://gambleaware.org/" target="_blank" rel="noopener noreferrer" style="color: var(--neon-green); text-decoration: none; border-bottom: 1px solid var(--neon-green);">GambleAware.org</a>.
                 </p>
                 
                 <p style="margin-top: 20px; font-size: 0.7rem; color: #444;">
