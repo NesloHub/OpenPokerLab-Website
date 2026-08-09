@@ -211,7 +211,7 @@
                         <div class="hand-category"><strong>Pocket Pairs:</strong> <span class="hands">55+</span></div>
                         <div class="hand-category"><strong>Suited Ax:</strong> <span class="hands hands-suited">A2s+</span></div>
                         <div class="hand-category"><strong>Suited Broadways & Kings:</strong> <span class="hands hands-suited">K5s+, Q9s+, J9s+, T8s+</span></div>
-                        <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">ATo+, KTo+, QJo, JTo</span></div>
+                        <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">ATo+, KTo+, QJo</span></div>
                     </div>
                     <div class="range-matrix-container" id="matrix-hj"></div>
                 </div>
@@ -225,10 +225,10 @@
                 </div>
                 <div class="range-layout">
                     <div class="range-info">
-                        <div class="hand-category"><strong>Pocket Pairs:</strong> <span class="hands">22+</span></div>
+                        <div class="hand-category"><strong>Pocket Pairs:</strong> <span class="hands">44+</span></div>
                         <div class="hand-category"><strong>Suited Ax:</strong> <span class="hands hands-suited">A2s+</span></div>
                         <div class="hand-category"><strong>Suited Broadways & Kings:</strong> <span class="hands hands-suited">K3s+, Q8s+, J8s+, T8s+</span></div>
-                        <div class="hand-category"><strong>Suited Connectors & Gappers:</strong> <span class="hands hands-suited">98s, 97s+, 87s, 76s, 65s</span></div>
+                        <div class="hand-category"><strong>Suited Connectors & Gappers:</strong> <span class="hands hands-suited">98s</span></div>
                         <div class="hand-category"><strong>Offsuit Hands:</strong> <span class="hands hands-offsuit">A8o+, K9o+, QTo+, JTo</span></div>
                     </div>
                     <div class="range-matrix-container" id="matrix-co"></div>
@@ -284,8 +284,8 @@
 
             const ranges = {
                 utg: "AA,KK,QQ,JJ,TT,99,88,77,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,QJs,QTs,Q9s,JTs,T9s,AKo,AQo,AJo,ATo,KQo,KJo",
-                hj: "AA,KK,QQ,JJ,TT,99,88,77,66,55,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,QJs,QTs,Q9s,JTs,J9s,T9s,T8s,AKo,AQo,AJo,ATo,KQo,KJo,KTo,QJo,JTo",
-                co: "AA,KK,QQ,JJ,TT,99,88,77,66,55,44,33,22,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,K4s,K3s,QJs,QTs,Q9s,Q8s,JTs,J9s,J8s,T9s,T8s,98s,97s,87s,76s,65s,AKo,AQo,AJo,ATo,A9o,A8o,KQo,KJo,KTo,K9o,QJo,QTo,JTo",
+                hj: "AA,KK,QQ,JJ,TT,99,88,77,66,55,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,QJs,QTs,Q9s,JTs,J9s,T9s,T8s,AKo,AQo,AJo,ATo,KQo,KJo,KTo,QJo",
+                co: "AA,KK,QQ,JJ,TT,99,88,77,66,55,44,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,K4s,K3s,QJs,QTs,Q9s,Q8s,JTs,J9s,J8s,T9s,T8s,98s,AKo,AQo,AJo,ATo,A9o,A8o,KQo,KJo,KTo,K9o,QJo,QTo,JTo",
                 btn: "AA,KK,QQ,JJ,TT,99,88,77,66,55,44,33,22,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,K4s,K3s,K2s,QJs,QTs,Q9s,Q8s,Q7s,Q6s,Q5s,Q4s,Q3s,Q2s,JTs,J9s,J8s,J7s,J6s,J5s,J4s,T9s,T8s,T7s,T6s,T5s,98s,97s,96s,87s,86s,76s,75s,65s,64s,54s,AKo,AQo,AJo,ATo,A9o,A8o,A7o,A6o,A5o,A4o,A3o,KQo,KJo,KTo,K9o,K8o,QJo,QTo,Q9o,JTo,J9o,T9o,T8o,98o",
                 sb: "AA,KK,QQ,JJ,TT,99,88,77,66,55,44,33,22,AKs,AQs,AJs,ATs,A9s,A8s,A7s,A6s,A5s,A4s,A3s,A2s,KQs,KJs,KTs,K9s,K8s,K7s,K6s,K5s,K4s,K3s,K2s,QJs,QTs,Q9s,Q8s,Q7s,Q6s,Q5s,Q4s,Q3s,Q2s,JTs,J9s,J8s,J7s,J6s,J5s,J4s,T9s,T8s,T7s,T6s,98s,97s,96s,87s,86s,85s,76s,75s,65s,64s,54s,AKo,AQo,AJo,ATo,A9o,A8o,A7o,A6o,A5o,A4o,A3o,KQo,KJo,KTo,K9o,K8o,QJo,QTo,Q9o,JTo,J9o,T9o,98o"
             };
