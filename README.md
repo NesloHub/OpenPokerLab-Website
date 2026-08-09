@@ -2,7 +2,7 @@
 
 <img src="logo.png" width="250" alt="OpenPokerLab Logo">
 
-# 🃏 OpenPokerLab
+# OpenPokerLab
 
 **Empowering the poker community with free, open-source software and strategy.**
 
