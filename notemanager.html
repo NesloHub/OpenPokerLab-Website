@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Note Manager | OpenPokerLab</title>
+    <meta name="description" content="A lightning-fast, legal, web-based app designed to give you a HUD without breaking ToS.">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Specifik CSS til Note Manager App'en -->
+    <style>
+        .note-manager-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px 60px 40px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Beholder appens originale skrifttype internt */
+        }
+
+        /* App container */
+        .app-container {
+            background-color: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .header-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .header-container h2 { color: #fff; font-family: var(--font-main); font-weight: 400; letter-spacing: 2px; font-size: 1.5rem; margin: 0; }
+        .backup-controls { display: flex; align-items: center; gap: 10px; }
+        .db-stats { color: #aaa; font-size: 0.9rem; margin-right: 15px; font-family: var(--font-main); }
+
+        /* Buttons */
+        button { cursor: pointer; transition: all 0.2s; font-family: var(--font-main); }
+        .action-btn { background-color: #1a1a1a; border: 1px solid #444; color: #ccc; padding: 8px 15px; border-radius: 4px; font-size: 0.85rem; }
+        .action-btn:hover { background-color: #333; color: #fff; border-color: #666; }
+        .btn-blue { color: var(--neon-green); border-color: rgba(57, 255, 20, 0.3); }
+        .btn-blue:hover { background-color: rgba(57, 255, 20, 0.1); color: var(--neon-green); border-color: var(--neon-green); }
+        
+        .add-btn { padding: 12px 24px; background-color: var(--neon-green); color: #000; border: none; border-radius: 4px; font-size: 0.95rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .add-btn:hover { background-color: #32e612; box-shadow: 0 0 15px rgba(57, 255, 20, 0.3); transform: translateY(-2px); }
+        
+        .clear-btn { padding: 12px 24px; background-color: transparent; color: #ccc; border: 1px solid #555; border-radius: 4px; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+        .clear-btn:hover { background-color: rgba(255, 77, 77, 0.1); color: #ff4d4d; border-color: #ff4d4d; }
+
+        /* Bars */
+        .top-bar { background-color: #111; padding: 20px; border-radius: 6px; display: flex; gap: 15px; margin-bottom: 15px; border: 1px solid #222; align-items: center; }
+        .filter-bar { display: flex; gap: 15px; margin-bottom: 30px; align-items: center; }
+        
+        input[type="text"] { flex: 1; padding: 14px; border-radius: 4px; border: 1px solid #333; background-color: #1a1a1a; color: #fff; font-size: 1rem; font-family: var(--font-main); }
+        input[type="text"]:focus { outline: none; border-color: var(--neon-green); box-shadow: inset 0 0 10px rgba(57, 255, 20, 0.05); }
+        #filter-input { background-color: #0a0a0a; border: 1px dashed #444; }
+
+        .paste-instruction { color: var(--neon-green); font-weight: 400; margin-left: 10px; font-size: 0.9rem; letter-spacing: 1px; font-family: var(--font-main); }
+
+        /* Grid & Cards */
+        #active-table { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
+        .player-card { background-color: #111; border-radius: 6px; padding: 20px; border: 1px solid #222; display: flex; flex-direction: column; gap: 15px; transition: border-color 0.3s ease; }
+        .player-card:hover { border-color: #444; }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #222; padding-bottom: 12px; }
+        
+        .player-img-container { width: 100%; max-height: 140px; overflow: hidden; border-radius: 4px; margin-bottom: 10px; display: flex; justify-content: center; background-color: #000; border: 1px solid #222; }
+        .player-img { max-width: 100%; object-fit: contain; }
+
+        .player-name-container { flex: 1; }
+        .player-name-input { background: transparent; border: 1px dashed transparent; color: #fff; font-size: 1.3rem; font-weight: bold; width: 100%; padding: 4px 8px; border-radius: 4px; box-sizing: border-box; }
+        .player-name-input:hover { border-color: #444; }
+        .player-name-input:focus { outline: none; border-color: var(--neon-green); background: #1a1a1a; }
+
+        .card-actions { display: flex; align-items: center; gap: 15px; padding-top: 5px; }
+        .delete-db-btn { background: none; border: none; color: #ff4d4d; font-size: 1.2rem; opacity: 0.5; padding: 0; }
+        .delete-db-btn:hover { opacity: 1; transform: scale(1.1); }
+        .remove-btn { background: none; border: none; color: #666; font-size: 1.8rem; line-height: 1; padding: 0; }
+        .remove-btn:hover { color: #fff; transform: scale(1.1); }
+
+        /* Tags */
+        .tags-container { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag-btn { padding: 6px 12px; border-radius: 20px; border: 2px solid transparent; font-size: 0.75rem; font-weight: bold; opacity: 0.4; letter-spacing: 1px; text-transform: uppercase; }
+        .tag-btn.active { opacity: 1; border-color: #fff !important; transform: scale(1.05); }
+
+        textarea { width: 100%; height: 90px; background-color: #1a1a1a; border: 1px solid #333; color: #e0e0e0; border-radius: 4px; padding: 12px; font-family: inherit; resize: vertical; box-sizing: border-box; }
+        textarea:focus { outline: none; border-color: #555; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+        .modal-content { background-color: #111; margin: 10% auto; padding: 30px; border: 1px solid #333; width: 90%; max-width: 500px; border-radius: 8px; color: white; box-shadow: 0 0 40px rgba(0,0,0,0.8); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; padding-bottom: 15px; margin-bottom: 20px; }
+        .modal-header h2 { font-family: var(--font-main); font-weight: 300; letter-spacing: 2px; margin: 0; }
+        
+        .tag-list-item { display: flex; justify-content: space-between; align-items: center; background: #1a1a1a; padding: 12px 20px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #222; }
+        .tag-preview { padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .new-tag-form { display: flex; gap: 15px; margin-top: 25px; padding-top: 20px; border-top: 1px solid #222; align-items: center; }
+        input[type="color"] { border: 1px solid #444; border-radius: 4px; width: 45px; height: 45px; cursor: pointer; background: transparent; padding: 2px; }
+        
+        /* Guide Text Section */
+        .guide-section { background: #0a0a0a; border: 1px solid #1a1a1a; padding: 40px; border-radius: 8px; line-height: 1.7; color: #aaa; }
+        .guide-section h3 { color: var(--text-color); font-weight: 400; font-size: 1.4rem; letter-spacing: 1px; margin: 35px 0 15px 0; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .guide-section h3:first-child { margin-top: 0; }
+        .guide-section h4 { color: #fff; font-weight: 600; font-size: 1.1rem; margin: 25px 0 10px 0; }
+        .guide-section p { margin-bottom: 15px; }
+        .guide-section ul, .guide-section ol { margin-left: 20px; margin-bottom: 20px; }
+        .guide-section li { margin-bottom: 10px; }
+        .guide-section strong { color: #fff; font-weight: 600; }
+        .highlight-box { background: rgba(57, 255, 20, 0.05); border-left: 3px solid var(--neon-green); padding: 20px; margin: 30px 0; border-radius: 0 4px 4px 0; }
+        .highlight-box p { margin: 0; color: #ddd; }
+
+        @media (max-width: 768px) {
+            .header-container, .top-bar, .filter-bar { flex-direction: column; align-items: stretch; text-align: center; }
+            .backup-controls { flex-wrap: wrap; justify-content: center; margin-top: 15px; }
+            .paste-instruction { margin-left: 0; margin-top: 10px; }
+            .guide-section { padding: 25px; }
+        }
+    </style>
+</head>
+<body class="content-page">
+
+    <!-- Header -->
+    <div id="global-header"></div>
+
+    <!-- Page Title -->
+    <div class="page-header">
+        <h1 class="elegant-title-small">NOTE MANAGER</h1>
+        <p class="subtitle">The Ultimate (and Legal) Note-Taking Tool</p>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <div class="note-manager-wrapper">
+        
+        <!-- THE APP -->
+        <div class="app-container">
+            <div class="header-container">
+                <h2>🃏 Live Workspace</h2>
+                <div class="backup-controls">
+                    <span class="db-stats" id="db-stats-text">Players in DB: 0</span>
+                    <button class="action-btn btn-blue" onclick="openTagModal()">⚙️ Manage Tags</button>
+                    <button class="action-btn" onclick="exportDB()">💾 Export Backup</button>
+                    <input type="file" id="import-file" style="display:none" accept=".json" onchange="importDB(event)">
+                    <button class="action-btn" onclick="document.getElementById('import-file').click()">📂 Import Backup</button>
+                </div>
+            </div>
+
+            <div class="top-bar">
+                <input type="text" id="player-input" list="players-datalist" placeholder="Type name OR paste a screenshot (Ctrl+V) anywhere!" autocomplete="off">
+                <datalist id="players-datalist"></datalist>
+                <button class="add-btn" onclick="addPlayer()">Add to Board</button>
+                <span class="paste-instruction">📸 Tip: Press Ctrl+V to paste!</span>
+            </div>
+
+            <div class="filter-bar">
+                <input type="text" id="filter-input" placeholder="🔍 Search active cards..." autocomplete="off" oninput="renderTable()">
+                <button onclick="clearBoard()" class="clear-btn" title="Removes all cards from the screen (not from DB)">Clear Board</button>
+            </div>
+
+            <div id="active-table">
+                <!-- Player cards rendered here -->
+            </div>
+        </div>
+
+        <!-- THE GUIDE -->
+        <div class="guide-section">
+            <p>Do you play on Unibet or other poker sites that block traditional HUDs? Do you lose track of the "fish" and "regs" when multi-tabling? Here is the solution.</p>
+            <p><strong>Poker Note Manager</strong> is a lightning-fast, web-based app designed to give you a "Heads-Up Display" without breaking the poker sites' Terms of Service. It runs 100% securely in your own browser and lets you create visual notes on your opponents in under 2 seconds.</p>
+            
+            <h3>🌟 Why use Poker Note Manager?</h3>
+            <ul>
+                <li><strong>100% Legal & Secure:</strong> The app does not interact with your poker client. No bots, no screen-scraping, and absolutely zero risk of getting banned.</li>
+                <li><strong>📸 Screenshot Magic (Ctrl+V):</strong> Forget about typing complicated usernames in the middle of an intense hand. Take a screenshot of your opponent, press Ctrl+V, and the app automatically builds a note card containing the image!</li>
+                <li><strong>🎨 Fully Customizable Tags:</strong> Don't want to be locked into default categories? Build your own! Create tags like "Whale", "GTO", or "Donk", pick any color from the color palette, and the app automatically adjusts the text color for perfect readability.</li>
+                <li><strong>⚡ Built for Multi-tabling:</strong> "Live search" makes it easy to filter specific cards, and the "Clear Board" feature lets you wipe your screen clean with one click when your session is over.</li>
+                <li><strong>💾 Auto-Save & Smart Backups:</strong> Everything is saved automatically the very millisecond you type it. Exporting a backup now securely saves both your player database and your custom tags in one single file.</li>
+            </ul>
+
+            <h3>📖 How to use the app (Step-by-step)</h3>
+            <p>The app is designed to be the fastest tool you have ever used at the poker tables. Here is your new workflow:</p>
+
+            <h4>1. Create a player mid-hand (The Ninja Method)</h4>
+            <p>When an opponent does something noteworthy and you need to act fast:</p>
+            <ol>
+                <li>Use your operating system's screenshot shortcut (On Windows: <strong>Win + Shift + S</strong> / On Mac: <strong>Cmd + Shift + 4</strong>).</li>
+                <li>Drag a box over the player's avatar and name in your poker client.</li>
+                <li>Click over to the Poker Note Manager and press <strong>Ctrl + V (Paste)</strong> anywhere on the page.</li>
+                <li>BAM! The app instantly creates a new card with your screenshot. Click a color tag, finish playing your hand, and write a note when you have the time. Everything is auto-saved.</li>
+            </ol>
+
+            <h4>2. Name your opponents (When things calm down)</h4>
+            <p>When the hand is over, or when you are reviewing your session:</p>
+            <ol>
+                <li>Click the temporary name (e.g., Player_12345) right below the image.</li>
+                <li>Type the player's real username from the poker site and press <strong>'Enter'</strong>.</li>
+                <li>The image, tags, and your notes are now permanently bound to this name in your database.</li>
+            </ol>
+
+            <h4>3. Personalize your setup (Manage Tags)</h4>
+            <ol>
+                <li>Click the blue <strong>"⚙️ Manage Tags"</strong> button at the top of the screen.</li>
+                <li>Type a name for your new tag, select a color from the color picker, and hit <strong>Add</strong>.</li>
+                <li>You can also delete default tags you don't use by clicking the trash can icon.</li>
+            </ol>
+
+            <h4>4. Keep track of your tables</h4>
+            <ul>
+                <li><strong>Search the board:</strong> Playing 8 tables and have 40 cards open? Use the "Search active cards..." bar in the middle of the screen. Type two letters of the player's name, and all other cards are instantly hidden so you can focus.</li>
+                <li><strong>Clear Board:</strong> When your session is done, simply press "Clear Board". It removes all cards from your screen so you are ready for your next grind.</li>
+            </ul>
+
+            <h4>5. IMPORTANT: Remember to take Backups! 💾</h4>
+            <p>The app saves everything locally in your browser's memory (LocalStorage). <strong>If you clear your browsing history or cookies, your data will disappear!</strong></p>
+            <ul>
+                <li>Click <strong>"💾 Export Backup"</strong> at least once a week. This downloads a small, secure file to your computer containing all your players and custom tags.</li>
+                <li>If disaster strikes, simply click <strong>"📂 Import Backup"</strong>, select your latest file, and your entire database is restored in a split second.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <p>💡 <strong>Pro-Tip for Windows users:</strong><br>Use <strong>Alt + Tab</strong> to seamlessly switch between the poker client and the Note Manager. Take a screenshot -> Alt + Tab -> Ctrl + V. The entire process takes less than 2 seconds!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Tag Manager Modal -->
+    <div id="tagModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ Manage Tags</h2>
+                <button class="remove-btn" onclick="closeTagModal()">&times;</button>
+            </div>
+            
+            <div id="modal-tag-list">
+                <!-- Tags populated here -->
+            </div>
+
+            <div class="new-tag-form">
+                <input type="text" id="new-tag-name" placeholder="New tag name (e.g. Whale)" style="flex:1;">
+                <input type="color" id="new-tag-color" value="#39ff14" title="Choose color">
+                <button class="add-btn" style="padding: 10px 15px;" onclick="addNewTag()">Add</button>
+            </div>
+            <p style="font-size:0.8rem; color:#666; margin-top:15px; text-align:center;">Note: Deleting a tag removes it from all players automatically.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="global-footer"></div>
+
+    <!-- Scripts -->
+    <script src="menu.js"></script>
+    <script>
+        // --- Core Database ---
+        let db = JSON.parse(localStorage.getItem('pokerNotesDB')) || {};
+        let activeTable = [];
+
+        // --- Custom Tags Setup ---
+        const defaultTags = [
+            { id: 'Nit', label: 'Nit', color: '#1e3a8a' },
+            { id: 'Fish', label: 'Fish', color: '#f97316' },
+            { id: 'LAG', label: 'LAG', color: '#22c55e' },
+            { id: 'Maniac', label: 'Maniac', color: '#a855f7' },
+            { id: 'Nitty3', label: 'Nitty 3-bet', color: '#38bdf8' },
+            { id: 'Calling', label: 'Calling Station', color: '#facc15' },
+            { id: 'Reg', label: 'Reg', color: '#ef4444' }
+        ];
+        
+        let customTags = JSON.parse(localStorage.getItem('pokerTagsDB'));
+        if (!customTags || customTags.length === 0) {
+            customTags = defaultTags;
+            saveTagsDB();
+        }
+
+        // Auto-calculates if text should be white or black based on background color
+        function getContrastYIQ(hexcolor){
+            hexcolor = hexcolor.replace("#", "");
+            if (hexcolor.length === 3) {
+                hexcolor = hexcolor.split('').map(x => x + x).join('');
+            }
+            var r = parseInt(hexcolor.substr(0,2),16);
+            var g = parseInt(hexcolor.substr(2,2),16);
+            var b = parseInt(hexcolor.substr(4,2),16);
+            var yiq = ((r*299)+(g*587)+(b*114))/1000;
+            return (yiq >= 128) ? '#000000' : '#ffffff';
+        }
+
+        // --- Initialization ---
+        function init() {
+            updateDatalist();
+            updateStats();
+            
+            const inputField = document.getElementById('player-input');
+            inputField.addEventListener('keypress', function(e) { if (e.key === 'Enter') addPlayer(); });
+            inputField.addEventListener('input', function(e) {
+                if (e.inputType === 'insertReplacementText' || (e.inputType === undefined && db[this.value])) {
+                    addPlayer();
+                }
+            });
+
+            window.addEventListener('paste', handlePaste);
+        }
+
+        // --- Tag Management Functions ---
+        function saveTagsDB() {
+            localStorage.setItem('pokerTagsDB', JSON.stringify(customTags));
+        }
+
+        function openTagModal() {
+            renderTagModalList();
+            document.getElementById('tagModal').style.display = 'block';
+        }
+
+        function closeTagModal() {
+            document.getElementById('tagModal').style.display = 'none';
+        }
+
+        function renderTagModalList() {
+            const listDiv = document.getElementById('modal-tag-list');
+            listDiv.innerHTML = '';
+            
+            customTags.forEach(tag => {
+                let textColor = getContrastYIQ(tag.color);
+                listDiv.innerHTML += `
+                    <div class="tag-list-item">
+                        <span class="tag-preview" style="background-color: ${tag.color}; color: ${textColor}; border: 1px solid ${textColor}40;">
+                            ${tag.label}
+                        </span>
+                        <button class="delete-db-btn" onclick="deleteTag('${tag.id}')" title="Delete tag">🗑️</button>
+                    </div>
+                `;
+            });
+        }
+
+        function addNewTag() {
+            const nameInput = document.getElementById('new-tag-name');
+            const colorInput = document.getElementById('new-tag-color');
+            
+            let label = nameInput.value.trim();
+            if (!label) return alert("Please enter a tag name.");
+            
+            // Create unique ID
+            let id = 'tag_' + Date.now();
+            
+            customTags.push({ id: id, label: label, color: colorInput.value });
+            saveTagsDB();
+            
+            nameInput.value = '';
+            renderTagModalList();
+            renderTable(); // Update active board with new tag
+        }
+
+        function deleteTag(tagId) {
+            if (confirm("Are you sure you want to delete this tag? It will be removed from all players.")) {
+                customTags = customTags.filter(t => t.id !== tagId);
+                
+                // Optional cleanup: remove the tag from all players in db
+                for (let player in db) {
+                    db[player].tags = db[player].tags.filter(t => t !== tagId);
+                }
+                
+                saveTagsDB();
+                saveDB();
+                renderTagModalList();
+                renderTable();
+            }
+        }
+
+        // --- Player Functions ---
+        function handlePaste(e) {
+            // Prevent pasting inside text inputs from creating a new card
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            for (let index in items) {
+                const item = items[index];
+                if (item.kind === 'file' && item.type.includes('image/')) {
+                    const blob = item.getAsFile();
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const base64Image = event.target.result;
+                        createNewPastedPlayer(base64Image);
+                    };
+                    reader.readAsDataURL(blob);
+                    e.preventDefault(); 
+                }
+            }
+        }
+
+        function createNewPastedPlayer(imgData) {
+            let tempName = "Player_" + Math.floor(Math.random() * 100000);
+            db[tempName] = { tags: [], notes: '', image: imgData };
+            activeTable.unshift(tempName);
+            saveDB();
+            renderTable();
+        }
+
+        function renamePlayer(oldName, newName) {
+            newName = newName.trim();
+            if (!newName || newName === oldName) return; 
+            
+            if (db[newName]) {
+                alert("This name already exists in the database! Try another.");
+                renderTable(); 
+                return;
+            }
+
+            db[newName] = db[oldName];
+            delete db[oldName];
+
+            let tableIndex = activeTable.indexOf(oldName);
+            if (tableIndex !== -1) {
+                activeTable[tableIndex] = newName;
+            }
+            
+            saveDB();
+            renderTable();
+        }
+
+        function saveDB() {
+            try {
+                localStorage.setItem('pokerNotesDB', JSON.stringify(db));
+            } catch (e) {
+                alert("Warning: Database storage is full (likely too many large images). Save a backup and delete some old players.");
+            }
+            updateDatalist();
+            updateStats();
+        }
+
+        function updateDatalist() {
+            const datalist = document.getElementById('players-datalist');
+            datalist.innerHTML = '';
+            for (let playerName in db) {
+                let option = document.createElement('option');
+                option.value = playerName;
+                datalist.appendChild(option);
+            }
+        }
+        
+        function updateStats() {
+            document.getElementById('db-stats-text').innerText = `Players in DB: ${Object.keys(db).length}`;
+        }
+
+        function addPlayer() {
+            const inputField = document.getElementById('player-input');
+            let name = inputField.value.trim();
+            if (!name) return;
+            if (!db[name]) { db[name] = { tags: [], notes: '' }; saveDB(); }
+            if (!activeTable.includes(name)) { activeTable.unshift(name); renderTable(); }
+            inputField.value = '';
+            inputField.focus();
+        }
+
+        function removePlayer(name) {
+            activeTable = activeTable.filter(p => p !== name);
+            renderTable();
+        }
+
+        function clearBoard() {
+            activeTable = [];
+            document.getElementById('filter-input').value = '';
+            renderTable();
+        }
+
+        function deletePlayer(name) {
+            if (confirm(`Are you sure you want to permanently delete '${name}' and their image from the database?`)) {
+                delete db[name];
+                activeTable = activeTable.filter(p => p !== name);
+                saveDB();
+                renderTable();
+            }
+        }
+
+        function toggleTag(playerName, tagId) {
+            let player = db[playerName];
+            let tagIndex = player.tags.indexOf(tagId);
+            if (tagIndex === -1) { player.tags.push(tagId); } else { player.tags.splice(tagIndex, 1); }
+            saveDB();
+            renderTable();
+        }
+
+        function updateNote(playerName, text) {
+            db[playerName].notes = text;
+            saveDB();
+        }
+
+        // --- Export & Import ---
+        function exportDB() {
+            if (Object.keys(db).length === 0) return alert("The database is empty.");
+            
+            const exportData = {
+                version: 7,
+                players: db,
+                tags: customTags
+            };
+            
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData));
+            const dl = document.createElement('a');
+            dl.setAttribute("href", dataStr);
+            dl.setAttribute("download", `poker_note_manager_backup_${new Date().toISOString().split('T')[0]}.json`);
+            document.body.appendChild(dl);
+            dl.click(); dl.remove();
+        }
+
+        function importDB(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    if (importedData.version === 7) {
+                        db = { ...db, ...importedData.players };
+                        customTags = importedData.tags;
+                        saveTagsDB();
+                    } else {
+                        db = { ...db, ...importedData };
+                    }
+                    
+                    saveDB();
+                    renderTable();
+                    alert("Backup loaded successfully!");
+                } catch (err) { alert("Error loading file. Make sure it's a valid backup JSON."); }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        // --- Render UI ---
+        function renderTable() {
+            const tableDiv = document.getElementById('active-table');
+            tableDiv.innerHTML = '';
+            
+            const filterInput = document.getElementById('filter-input');
+            const filterText = filterInput ? filterInput.value.toLowerCase() : '';
+
+            activeTable.forEach(playerName => {
+                if (filterText && !playerName.toLowerCase().includes(filterText)) {
+                    return;
+                }
+
+                let player = db[playerName];
+                let card = document.createElement('div');
+                card.className = 'player-card';
+
+                let header = document.createElement('div');
+                header.className = 'card-header';
+                
+                let imgHtml = '';
+                if (player.image) {
+                    imgHtml = `<div class="player-img-container"><img src="${player.image}" class="player-img"></div>`;
+                }
+
+                header.innerHTML = `
+                    <div class="player-name-container">
+                        ${imgHtml}
+                        <input type="text" class="player-name-input" value="${playerName}" 
+                               onblur="renamePlayer('${playerName}', this.value)" 
+                               title="Click to rename player">
+                    </div>
+                    <div class="card-actions">
+                        <button class="delete-db-btn" onclick="deletePlayer('${playerName}')" title="Delete completely from DB">🗑️</button>
+                        <button class="remove-btn" onclick="removePlayer('${playerName}')" title="Remove from board">&times;</button>
+                    </div>
+                `;
+                card.appendChild(header);
+
+                let tagsDiv = document.createElement('div');
+                tagsDiv.className = 'tags-container';
+                
+                customTags.forEach(tag => {
+                    let isActive = player.tags.includes(tag.id);
+                    let btn = document.createElement('button');
+                    btn.className = `tag-btn ${isActive ? 'active' : ''}`;
+                    btn.innerText = tag.label;
+                    
+                    let textColor = getContrastYIQ(tag.color);
+                    btn.style.backgroundColor = tag.color;
+                    btn.style.color = textColor;
+                    
+                    if (isActive) {
+                        btn.style.borderColor = '#ffffff';
+                    } else {
+                        btn.style.borderColor = 'transparent';
+                    }
+                    
+                    btn.onclick = () => toggleTag(playerName, tag.id);
+                    tagsDiv.appendChild(btn);
+                });
+                card.appendChild(tagsDiv);
+
+                let textarea = document.createElement('textarea');
+                textarea.placeholder = "Notes (auto-saved)...";
+                textarea.value = player.notes;
+                textarea.oninput = (e) => updateNote(playerName, e.target.value);
+                card.appendChild(textarea);
+
+                tableDiv.appendChild(card);
+            });
+        }
+
+        init();
+    </script>
+</body>
+</html>
