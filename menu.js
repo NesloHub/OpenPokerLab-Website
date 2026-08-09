@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <li><a href="bankroll.html">BANKROLL</a></li>
                     <li><a href="content.html">CONTENT</a></li>
                     <li><a href="sites.html">SITES</a></li>
+                    <li><a href="notemanager.html">NOTE MANAGER</a></li>
                 </ul>
             </nav>
         </header>
