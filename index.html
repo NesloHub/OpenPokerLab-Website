@@ -20,11 +20,12 @@
     <meta name="twitter:description" content="Open-source poker tools, curated premium software, and free strategy content for players looking to find their edge.">
     <meta name="twitter:image" content="https://openpokerlab.org/og-image.png">
 
+    <!-- Stylesheets and Fonts -->
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon.png">
 
-    <!-- Specifik styling til Forsiden -->
+    <!-- Specific Styling for the Front Page -->
     <style>
         .hero-section {
             text-align: center;
@@ -103,7 +104,8 @@
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            /* Updated to fit 3 columns elegantly on desktop */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
             max-width: 1200px;
             margin: 0 auto 100px auto;
@@ -170,11 +172,11 @@
 </head>
 <body class="content-page">
 
-    <!-- Dynamisk header -->
+    <!-- Dynamic Header -->
     <div id="global-header"></div>
     <script src="menu.js"></script>
 
-    <!-- HERO SEKTION -->
+    <!-- Hero Section -->
     <section class="hero-section">
         <h1 class="hero-title">ENGINEER YOUR <span class="highlight">EDGE.</span></h1>
         <p class="hero-subtitle">
@@ -186,7 +188,7 @@
         </div>
     </section>
 
-    <!-- FEATURES GRID -->
+    <!-- Features Grid (Now with 6 items for a balanced layout) -->
     <section class="features-grid">
         
         <!-- Feature 1: Software -->
@@ -196,30 +198,44 @@
             <a href="software.html" class="feature-link">EXPLORE SOFTWARE →</a>
         </div>
 
-        <!-- Feature 2: Content -->
+        <!-- Feature 2: Ranges -->
+        <div class="feature-box">
+            <h3>PREFLOP RANGES</h3>
+            <p>Master the most important street in poker. Access our free, interactive 6-max GTO preflop charts and build your own custom strategies using the built-in Range Maker.</p>
+            <a href="ranges.html" class="feature-link">VIEW CHARTS →</a>
+        </div>
+
+        <!-- Feature 3: Content -->
         <div class="feature-box">
             <h3>CURATED STREAMS</h3>
-            <p>Stop wasting time searching. We've handpicked the absolute best analytical YouTube strategy channels and Twitch streamers. Features a built-in live status checker so you know exactly who is grinding right now.</p>
+            <p>Stop wasting time searching. We've handpicked the absolute best analytical YouTube strategy channels and Twitch streamers. Features a built-in live status checker.</p>
             <a href="content.html" class="feature-link">WATCH LIVE →</a>
         </div>
 
-        <!-- Feature 3: Sites & Rake -->
+        <!-- Feature 4: Sites & Rake -->
         <div class="feature-box">
             <h3>RAKE ANALYSIS</h3>
-            <p>Not all poker rooms are created equal. Use our integrated Prime Dope Rake Calculator to compare cash game structures across major sites and find the most profitable environments for your stakes.</p>
+            <p>Not all poker rooms are created equal. Compare cash game structures across major sites, review player pools, and find the most profitable environments for your specific stakes.</p>
             <a href="sites.html" class="feature-link">COMPARE ROOMS →</a>
         </div>
 
-        <!-- Feature 4: Bankroll -->
+        <!-- Feature 5: Bankroll -->
         <div class="feature-box">
             <h3>BANKROLL TRACKING</h3>
-            <p>Professional poker requires professional financial management. Discover the best mobile apps and desktop tools to track your sessions, visualize your variance, and manage your bankroll safely.</p>
+            <p>Professional poker requires professional financial management. Discover the best apps to track your sessions, and use our variance calculator to protect your funds.</p>
             <a href="bankroll.html" class="feature-link">MANAGE FUNDS →</a>
+        </div>
+
+        <!-- Feature 6: Beginner -->
+        <div class="feature-box">
+            <h3>BEGINNER LAB</h3>
+            <p>Just starting out? Learn the absolute fundamentals of No Limit Texas Hold'em, master hand rankings, understand table positions, and browse the ultimate poker glossary.</p>
+            <a href="beginner.html" class="feature-link">START HERE →</a>
         </div>
 
     </section>
 
-    <!-- Dynamisk footer -->
+    <!-- Dynamic Footer -->
     <div id="global-footer"></div>
 
 </body>
