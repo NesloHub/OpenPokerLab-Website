@@ -734,6 +734,31 @@ function importTableFromCSharp(event) {
         }
 
         init();
+        // --- Lyt efter Ctrl+V (Sæt ind) hvor som helst på siden! ---
+document.addEventListener('paste', function(event) {
+    // Hent teksten fra udklipsholderen
+    const pasteData = (event.clipboardData || window.clipboardData).getData('text');
+    
+    try {
+        // Tjek om det er vores liste fra C# (Ser ud som: ["Player1", "Player2"])
+        const foundPlayers = JSON.parse(pasteData);
+        
+        if (Array.isArray(foundPlayers)) {
+            // Tøm det nuværende bord og indsæt de nye
+            activeTable = [];
+            foundPlayers.forEach(playerName => {
+                if (db[playerName]) {
+                    activeTable.push(playerName);
+                }
+            });
+            
+            renderTable();
+            document.getElementById('filter-input').value = '';
+        }
+    } catch (err) {
+        // Ignorer hvis brugeren bare sætter almindelig tekst ind i et notefelt
+    }
+});
     </script>
 </body>
 </html>
