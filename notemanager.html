@@ -165,6 +165,8 @@
                 <button class="add-btn" onclick="addPlayer()">Add to Board</button>
                 <!-- Den nye Database Browser knap -->
                 <button class="action-btn" onclick="openDbBrowser()" style="padding: 12px 20px; margin-left: 5px; border-color: #555;">📇 Browse DB</button>
+                <input type="file" id="import-table-file" style="display:none" accept=".json" onchange="importTableFromCSharp(event)">
+<button class="action-btn" onclick="document.getElementById('import-table-file').click()" style="padding: 12px 20px; margin-left: 5px; border-color: var(--neon-green); color: var(--neon-green);">🤖 Load C# Table</button>
                 <span class="paste-instruction">📸 Tip: Press Ctrl+V to paste!</span>
             </div>
 
@@ -625,6 +627,38 @@
             reader.readAsText(file);
             event.target.value = '';
         }
+        // --- Indlæs bord fra C# Programmet ---
+function importTableFromCSharp(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            // C# programmet spytter en simpel liste ud, f.eks: ["Player_1", "Whale99"]
+            const foundPlayers = JSON.parse(e.target.result);
+            
+            // Tøm det nuværende bord
+            activeTable = [];
+            
+            // Tilføj kun de spillere fra listen, som rent faktisk findes i databasen
+            foundPlayers.forEach(playerName => {
+                if (db[playerName]) {
+                    activeTable.push(playerName);
+                }
+            });
+            
+            // Opdater skærmen
+            renderTable();
+            document.getElementById('filter-input').value = '';
+            
+        } catch (err) { 
+            alert("Kunne ikke læse filen fra C#. Sørg for at det er den rigtige fil."); 
+        }
+    };
+    reader.readAsText(file);
+    event.target.value = ''; // Nulstil input
+}
 
         // --- Render UI ---
         function renderTable() {
