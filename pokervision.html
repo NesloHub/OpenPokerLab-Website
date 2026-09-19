@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokerVision HUD | OpenPokerLab.org - Smart Notes & Live OCR Tracker</title>
+    <meta name="description" content="Official guide and presentation for PokerVision HUD by OpenPokerLab. The non-invasive, visual OCR poker HUD and smart note assistant for Unibet, iPoker, and modern poker rooms.">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #090d16;
+            --bg-surface: #0f172a;
+            --bg-card: rgba(15, 23, 42, 0.75);
+            --bg-card-hover: rgba(30, 41, 59, 0.85);
+            --border-glow: rgba(56, 189, 248, 0.2);
+            --border-subtle: rgba(148, 163, 184, 0.12);
+            
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.35);
+            --emerald: #10b981;
+            --emerald-glow: rgba(16, 185, 129, 0.3);
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --indigo: #6366f1;
+            --purple: #a855f7;
+
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+
+            --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 25%, rgba(99, 102, 241, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+                linear-gradient(to bottom, #090d16 0%, #0c1222 100%);
+            min-height: 100vh;
+        }
+
+        /* Ambient Glow & Grid Background */
+        .ambient-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Top Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background: rgba(9, 13, 22, 0.75);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 16px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .logo-chip {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #0284c7, #6366f1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px var(--primary-glow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-name span {
+            color: var(--primary);
+        }
+
+        .brand-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .btn-nav-cta {
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: #fff !important;
+            padding: 9px 20px;
+            border-radius: 9999px;
+            font-weight: 600 !important;
+            font-size: 0.9rem !important;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 90px 0 70px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            animation: pulseGlow 3s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(56, 189, 248, 0.45); }
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--emerald);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--emerald);
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.12;
+            letter-spacing: -1.5px;
+            max-width: 960px;
+            margin: 0 auto 24px auto;
+            background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p.lead {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 760px;
+            margin: 0 auto 36px auto;
+            font-weight: 400;
+            line-height: 1.65;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-decoration: none;
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.25s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(56, 189, 248, 0.5);
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--text-main);
+            padding: 16px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-decoration: none;
+            border: 1px solid var(--border-glow);
+            backdrop-filter: blur(10px);
+            transition: all 0.25s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: rgba(56, 189, 248, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .hero-highlights {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            padding-top: 10px;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .highlight-item svg {
+            color: var(--emerald);
+        }
+
+        /* Interactive Poker Table Simulator */
+        .preview-section {
+            margin: 20px 0 90px 0;
+        }
+
+        .interactive-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(56, 189, 248, 0.1);
+            backdrop-filter: blur(16px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .interactive-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .interactive-title h3 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .table-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-sim {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-body);
+        }
+
+        .btn-sim:hover {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: var(--primary);
+        }
+
+        .btn-sim.active {
+            background: var(--primary);
+            color: #04101e;
+            border-color: var(--primary);
+        }
+
+        /* The Virtual Felt */
+        .poker-felt {
+            width: 100%;
+            height: 480px;
+            background: radial-gradient(ellipse at center, #0f4530 0%, #07251a 75%, #03140e 100%);
+            border-radius: 160px;
+            border: 12px solid #1a1510;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8), 0 10px 40px rgba(0, 0, 0, 0.7);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .felt-center {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.15);
+            pointer-events: none;
+        }
+
+        .felt-logo {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .felt-sub {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* Virtual Seats & HUD Stickers */
+        .seat {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .seat:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .avatar-circle {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #1e293b;
+            border: 2px solid #475569;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            margin-bottom: 6px;
+        }
+
+        .player-info-badge {
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            white-space: nowrap;
+            margin-bottom: 4px;
+        }
+
+        /* The Live HUD Sticker Overlay */
+        .hud-sticker {
+            background: rgba(9, 13, 22, 0.95);
+            border-radius: 8px;
+            padding: 6px 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            min-width: 170px;
+            text-align: left;
+            border-left: 4px solid var(--primary);
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .seat:hover .hud-sticker {
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4), 0 0 0 1px var(--primary);
+        }
+
+        .hud-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .hud-name {
+            font-weight: 700;
+            font-size: 0.82rem;
+            color: #ffffff;
+            font-family: var(--font-display);
+        }
+
+        .hud-tag {
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hud-stats-line {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            display: flex;
+            gap: 6px;
+            color: #cbd5e1;
+        }
+
+        .stat-val {
+            font-weight: 700;
+        }
+
+        .stat-vpip { color: #38bdf8; }
+        .stat-pfr { color: #f59e0b; }
+        .stat-3b { color: #a855f7; }
+        .stat-f3b { color: #f43f5e; }
+        .stat-hands { color: #64748b; font-size: 0.68rem; }
+
+        .hud-notes-preview {
+            font-size: 0.68rem;
+            color: #94a3b8;
+            margin-top: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 160px;
+            font-style: italic;
+        }
+
+        /* Specific Seat Placements (6-Max) */
+        .seat-1 { top: 22px; left: 18%; }
+        .seat-2 { top: 22px; right: 18%; }
+        .seat-3 { top: 48%; right: 4%; transform: translateY(-50%); }
+        .seat-3:hover { transform: translateY(-50%) scale(1.05); }
+        .seat-4 { bottom: 20px; right: 20%; }
+        .seat-5 { bottom: 20px; left: 20%; }
+        .seat-6 { top: 48%; left: 4%; transform: translateY(-50%); }
+        .seat-6:hover { transform: translateY(-50%) scale(1.05); }
+
+        /* Banner below table */
+        .table-footer-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 18px;
+            padding: 12px 18px;
+            background: rgba(9, 13, 22, 0.6);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .live-pulse-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--emerald);
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--emerald);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--emerald);
+            animation: pulseDot 1.5s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.3); }
+        }
+
+        /* Section Headings */
+        .section-header {
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto 50px auto;
+        }
+
+        .section-label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Feature Pillars Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 100px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 32px 28px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-glow);
+            background: var(--bg-card-hover);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature-icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Interactive Guide & Manual Tabs */
+        .guide-section {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border-subtle);
+            border-radius: 28px;
+            padding: 48px;
+            margin-bottom: 100px;
+            backdrop-filter: blur(20px);
+        }
+
+        .guide-nav-tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 16px;
+            margin-bottom: 32px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .tab-btn.active {
+            background: rgba(56, 189, 248, 0.12);
+            border-color: rgba(56, 189, 248, 0.3);
+            color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 36px;
+            align-items: center;
+        }
+
+        .guide-text h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .guide-text p {
+            color: var(--text-muted);
+            margin-bottom: 18px;
+            font-size: 1rem;
+            line-height: 1.65;
+        }
+
+        .guide-steps {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .guide-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+        }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(56, 189, 248, 0.2);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .guide-callout {
+            background: #090d16;
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .code-box {
+            background: #050811;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #38bdf8;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-copy {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: var(--text-muted);
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .btn-copy:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.16);
+        }
+
+        /* Stat Calculator & Explorer */
+        .stats-explorer {
+            margin-bottom: 100px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 24px;
+            transition: all 0.25s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-3px);
+        }
+
+        .stat-badge {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .stat-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .stat-thresholds {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            background: rgba(0,0,0,0.3);
+            padding: 8px 10px;
+            border-radius: 6px;
+            border-left: 2px solid var(--primary);
+        }
+
+        /* TOS Matrix */
+        .tos-section {
+            margin-bottom: 100px;
+        }
+
+        .tos-table-wrap {
+            overflow-x: auto;
+            border-radius: 18px;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+        }
+
+        .tos-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.92rem;
+        }
+
+        .tos-table th {
+            background: #090d16;
+            padding: 16px 20px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .tos-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--text-muted);
+        }
+
+        .tos-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tag-safe {
+            color: var(--emerald);
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tag-danger {
+            color: var(--rose);
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* FAQ Accordion */
+        .faq-section {
+            max-width: 840px;
+            margin: 0 auto 100px auto;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            margin-bottom: 14px;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-main);
+            user-select: none;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 24px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+            padding: 0 24px 20px 24px;
+        }
+
+        /* Download Section */
+        .download-box {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(99, 102, 241, 0.15));
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 28px;
+            padding: 56px 40px;
+            text-align: center;
+            margin-bottom: 100px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .download-box h2 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .download-box p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin: 0 auto 32px auto;
+        }
+
+        .dl-details {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 48px 0;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 18px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 2.8rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .guide-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .poker-felt { height: 420px; }
+            .hud-sticker { min-width: 140px; padding: 4px 8px; }
+            .nav-links { display: none; }
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero-actions { flex-direction: column; width: 100%; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .poker-felt { height: 460px; border-radius: 80px; }
+            .seat-1 { left: 10%; }
+            .seat-2 { right: 10%; }
+            .seat-4 { right: 10%; }
+            .seat-5 { left: 10%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-grid"></div>
+
+    <!-- Navigation Header -->
+    <nav>
+        <div class="container nav-inner">
+            <a href="software.html" class="brand-logo" id="nav-brand" title="Back to OpenPokerLab Software">
+                <div class="logo-chip">P</div>
+                <div class="brand-text">
+                    <div class="brand-name">PokerVision <span>HUD</span></div>
+                    <div class="brand-sub">OpenPokerLab.org Research</div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="software.html" style="color: var(--primary);">← Back to Hub</a></li>
+                <li><a href="#simulator">Live Demo</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#guide">User Guide</a></li>
+                <li><a href="#stats-breakdown">Stats Matrix</a></li>
+                <li><a href="#safety">TOS Safety</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="https://drive.google.com/file/d/15LD3zrreiWuEQuUoljMvwcsy-08f0cuq/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-nav-cta">Download v1.0</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <div class="badge-pill">
+                <span class="badge-dot"></span>
+                OpenPokerLab • v1.0 Portable Ready
+            </div>
+            <h1>Next-Generation Poker HUD &amp; <em>Smart OCR Tracker</em></h1>
+            <p class="lead">
+                Read player tendencies, screen names, and live action statistics (VPIP, PFR, 3-Bet%, Fold-to-3Bet%) directly from your screen using high-speed computer vision. 100% compliant with poker room Terms of Service.
+            </p>
+            <div class="hero-actions">
+                <a href="https://drive.google.com/file/d/15LD3zrreiWuEQuUoljMvwcsy-08f0cuq/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-primary" id="hero-dl-btn">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Download v1.0 (Google Drive)
+                </a>
+                <a href="#simulator" class="btn-secondary" id="hero-guide-btn">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Try Interactive HUD Demo
+                </a>
+            </div>
+            <div class="hero-highlights">
+                <div class="highlight-item">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span>Zero .NET installation needed</span>
+                </div>
+                <div class="highlight-item">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <span>Zero memory injection (TOS safe)</span>
+                </div>
+                <div class="highlight-item">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <span>Unibet &amp; iPoker optimized</span>
+                </div>
+                <div class="highlight-item">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7z"/></svg>
+                    <span>Automatic dual backup</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Interactive Simulator Section -->
+    <section class="container preview-section" id="simulator">
+        <div class="interactive-card">
+            <div class="interactive-header">
+                <div class="interactive-title">
+                    <div class="logo-chip" style="width:30px; height:30px; font-size: 0.9rem;">⚡</div>
+                    <div>
+                        <h3>Live Table Simulation</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Hover over any seat or trigger table events to see how PokerVision HUD analyzes player tendencies.</p>
+                    </div>
+                </div>
+                <div class="table-controls">
+                    <span style="font-size: 0.8rem; color: var(--text-dim);">Simulate Action:</span>
+                    <button class="btn-sim" id="sim-raise" onclick="simulateHandEvent('raise')">3-Bet Preflop</button>
+                    <button class="btn-sim" id="sim-fish" onclick="simulateHandEvent('fish_call')">Fish Limp/Call</button>
+                    <button class="btn-sim" id="sim-reset" onclick="resetSimStats()">Reset Hands</button>
+                </div>
+            </div>
+
+            <!-- Virtual Felt -->
+            <div class="poker-felt">
+                <div class="felt-center">
+                    <div class="felt-logo">OpenPokerLab</div>
+                    <div class="felt-sub">Autonomous Vision Engine</div>
+                </div>
+
+                <!-- Seat 1: The Fish -->
+                <div class="seat seat-1" id="seat-1" onclick="showSeatDetails('FishyPete')">
+                    <div class="hud-sticker" style="border-left-color: #ff8c00;">
+                        <div class="hud-top-row">
+                            <span class="hud-name">FishyPete</span>
+                            <span class="hud-tag" style="background: rgba(255, 140, 0, 0.25); color: #ff8c00;">Fish</span>
+                        </div>
+                        <div class="hud-stats-line">
+                            <span>V:<span class="stat-val stat-vpip" id="s1-vpip">52</span></span>
+                            <span>P:<span class="stat-val stat-pfr" id="s1-pfr">12</span></span>
+                            <span>3B:<span class="stat-val stat-3b" id="s1-3b">3%</span></span>
+                            <span>F3B:<span class="stat-val stat-f3b" id="s1-f3b">86%</span></span>
+                            <span class="stat-hands" id="s1-hands">(48h)</span>
+                        </div>
+                        <div class="hud-notes-preview">Limps A-rag, folds to 3bet...</div>
+                    </div>
+                    <div class="avatar-circle" style="border-color: #ff8c00;">FP</div>
+                    <div class="player-info-badge">€124.50</div>
+                </div>
+
+                <!-- Seat 2: The Regular -->
+                <div class="seat seat-2" id="seat-2" onclick="showSeatDetails('SolidPro')">
+                    <div class="hud-sticker" style="border-left-color: #008080;">
+                        <div class="hud-top-row">
+                            <span class="hud-name">SolidPro</span>
+                            <span class="hud-tag" style="background: rgba(0, 128, 128, 0.3); color: #2dd4bf;">Reg</span>
+                        </div>
+                        <div class="hud-stats-line">
+                            <span>V:<span class="stat-val stat-vpip" id="s2-vpip">23</span></span>
+                            <span>P:<span class="stat-val stat-pfr" id="s2-pfr">19</span></span>
+                            <span>3B:<span class="stat-val stat-3b" id="s2-3b">8%</span></span>
+                            <span>F3B:<span class="stat-val stat-f3b" id="s2-f3b">56%</span></span>
+                            <span class="stat-hands" id="s2-hands">(142h)</span>
+                        </div>
+                        <div class="hud-notes-preview">Standard 2.5x open, balances...</div>
+                    </div>
+                    <div class="avatar-circle" style="border-color: #008080;">SP</div>
+                    <div class="player-info-badge">€205.00</div>
+                </div>
+
+                <!-- Seat 3: The Aggro Spewer -->
+                <div class="seat seat-3" id="seat-3" onclick="showSeatDetails('AggroDan')">
+                    <div class="hud-sticker" style="border-left-color: #dc143c;">
+                        <div class="hud-top-row">
+                            <span class="hud-name">AggroDan</span>
+                            <span class="hud-tag" style="background: rgba(220, 20, 60, 0.3); color: #fb7185;">Aggro</span>
+                        </div>
+                        <div class="hud-stats-line">
+                            <span>V:<span class="stat-val stat-vpip" id="s3-vpip">34</span></span>
+                            <span>P:<span class="stat-val stat-pfr" id="s3-pfr">28</span></span>
+                            <span>3B:<span class="stat-val stat-3b" id="s3-3b">15%</span></span>
+                            <span>F3B:<span class="stat-val stat-f3b" id="s3-f3b">38%</span></span>
+                            <span class="stat-hands" id="s3-hands">(76h)</span>
+                        </div>
+                        <div class="hud-notes-preview">Constant 3bets from late pos...</div>
+                    </div>
+                    <div class="avatar-circle" style="border-color: #dc143c;">AD</div>
+                    <div class="player-info-badge">€312.20</div>
+                </div>
+
+                <!-- Seat 4: The Hero (You) -->
+                <div class="seat seat-4" id="seat-4">
+                    <div class="avatar-circle" style="border-color: #38bdf8; background: #0284c7;">YOU</div>
+                    <div class="player-info-badge" style="border-color: #38bdf8;">€200.00 [Hero]</div>
+                </div>
+
+                <!-- Seat 5: The Maniac -->
+                <div class="seat seat-5" id="seat-5" onclick="showSeatDetails('CrazyTilt')">
+                    <div class="hud-sticker" style="border-left-color: #9932cc;">
+                        <div class="hud-top-row">
+                            <span class="hud-name">CrazyTilt</span>
+                            <span class="hud-tag" style="background: rgba(153, 50, 204, 0.3); color: #c084fc;">Maniac</span>
+                        </div>
+                        <div class="hud-stats-line">
+                            <span>V:<span class="stat-val stat-vpip" id="s5-vpip">68</span></span>
+                            <span>P:<span class="stat-val stat-pfr" id="s5-pfr">45</span></span>
+                            <span>3B:<span class="stat-val stat-3b" id="s5-3b">24%</span></span>
+                            <span>F3B:<span class="stat-val stat-f3b" id="s5-f3b">18%</span></span>
+                            <span class="stat-hands" id="s5-hands">(33h)</span>
+                        </div>
+                        <div class="hud-notes-preview">Donk bets turns, overshoves...</div>
+                    </div>
+                    <div class="avatar-circle" style="border-color: #9932cc;">CT</div>
+                    <div class="player-info-badge">€89.40</div>
+                </div>
+
+                <!-- Seat 6: The Rock / Nit -->
+                <div class="seat seat-6" id="seat-6" onclick="showSeatDetails('TightTom')">
+                    <div class="hud-sticker" style="border-left-color: #00008b;">
+                        <div class="hud-top-row">
+                            <span class="hud-name">TightTom</span>
+                            <span class="hud-tag" style="background: rgba(0, 0, 139, 0.35); color: #60a5fa;">Nit</span>
+                        </div>
+                        <div class="hud-stats-line">
+                            <span>V:<span class="stat-val stat-vpip" id="s6-vpip">13</span></span>
+                            <span>P:<span class="stat-val stat-pfr" id="s6-pfr">11</span></span>
+                            <span>3B:<span class="stat-val stat-3b" id="s6-3b">4%</span></span>
+                            <span>F3B:<span class="stat-val stat-f3b" id="s6-f3b">78%</span></span>
+                            <span class="stat-hands" id="s6-hands">(110h)</span>
+                        </div>
+                        <div class="hud-notes-preview">Only 3-bets QQ+, AK. Steal blinds!</div>
+                    </div>
+                    <div class="avatar-circle" style="border-color: #3b82f6;">TT</div>
+                    <div class="player-info-badge">€194.00</div>
+                </div>
+            </div>
+
+            <!-- Table Status Ribbon -->
+            <div class="table-footer-status">
+                <div class="live-pulse-badge">
+                    <div class="live-dot"></div>
+                    <span>Visual Heartbeat: OCR Action Engine active (1.5s interval)</span>
+                </div>
+                <div id="sim-status-text" style="color: #cbd5e1; font-family: var(--font-mono); font-size: 0.8rem;">
+                    [OCR] Tables detected: 1 | Tracked Opponents: 5 | Memory Hooks: 0 (Pure Screen OCR)
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Feature Pillars -->
+    <section class="container" id="features">
+        <div class="section-header">
+            <div class="section-label">Core Capabilities</div>
+            <h2 class="section-title">Built for Modern Poker Security &amp; Maximum Edge</h2>
+            <p class="section-desc">Traditional HUDs inject DLLs or hook memory, violating casino TOS. PokerVision HUD re-engineers tracking from the ground up using non-invasive visual computer vision.</p>
+        </div>
+
+        <div class="features-grid">
+            <!-- 1 -->
+            <div class="feature-card">
+                <div class="feature-icon-box" style="background: rgba(56, 189, 248, 0.1); color: #38bdf8;">
+                    👁️
+                </div>
+                <h4>Real-Time OCR Action Engine</h4>
+                <p>The 1.5-second visual pulse reads table action banners (Bet, Raise, Call, Check, Fold) directly from the screen, calculating live VPIP, PFR, 3-Bet%, and Fold-to-3Bet% on the fly.</p>
+            </div>
+
+            <!-- 2 -->
+            <div class="feature-card">
+                <div class="feature-icon-box" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                    ⚡
+                </div>
+                <h4>Instant Middle-Click Snip</h4>
+                <p>Simply middle-click anywhere on your poker tables. The program automatically scans table boundaries, extracts player names, and floats persistent HUD stickers right above each seat.</p>
+            </div>
+
+            <!-- 3 -->
+            <div class="feature-card">
+                <div class="feature-icon-box" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+                    🏷️
+                </div>
+                <h4>Dynamic Tag Palette</h4>
+                <p>Preloaded with color-coded archetypes: Nit, Fish, Reg, Whale, Aggro, Maniac. Automated text luminance ensures crisp legibility regardless of chosen tag background color.</p>
+            </div>
+
+            <!-- 4 -->
+            <div class="feature-card">
+                <div class="feature-icon-box" style="background: rgba(99, 102, 241, 0.1); color: #818cf8;">
+                    📋
+                </div>
+                <h4>Auto-Clipboard Monitor</h4>
+                <p>When you copy a player name anywhere in Windows (or from hand histories), PokerVision HUD instantly detects it, queries the database, and prepares note editing with zero clicks.</p>
+            </div>
+
+            <!-- 5 -->
+            <div class="feature-card">
+                <div class="feature-icon-box" style="background: rgba(244, 63, 94, 0.1); color: #fb7185;">
+                    🤖
+                </div>
+                <h4>Autopilot Watchdog</h4>
+                <p>Enable Autopilot to let the program automatically rescan all active tables every 5 minutes. New players who sit down are instantly profiled without lifting a finger.</p>
+            </div>
+
+            <!-- 6 -->
+            <div class="feature-card">
+                <div class="feature-icon-box" style="background: rgba(168, 85, 247, 0.1); color: #c084fc;">
+                    🛡️
+                </div>
+                <h4>Dual-Layer Auto-Backups</h4>
+                <p>Every note edit or stat update creates an immediate <code>.bak</code> file and a timestamped snapshot in your <code>Backups/</code> folder (storing up to 20 historical versions).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comprehensive Interactive User Guide -->
+    <section class="container guide-section" id="guide">
+        <div class="section-header">
+            <div class="section-label">Documentation</div>
+            <h2 class="section-title">Official PokerVision HUD User Guide</h2>
+            <p class="section-desc">Learn how to configure, run, and master the HUD to crush your games with maximum efficiency.</p>
+        </div>
+
+        <div class="guide-nav-tabs">
+            <button class="tab-btn active" onclick="switchGuideTab('quickstart', this)">🚀 Quick Start</button>
+            <button class="tab-btn" onclick="switchGuideTab('livehud', this)">📊 Live HUD &amp; OCR</button>
+            <button class="tab-btn" onclick="switchGuideTab('snip', this)">✂️ Snip &amp; Player Notes</button>
+            <button class="tab-btn" onclick="switchGuideTab('database', this)">📂 Database &amp; Backups</button>
+            <button class="tab-btn" onclick="switchGuideTab('shortcuts', this)">⌨️ Shortcuts</button>
+        </div>
+
+        <!-- Tab 1: Quick Start -->
+        <div class="tab-content active" id="tab-quickstart">
+            <div class="guide-grid">
+                <div class="guide-text">
+                    <h3>Zero Setup Needed: Ready in 60 Seconds</h3>
+                    <p>PokerVision HUD is distributed as a 100% self-contained portable application. You don't have to install any runtimes, configure python environments, or setup SQL servers.</p>
+                    <ul class="guide-steps">
+                        <li>
+                            <div class="step-num">1</div>
+                            <div>
+                                <strong>Download &amp; Extract</strong><br>
+                                Download <code>PokerVisionHUD_v1.0.zip</code> from Google Drive and unzip to any location (e.g. Desktop or a dedicated folder).
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">2</div>
+                            <div>
+                                <strong>Run Executable</strong><br>
+                                Double-click <code>PokerVisionHUD.exe</code>. A fresh <code>players.json</code> starter database is automatically created and ready!
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">3</div>
+                            <div>
+                                <strong>Start Playing</strong><br>
+                                Open your poker client (Unibet, iPoker, etc.). Middle-click any table or press <code>Ctrl+Alt+S</code> to tag players and overlay live stats!
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="guide-callout">
+                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">💡 Pro-Tip for Multi-Tablers</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">Toggle on <strong>"Autopilot"</strong> in the top header. Set the interval to 3 or 5 minutes, and PokerVision HUD will quietly refresh seat lineups across all monitors in the background.</p>
+                    <div class="code-box">
+                        <span>Starter Database: players.json</span>
+                        <button class="btn-copy" onclick="copySnippet('players.json')">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Live HUD & OCR -->
+        <div class="tab-content" id="tab-livehud">
+            <div class="guide-grid">
+                <div class="guide-text">
+                    <h3>How the Visual Action Tracker Operates</h3>
+                    <p>Unlike standard trackers that depend on client chat logs or internal memory pointers, PokerVision HUD's optical tracker works like an alert pair of human eyes:</p>
+                    <ul class="guide-steps">
+                        <li>
+                            <div class="step-num">✓</div>
+                            <div>
+                                <strong>Action Recognition:</strong> Every 1.5 seconds, the engine observes player action badges (e.g. "RAISE", "CALL", "FOLD").
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">✓</div>
+                            <div>
+                                <strong>Hand Demarcation:</strong> The system automatically notices dealer button rotation and chip collection to split sessions into distinct hands.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">✓</div>
+                            <div>
+                                <strong>HUD Floating Overlays:</strong> Lightweight, transparent WPF stickers float directly over player avatars and remain synchronized with table positions.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="guide-callout">
+                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">HUD Stat Breakdown</h4>
+                    <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">
+                        <strong style="color: #38bdf8;">V:</strong> VPIP % (Voluntarily Put in Pot)<br>
+                        <strong style="color: #f59e0b;">P:</strong> PFR % (Preflop Raise)<br>
+                        <strong style="color: #a855f7;">3B:</strong> 3-Bet % (Re-raise preflop frequency)<br>
+                        <strong style="color: #f43f5e;">F3B:</strong> Fold to 3-Bet %<br>
+                        <strong style="color: #64748b;">(Xh):</strong> Total observed sample hands
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Snip & Notes -->
+        <div class="tab-content" id="tab-snip">
+            <div class="guide-grid">
+                <div class="guide-text">
+                    <h3>Snip &amp; Profile Any Player in 2 Seconds</h3>
+                    <p>Notice a new player making an absurd move? Record it immediately without losing focus on your action:</p>
+                    <ul class="guide-steps">
+                        <li>
+                            <div class="step-num">1</div>
+                            <div>
+                                <strong>Trigger Snip:</strong> Press <kbd style="background: #1e293b; padding: 2px 6px; border-radius: 4px; border: 1px solid #475569;">Ctrl + Alt + S</kbd> or click <strong>"✂️ SNIP PLAYER"</strong>.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">2</div>
+                            <div>
+                                <strong>Crop Name:</strong> Drag a small box over the player's name banner on your table.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">3</div>
+                            <div>
+                                <strong>AI Text Extraction:</strong> The integrated Tesseract OCR engine transcribes their nickname into the editor with punctuation normalization.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">4</div>
+                            <div>
+                                <strong>Assign Tags &amp; Notes:</strong> Select tags (e.g. Fish, Nit), write your notes, and hit <strong>Save Note</strong>.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="guide-callout">
+                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">Auto-Clipboard Mode</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Activate the <strong>AUTO-CLIPBOARD</strong> button. Anytime you copy a nickname from a forum, poker client, or external notes, the player editor instantly pops up ready to take notes!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Database & Backups -->
+        <div class="tab-content" id="tab-database">
+            <div class="guide-grid">
+                <div class="guide-text">
+                    <h3>Database Browser &amp; Automated Safety</h3>
+                    <p>Your notes and player stats are your most valuable poker asset. PokerVision HUD treats your database with bank-grade safety:</p>
+                    <ul class="guide-steps">
+                        <li>
+                            <div class="step-num">📁</div>
+                            <div>
+                                <strong>Universal JSON Format:</strong> Notes and stats are stored in clean, transparent JSON format compatible with standard backup tools.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">🛡️</div>
+                            <div>
+                                <strong>Immediate .bak Safety Net:</strong> Every time you save notes, a <code>.bak</code> file is instantly updated in the same folder.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">⏱️</div>
+                            <div>
+                                <strong>20 Versioned Backups:</strong> The app maintains up to 20 timestamped archives in the <code>Backups/</code> subfolder automatically.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="guide-callout">
+                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">Switching Databases</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">Click <strong>"📂 LOAD DB"</strong> at any time to point the program to an existing backup file or external drive. All future edits will automatically persist to that selected file.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 5: Shortcuts -->
+        <div class="tab-content" id="tab-shortcuts">
+            <div class="guide-grid">
+                <div class="guide-text">
+                    <h3>Master Keyboard &amp; Mouse Shortcuts</h3>
+                    <p>Designed for fast multi-tabling ergonomics. You never have to take your hands off the mouse:</p>
+                    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+                        <div class="code-box">
+                            <span>Middle Mouse Click (Scroll Wheel)</span>
+                            <span style="color: var(--text-muted); font-size: 0.8rem;">Scan tables &amp; update HUD</span>
+                        </div>
+                        <div class="code-box">
+                            <span>Ctrl + Alt + S</span>
+                            <span style="color: var(--text-muted); font-size: 0.8rem;">Quick Snip Player Name</span>
+                        </div>
+                        <div class="code-box">
+                            <span>Escape (Esc)</span>
+                            <span style="color: var(--text-muted); font-size: 0.8rem;">Close active dialog / guide</span>
+                        </div>
+                        <div class="code-box">
+                            <span>[?] In Header</span>
+                            <span style="color: var(--text-muted); font-size: 0.8rem;">Open in-app interactive manual</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="guide-callout">
+                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">HUD Management</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Moving between tables or finishing a session? Click <strong>"CLEAR HUD"</strong> to instantly dismiss all floating overlays and clear memory for a fresh session.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Breakdown & Exploitative Strategy Guide -->
+    <section class="container stats-explorer" id="stats-breakdown">
+        <div class="section-header">
+            <div class="section-label">Strategic Advantage</div>
+            <h2 class="section-title">Deciphering HUD Stats &amp; Exploits</h2>
+            <p class="section-desc">Understand what the numbers mean and how to adjust your game against each player archetype.</p>
+        </div>
+
+        <div class="stats-grid">
+            <!-- VPIP -->
+            <div class="stat-card">
+                <div class="stat-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">VPIP</div>
+                <h4>Voluntarily Put In Pot</h4>
+                <p>Percentage of hands where the player willingly puts money into the pot preflop (calls, limps, raises).</p>
+                <div class="stat-thresholds">
+                    <strong>&lt; 18%:</strong> Very Tight / Nit<br>
+                    <strong>20 - 28%:</strong> Solid Regular<br>
+                    <strong>&gt; 35%:</strong> Loose Fish / Target
+                </div>
+            </div>
+
+            <!-- PFR -->
+            <div class="stat-card">
+                <div class="stat-badge" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">PFR</div>
+                <h4>Preflop Raise Frequency</h4>
+                <p>How often the player enters the pot with an open raise or re-raise rather than limping or calling.</p>
+                <div class="stat-thresholds">
+                    <strong>VPIP/PFR Gap &gt; 15%:</strong> Passive calling station<br>
+                    <strong>Gap &lt; 5%:</strong> Aggressive tight reg
+                </div>
+            </div>
+
+            <!-- 3-Bet% -->
+            <div class="stat-card">
+                <div class="stat-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc;">3-Bet%</div>
+                <h4>Preflop 3-Bet Frequency</h4>
+                <p>Percentage of opportunities where a player re-raises an open raiser preflop.</p>
+                <div class="stat-thresholds">
+                    <strong>&lt; 5%:</strong> Only QQ+, AK<br>
+                    <strong>7 - 10%:</strong> Optimal / Balanced<br>
+                    <strong>&gt; 14%:</strong> 4-Bet them relentlessly
+                </div>
+            </div>
+
+            <!-- Fold to 3-Bet -->
+            <div class="stat-card">
+                <div class="stat-badge" style="background: rgba(244, 63, 94, 0.15); color: #fb7185;">Fold to 3B%</div>
+                <h4>Fold to 3-Bet Rate</h4>
+                <p>How often a player surrenders when facing a re-raise after opening the pot.</p>
+                <div class="stat-thresholds">
+                    <strong>&gt; 70%:</strong> Auto-profit 3-bet bluff<br>
+                    <strong>&lt; 40%:</strong> Only 3-bet for value
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terms of Service & Security Matrix -->
+    <section class="container tos-section" id="safety">
+        <div class="section-header">
+            <div class="section-label">Compliance Architecture</div>
+            <h2 class="section-title">Why PokerVision HUD is 100% TOS Compliant</h2>
+            <p class="section-desc">Traditional poker trackers trigger anti-cheat software because they read or modify game process memory. PokerVision HUD uses pure optical computer vision, functioning exactly like a player taking notes with pen and paper.</p>
+        </div>
+
+        <div class="tos-table-wrap">
+            <table class="tos-table">
+                <thead>
+                    <tr>
+                        <th>Security Criterion</th>
+                        <th>Traditional Poker HUDs</th>
+                        <th>PokerVision HUD (OpenPokerLab)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Memory Reading (Process Hooks)</strong></td>
+                        <td><span class="tag-danger">❌ Reads client RAM memory</span></td>
+                        <td><span class="tag-safe">✓ 0% Memory Reading (Pure Screen OCR)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>DLL Injection / Code Modification</strong></td>
+                        <td><span class="tag-danger">❌ Injects hooks into poker client</span></td>
+                        <td><span class="tag-safe">✓ Zero Code Injection</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Terms of Service (Unibet / iPoker)</strong></td>
+                        <td><span class="tag-danger">⚠️ Frequently blocked or banned</span></td>
+                        <td><span class="tag-safe">✓ 100% Compliant (External Visual Tool)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Real-Time Assistance (RTA)</strong></td>
+                        <td><span class="tag-danger">⚠️ Complex solver outputs</span></td>
+                        <td><span class="tag-safe">✓ Only Historical Statistics &amp; Notes</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Privacy &amp; Data Ownership</strong></td>
+                        <td><span class="tag-dim">⚠️ Uploads to cloud servers</span></td>
+                        <td><span class="tag-safe">✓ 100% Local JSON on your PC</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Frequently Asked Questions -->
+    <section class="container faq-section" id="faq">
+        <div class="section-header">
+            <div class="section-label">Got Questions?</div>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-item open">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Does PokerVision HUD work on Unibet, iPoker, and 888poker?</span>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes! Because PokerVision HUD uses advanced computer vision to recognize tables and cards visually, it is compatible with virtually all modern poker sites that display screen names and bet action badges.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Do I or my friends need to install .NET 10 or Python?</span>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                No! The v1.0 release is published as a <strong>self-contained portable bundle</strong>. All .NET runtime files, OpenCV native libraries, and Tesseract optical OCR files are bundled directly in the folder. Just unzip and run.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>What happens if players leave or join the table?</span>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                PokerVision HUD dynamically updates seat lineups whenever you middle-click on the table or when Autopilot triggers. If a new player sits down, their name is scanned and their stats immediately load from your database.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Can I share my player database with a friend?</span>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes! Your entire player library is saved in a standard <code>players.json</code> file. You can send this file to a friend, and they can load it via <strong>"📂 LOAD DB"</strong> or replace their local file.
+            </div>
+        </div>
+    </section>
+
+    <!-- Download / Call to Action Box -->
+    <section class="container" id="download">
+        <div class="download-box">
+            <h2>Ready to Elevate Your Poker Strategy?</h2>
+            <p>Download the official PokerVision HUD v1.0 Portable release. Unzip and dominate your tables with smart notes and live visual stats in under 60 seconds.</p>
+            <div class="hero-actions" style="margin-bottom: 20px;">
+                <a href="https://drive.google.com/file/d/15LD3zrreiWuEQuUoljMvwcsy-08f0cuq/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size: 1.15rem; padding: 18px 40px;">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Download PokerVision HUD v1.0 Portable (Google Drive) ↓
+                </a>
+            </div>
+            <div class="dl-details">
+                <span>📁 Package: PokerVisionHUD_v1.0.zip</span>
+                <span>📦 Size: ~118 MB (Self-Contained)</span>
+                <span>💻 OS: Windows 10 / 11 (x64)</span>
+                <span>🛡️ VirusTotal Clean • 100% TOS Safe</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="software.html">← Back to Hub</a></li>
+                <li><a href="#simulator">Simulator</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#guide">User Guide</a></li>
+                <li><a href="#safety">TOS Compliance</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="https://drive.google.com/file/d/15LD3zrreiWuEQuUoljMvwcsy-08f0cuq/view?usp=sharing" target="_blank" rel="noopener noreferrer">Download</a></li>
+            </ul>
+            <p>&copy; 2026 OpenPokerLab (OpenPokerLab.org). Engineered for serious poker players. All rights reserved.</p>
+            <p style="margin-top: 6px; font-size: 0.8rem; color: #475569;">Disclaimer: PokerVision HUD is an external, non-invasive visual note organizer and historical statistical display tool. It does not provide real-time automated play.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Interactive Poker Table Simulation
+        let simState = {
+            s1: { vpip: 52, pfr: 12, threeBet: 3, foldThreeBet: 86, hands: 48 },
+            s2: { vpip: 23, pfr: 19, threeBet: 8, foldThreeBet: 56, hands: 142 },
+            s3: { vpip: 34, pfr: 28, threeBet: 15, foldThreeBet: 38, hands: 76 },
+            s5: { vpip: 68, pfr: 45, threeBet: 24, foldThreeBet: 18, hands: 33 },
+            s6: { vpip: 13, pfr: 11, threeBet: 4, foldThreeBet: 78, hands: 110 }
+        };
+
+        const initialSimState = JSON.parse(JSON.stringify(simState));
+
+        function updateSimDisplay() {
+            for (let seatKey in simState) {
+                const s = simState[seatKey];
+                const seatNum = seatKey.replace('s', '');
+                document.getElementById(`${seatKey}-vpip`).innerText = s.vpip;
+                document.getElementById(`${seatKey}-pfr`).innerText = s.pfr;
+                document.getElementById(`${seatKey}-3b`).innerText = s.threeBet + '%';
+                document.getElementById(`${seatKey}-f3b`).innerText = s.foldThreeBet + '%';
+                document.getElementById(`${seatKey}-hands`).innerText = `(${s.hands}h)`;
+            }
+        }
+
+        function simulateHandEvent(eventType) {
+            const statusEl = document.getElementById('sim-status-text');
+            if (eventType === 'raise') {
+                // AggroDan 3-bets, Fish folds, Reg folds
+                simState.s3.hands += 1;
+                simState.s3.threeBet = Math.min(22, simState.s3.threeBet + 1);
+                simState.s3.pfr = Math.min(32, simState.s3.pfr + 1);
+
+                simState.s1.hands += 1;
+                simState.s1.foldThreeBet = Math.min(90, simState.s1.foldThreeBet + 1);
+
+                simState.s2.hands += 1;
+                simState.s5.hands += 1;
+                simState.s6.hands += 1;
+
+                statusEl.innerText = "[OCR Event: 3-Bet Preflop] AggroDan raised 3B. FishyPete folded. Stats recalculated in 1.5s.";
+                statusEl.style.color = "#38bdf8";
+            } else if (eventType === 'fish_call') {
+                // FishyPete limps/calls
+                simState.s1.hands += 1;
+                simState.s1.vpip = Math.min(65, simState.s1.vpip + 1);
+
+                simState.s5.hands += 1;
+                simState.s5.vpip = Math.min(75, simState.s5.vpip + 1);
+
+                simState.s2.hands += 1;
+                simState.s3.hands += 1;
+                simState.s6.hands += 1;
+
+                statusEl.innerText = "[OCR Event: Limp/Call] FishyPete limped in. VPIP increased to " + simState.s1.vpip + "%.";
+                statusEl.style.color = "#ff8c00";
+            }
+            updateSimDisplay();
+        }
+
+        function resetSimStats() {
+            simState = JSON.parse(JSON.stringify(initialSimState));
+            updateSimDisplay();
+            const statusEl = document.getElementById('sim-status-text');
+            statusEl.innerText = "[OCR Engine Reset] Table statistics reset to initial baseline.";
+            statusEl.style.color = "#cbd5e1";
+        }
+
+        function showSeatDetails(playerName) {
+            const statusEl = document.getElementById('sim-status-text');
+            statusEl.innerText = `[Selected Player: ${playerName}] Profile inspected. Notes synced to database.`;
+            statusEl.style.color = "#10b981";
+        }
+
+        // Tab Switcher for User Guide
+        function switchGuideTab(tabId, btnElement) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            btnElement.classList.add('active');
+            const target = document.getElementById('tab-' + tabId);
+            if (target) target.classList.add('active');
+        }
+
+        // FAQ Accordion
+        function toggleFaq(headerElement) {
+            const item = headerElement.parentElement;
+            item.classList.toggle('open');
+        }
+
+        // Copy snippet helper
+        function copySnippet(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert(`Copied "${text}" to clipboard!`);
+            });
+        }
+    </script>
+</body>
+</html>

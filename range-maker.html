@@ -191,6 +191,23 @@
                     </div>
                 </div>
 
+                <!-- Weight & Frequency Controls -->
+                <div class="weight-controls">
+                    <span style="font-size: 0.85rem; color: #888; letter-spacing: 1px; text-transform: uppercase;">Frequency:</span>
+                    <div class="weight-presets">
+                        <button type="button" class="weight-btn active" data-val="100" onclick="setWeight(100)">100%</button>
+                        <button type="button" class="weight-btn" data-val="75" onclick="setWeight(75)">75%</button>
+                        <button type="button" class="weight-btn" data-val="50" onclick="setWeight(50)">50%</button>
+                        <button type="button" class="weight-btn" data-val="25" onclick="setWeight(25)">25%</button>
+                        <button type="button" class="weight-btn" data-val="10" onclick="setWeight(10)">10%</button>
+                        <button type="button" class="weight-btn" data-val="0" onclick="setWeight(0)" title="Erase Mode">Erase</button>
+                    </div>
+                    <div class="weight-slider-wrapper">
+                        <input type="range" id="weight-slider" class="weight-slider" min="0" max="100" step="5" value="100" oninput="onSliderChange(this.value)">
+                        <span id="weight-display" class="weight-display">100%</span>
+                    </div>
+                </div>
+
                 <!-- Matrixen -->
                 <div class="range-matrix-container" id="interactive-matrix"></div>
 
@@ -212,11 +229,64 @@
 
     <div id="global-footer"></div>
 
-    <!-- JAVASCRIPT TIL INTERAKTIVITET, MALE-FUNKTION OG JSON -->
+    <!-- JAVASCRIPT TIL INTERAKTIVITET, TOUCH, FREKVENSER OG JSON -->
     <script>
-        // Tilføjer variabler til at holde styr på, om vi "maler" eller "visker ud"
         let isDragging = false;
-        let dragMode = 'add'; // kan være 'add' eller 'remove'
+        let activePaintWeight = 100;
+        let currentWeight = 100;
+        let lastTouchCell = null;
+
+        // Skift frekvens / vægt
+        function setWeight(w) {
+            currentWeight = parseInt(w);
+            document.getElementById('weight-slider').value = currentWeight;
+            document.getElementById('weight-display').innerText = currentWeight + '%';
+
+            document.querySelectorAll('.weight-btn').forEach(btn => {
+                if (parseInt(btn.getAttribute('data-val')) === currentWeight) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        function onSliderChange(val) {
+            currentWeight = parseInt(val);
+            document.getElementById('weight-display').innerText = currentWeight + '%';
+
+            document.querySelectorAll('.weight-btn').forEach(btn => {
+                if (parseInt(btn.getAttribute('data-val')) === currentWeight) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // Tildel vægt og Flopzilla-gradient til en celle
+        function applyWeightToCell(cell, weight) {
+            const w = Math.max(0, Math.min(100, parseInt(weight) || 0));
+            cell.setAttribute('data-weight', w);
+
+            if (w === 0) {
+                cell.style.background = '#0a0a0a';
+                cell.style.color = '#555';
+                cell.style.fontWeight = 'normal';
+                cell.classList.remove('active');
+            } else if (w === 100) {
+                cell.style.background = 'var(--neon-green)';
+                cell.style.color = '#000';
+                cell.style.fontWeight = 'bold';
+                cell.classList.add('active');
+            } else {
+                // Vertikal gradient-fyld (Flopzilla & GTO Wizard stil)
+                cell.style.background = `linear-gradient(to top, var(--neon-green) ${w}%, #0a0a0a ${w}%)`;
+                cell.style.color = w >= 50 ? '#000' : '#fff';
+                cell.style.fontWeight = 'bold';
+                cell.classList.add('active');
+            }
+        }
 
         document.addEventListener("DOMContentLoaded", function() {
             const ranks = ['A','K','Q','J','T','9','8','7','6','5','4','3','2'];
@@ -241,7 +311,7 @@
                         comboCount = 12;
                     }
 
-                    html += '<div class="grid-cell" data-hand="' + cellHand + '" data-combos="' + comboCount + '">' + cellHand + '</div>';
+                    html += '<div class="grid-cell" data-hand="' + cellHand + '" data-combos="' + comboCount + '" data-weight="0">' + cellHand + '</div>';
                 }
             }
             html += '</div>';
@@ -250,83 +320,131 @@
             const cells = document.querySelectorAll('.grid-cell');
             const grid = document.getElementById('poker-grid');
 
-            // Forhindrer standard "træk-billede" adfærd i browseren
+            // Forhindrer utilsigtet drag adfærd
             grid.addEventListener('dragstart', (e) => e.preventDefault());
 
-            // Gør cellerne klikbare (Click & Drag)
+            // Mus interaktion (Click & Drag)
             cells.forEach(cell => {
-                
-                // Når musen trykkes ned på en celle
                 cell.addEventListener('mousedown', function(e) {
-                    e.preventDefault(); // Stopper tekstmarkering
+                    e.preventDefault();
                     isDragging = true;
                     
-                    if (this.classList.contains('active')) {
-                        this.classList.remove('active');
-                        dragMode = 'remove'; // Vi er i gang med at viske ud
+                    const cellWeight = parseInt(this.getAttribute('data-weight') || 0);
+                    // Hvis cellen allerede har denne vægt (eller vi er i erase mode), nulstil
+                    if (currentWeight === 0 || cellWeight === currentWeight) {
+                        activePaintWeight = 0;
                     } else {
-                        this.classList.add('active');
-                        dragMode = 'add'; // Vi er i gang med at male
+                        activePaintWeight = currentWeight;
                     }
+
+                    applyWeightToCell(this, activePaintWeight);
                     updateStats();
                 });
 
-                // Når musen trækkes hen over en ny celle
                 cell.addEventListener('mouseenter', function(e) {
                     if (isDragging) {
-                        if (dragMode === 'add') {
-                            this.classList.add('active');
-                        } else {
-                            this.classList.remove('active');
-                        }
+                        applyWeightToCell(this, activePaintWeight);
                         updateStats();
                     }
                 });
             });
 
-            // Stop male-funktionen, når musen slippes (også hvis det sker uden for grid'et)
             document.addEventListener('mouseup', function() {
                 isDragging = false;
             });
+
+            // Touch support (mobil & tablet)
+            grid.addEventListener('touchstart', function(e) {
+                if (e.touches.length > 1) return;
+                const touch = e.touches[0];
+                const target = document.elementFromPoint(touch.clientX, touch.clientY)?.closest('.grid-cell');
+                if (target) {
+                    e.preventDefault();
+                    isDragging = true;
+                    const cellWeight = parseInt(target.getAttribute('data-weight') || 0);
+                    if (currentWeight === 0 || cellWeight === currentWeight) {
+                        activePaintWeight = 0;
+                    } else {
+                        activePaintWeight = currentWeight;
+                    }
+                    applyWeightToCell(target, activePaintWeight);
+                    lastTouchCell = target;
+                    updateStats();
+                }
+            }, { passive: false });
+
+            grid.addEventListener('touchmove', function(e) {
+                if (!isDragging || e.touches.length > 1) return;
+                e.preventDefault();
+                const touch = e.touches[0];
+                const target = document.elementFromPoint(touch.clientX, touch.clientY)?.closest('.grid-cell');
+                if (target && target !== lastTouchCell) {
+                    applyWeightToCell(target, activePaintWeight);
+                    lastTouchCell = target;
+                    updateStats();
+                }
+            }, { passive: false });
+
+            const endTouch = function() {
+                isDragging = false;
+                lastTouchCell = null;
+            };
+
+            grid.addEventListener('touchend', endTouch);
+            grid.addEventListener('touchcancel', endTouch);
         });
 
-        // Opdater procenter og combos
+        // Opdater procenter og vægtede combos
         function updateStats() {
             let selectedCombos = 0;
             const totalCombos = 1326;
             
-            document.querySelectorAll('.grid-cell.active').forEach(cell => {
-                selectedCombos += parseInt(cell.getAttribute('data-combos'));
+            document.querySelectorAll('.grid-cell').forEach(cell => {
+                const weight = parseInt(cell.getAttribute('data-weight') || 0);
+                if (weight > 0) {
+                    const baseCombos = parseInt(cell.getAttribute('data-combos'));
+                    selectedCombos += baseCombos * (weight / 100);
+                }
             });
 
             const percent = ((selectedCombos / totalCombos) * 100).toFixed(1);
+            const comboFormatted = (selectedCombos % 1 === 0) ? selectedCombos : selectedCombos.toFixed(1);
             
-            document.getElementById('stat-combos').innerText = selectedCombos + " / " + totalCombos;
+            document.getElementById('stat-combos').innerText = comboFormatted + " / " + totalCombos;
             document.getElementById('stat-percent').innerText = percent + "%";
         }
 
         // Ryd hele pladen
         function clearGrid() {
             document.querySelectorAll('.grid-cell').forEach(cell => {
-                cell.classList.remove('active');
+                applyWeightToCell(cell, 0);
             });
             updateStats();
         }
 
-        // Eksporter til JSON fil
+        // Eksporter til JSON fil med frekvenser
         function saveRange() {
-            const activeCells = document.querySelectorAll('.grid-cell.active');
-            if(activeCells.length === 0) {
+            const activeCells = document.querySelectorAll('.grid-cell[data-weight]:not([data-weight="0"])');
+            if (activeCells.length === 0) {
                 alert("Please select some hands before saving!");
                 return;
             }
 
-            const hands = Array.from(activeCells).map(cell => cell.getAttribute('data-hand'));
+            const hands = [];
+            const weights = {};
+
+            activeCells.forEach(cell => {
+                const hand = cell.getAttribute('data-hand');
+                const weight = parseInt(cell.getAttribute('data-weight'));
+                hands.push(hand);
+                weights[hand] = weight;
+            });
             
             const data = {
                 title: "Custom Range - OpenPokerLab",
                 date: new Date().toISOString(),
-                hands: hands
+                hands: hands,
+                weights: weights
             };
 
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
@@ -338,7 +456,7 @@
             downloadAnchorNode.remove();
         }
 
-        // Importer fra JSON fil
+        // Importer fra JSON fil (understøtter både nye og gamle filer)
         function loadRange(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -347,7 +465,7 @@
             reader.onload = function(e) {
                 try {
                     const data = JSON.parse(e.target.result);
-                    if(!data.hands || !Array.isArray(data.hands)) {
+                    if (!data.hands || !Array.isArray(data.hands)) {
                         alert("Invalid JSON format. Cannot load range.");
                         return;
                     }
@@ -355,11 +473,14 @@
                     // Ryd pladen først
                     clearGrid();
 
-                    // Slå de importerede hænder til
+                    // Slå de importerede hænder til med deres vægt
                     data.hands.forEach(hand => {
                         const cell = document.querySelector('.grid-cell[data-hand="' + hand + '"]');
-                        if(cell) {
-                            cell.classList.add('active');
+                        if (cell) {
+                            const weight = (data.weights && data.weights[hand] !== undefined) 
+                                ? data.weights[hand] 
+                                : 100;
+                            applyWeightToCell(cell, weight);
                         }
                     });
 

@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Poker Equity Calculator | OpenPokerLab</title>
+    <meta name="description" content="Free, fast in-browser Texas Hold'em poker equity calculator. Calculate preflop and postflop equities with multiway Monte Carlo simulations.">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://openpokerlab.org/calculator.html">
+    <meta property="og:title" content="OpenPokerLab | Poker Equity Calculator">
+    <meta property="og:description" content="Calculate preflop and postflop equity in real-time with our fast web calculator.">
+    <meta property="og:image" content="https://openpokerlab.org/og-image.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        .presets-bar {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .preset-btn {
+            background: #111;
+            border: 1px solid #333;
+            color: #999;
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--neon-green);
+            color: #fff;
+            background: #191919;
+        }
+
+        .card-picker-instructions {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .slot-remove-btn {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 18px;
+            height: 18px;
+            background: #ff4d4d;
+            color: #fff;
+            border-radius: 50%;
+            border: none;
+            font-size: 11px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        .poker-card-slot.filled:hover .slot-remove-btn {
+            display: flex;
+        }
+
+        .active-selecting {
+            border-color: var(--neon-green) !important;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.4) !important;
+            animation: pulseGlow 1.5s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from { border-color: rgba(57, 255, 20, 0.5); }
+            to { border-color: var(--neon-green); }
+        }
+
+        .player-actions-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .mini-btn {
+            background: transparent;
+            border: 1px solid #333;
+            color: #888;
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mini-btn:hover {
+            color: #fff;
+            border-color: #555;
+        }
+    </style>
+</head>
+<body class="content-page">
+
+    <!-- Dynamic Header -->
+    <div id="global-header"></div>
+    <script src="menu.js"></script>
+
+    <main class="strategy-main">
+        <section class="page-header">
+            <h1 class="elegant-title-small">EQUITY <span class="title-highlight">CALCULATOR</span></h1>
+            <p class="subtitle">Lightning-fast Monte Carlo Texas Hold'em equity simulation in your browser.</p>
+        </section>
+
+        <section class="calc-page-container">
+            
+            <!-- Quick Presets -->
+            <div class="presets-bar">
+                <span style="font-size: 0.8rem; color: #666; align-self: center; letter-spacing: 1px;">PRESETS:</span>
+                <button class="preset-btn" onclick="loadPreset('AA_KK')">AA vs KK</button>
+                <button class="preset-btn" onclick="loadPreset('AKs_QQ')">AKs vs QQ</button>
+                <button class="preset-btn" onclick="loadPreset('JJ_AKo')">JJ vs AKo</button>
+                <button class="preset-btn" onclick="loadPreset('FLOP_DRAW')">Flush Draw vs Top Pair</button>
+                <button class="preset-btn" onclick="randomizeAll()">Randomize Hands</button>
+                <button class="preset-btn" onclick="resetCalculator()" style="color: #ff6666;">Reset All</button>
+            </div>
+
+            <div class="calc-card-main">
+                
+                <!-- Community Board -->
+                <div class="board-section">
+                    <div class="board-label">COMMUNITY CARDS (BOARD)</div>
+                    <div class="board-cards">
+                        <!-- Flop -->
+                        <div class="poker-card-slot" id="board-0" onclick="openCardPicker('board', 0)">
+                            <button class="slot-remove-btn" onclick="clearCard(event, 'board', 0)">✕</button>
+                            <span class="card-placeholder">+</span>
+                        </div>
+                        <div class="poker-card-slot" id="board-1" onclick="openCardPicker('board', 1)">
+                            <button class="slot-remove-btn" onclick="clearCard(event, 'board', 1)">✕</button>
+                            <span class="card-placeholder">+</span>
+                        </div>
+                        <div class="poker-card-slot" id="board-2" onclick="openCardPicker('board', 2)">
+                            <button class="slot-remove-btn" onclick="clearCard(event, 'board', 2)">✕</button>
+                            <span class="card-placeholder">+</span>
+                        </div>
+                        <!-- Turn -->
+                        <div class="poker-card-slot" id="board-3" onclick="openCardPicker('board', 3)" style="margin-left: 15px;">
+                            <button class="slot-remove-btn" onclick="clearCard(event, 'board', 3)">✕</button>
+                            <span class="card-placeholder">+</span>
+                        </div>
+                        <!-- River -->
+                        <div class="poker-card-slot" id="board-4" onclick="openCardPicker('board', 4)" style="margin-left: 15px;">
+                            <button class="slot-remove-btn" onclick="clearCard(event, 'board', 4)">✕</button>
+                            <span class="card-placeholder">+</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <button class="mini-btn" onclick="clearBoardCards()">Clear Board</button>
+                        <button class="mini-btn" onclick="dealRandomBoard()">Deal Random Flop</button>
+                    </div>
+                </div>
+
+                <!-- Players Grid (2 to 4 players) -->
+                <div class="players-grid" id="players-container">
+                    
+                    <!-- Player 1 (Hero) -->
+                    <div class="player-box hero" id="player-card-0">
+                        <div class="player-header">
+                            <span class="player-title" style="color: var(--neon-green);">Player 1 (Hero)</span>
+                        </div>
+                        <div class="player-cards-row">
+                            <div class="poker-card-slot" id="p0-c0" onclick="openCardPicker('player', 0, 0)">
+                                <button class="slot-remove-btn" onclick="clearCard(event, 'player', 0, 0)">✕</button>
+                                <span class="card-placeholder">+</span>
+                            </div>
+                            <div class="poker-card-slot" id="p0-c1" onclick="openCardPicker('player', 0, 1)">
+                                <button class="slot-remove-btn" onclick="clearCard(event, 'player', 0, 1)">✕</button>
+                                <span class="card-placeholder">+</span>
+                            </div>
+                        </div>
+                        <div class="equity-display">
+                            <div class="equity-bar-bg">
+                                <div class="equity-bar-fill" id="bar-0"></div>
+                            </div>
+                            <div class="equity-numbers">
+                                <span>Equity: <b class="equity-val" id="eq-val-0">50.0%</b></span>
+                                <span>Win: <span id="win-val-0">50.0%</span> | Tie: <span id="tie-val-0">0.0%</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Player 2 (Villain 1) -->
+                    <div class="player-box" id="player-card-1">
+                        <div class="player-header">
+                            <span class="player-title">Player 2</span>
+                        </div>
+                        <div class="player-cards-row">
+                            <div class="poker-card-slot" id="p1-c0" onclick="openCardPicker('player', 1, 0)">
+                                <button class="slot-remove-btn" onclick="clearCard(event, 'player', 1, 0)">✕</button>
+                                <span class="card-placeholder">+</span>
+                            </div>
+                            <div class="poker-card-slot" id="p1-c1" onclick="openCardPicker('player', 1, 1)">
+                                <button class="slot-remove-btn" onclick="clearCard(event, 'player', 1, 1)">✕</button>
+                                <span class="card-placeholder">+</span>
+                            </div>
+                        </div>
+                        <div class="equity-display">
+                            <div class="equity-bar-bg">
+                                <div class="equity-bar-fill" id="bar-1"></div>
+                            </div>
+                            <div class="equity-numbers">
+                                <span>Equity: <b class="equity-val" id="eq-val-1">50.0%</b></span>
+                                <span>Win: <span id="win-val-1">50.0%</span> | Tie: <span id="tie-val-1">0.0%</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Player 3 (Optional) -->
+                    <div class="player-box" id="player-card-2" style="display: none;">
+                        <div class="player-header">
+                            <span class="player-title">Player 3</span>
+                            <button class="mini-btn" onclick="removePlayer(2)">✕ Remove</button>
+                        </div>
+                        <div class="player-cards-row">
+                            <div class="poker-card-slot" id="p2-c0" onclick="openCardPicker('player', 2, 0)">
+                                <button class="slot-remove-btn" onclick="clearCard(event, 'player', 2, 0)">✕</button>
+                                <span class="card-placeholder">+</span>
+                            </div>
+                            <div class="poker-card-slot" id="p2-c1" onclick="openCardPicker('player', 2, 1)">
+                                <button class="slot-remove-btn" onclick="clearCard(event, 'player', 2, 1)">✕</button>
+                                <span class="card-placeholder">+</span>
+                            </div>
+                        </div>
+                        <div class="equity-display">
+                            <div class="equity-bar-bg">
+                                <div class="equity-bar-fill" id="bar-2"></div>
+                            </div>
+                            <div class="equity-numbers">
+                                <span>Equity: <b class="equity-val" id="eq-val-2">0.0%</b></span>
+                                <span>Win: <span id="win-val-2">0.0%</span> | Tie: <span id="tie-val-2">0.0%</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Player 4 (Optional) -->
+                    <div class="player-box" id="player-card-3" style="display: none;">
+                        <div class="player-header">
+                            <span class="player-title">Player 4</span>
+                            <button class="mini-btn" onclick="removePlayer(3)">✕ Remove</button>
+                        </div>
+                        <div class="player-cards-row">
+                            <div class="poker-card-slot" id="p3-c0" onclick="openCardPicker('player', 3, 0)">
+                                <button class="slot-remove-btn" onclick="clearCard(event, 'player', 3, 0)">✕</button>
+                                <span class="card-placeholder">+</span>
+                            </div>
+                            <div class="poker-card-slot" id="p3-c1" onclick="openCardPicker('player', 3, 1)">
+                                <button class="slot-remove-btn" onclick="clearCard(event, 'player', 3, 1)">✕</button>
+                                <span class="card-placeholder">+</span>
+                            </div>
+                        </div>
+                        <div class="equity-display">
+                            <div class="equity-bar-bg">
+                                <div class="equity-bar-fill" id="bar-3"></div>
+                            </div>
+                            <div class="equity-numbers">
+                                <span>Equity: <b class="equity-val" id="eq-val-3">0.0%</b></span>
+                                <span>Win: <span id="win-val-3">0.0%</span> | Tie: <span id="tie-val-3">0.0%</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Add Player Button -->
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <button class="mini-btn" id="add-player-btn" onclick="addPlayer()" style="padding: 8px 18px; font-size: 0.85rem;">+ Add Another Player</button>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="calc-action-bar">
+                    <button class="calc-run-btn" id="run-sim-btn" onclick="calculateEquity()">RUN SIMULATION</button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Card Picker Modal -->
+    <div class="card-picker-overlay" id="card-picker-overlay" onclick="closeCardPickerOnOutside(event)">
+        <div class="card-picker-modal">
+            <div class="picker-header">
+                <h3 id="picker-title">SELECT CARD</h3>
+                <button class="picker-close" onclick="closeCardPicker()">✕</button>
+            </div>
+            <p class="card-picker-instructions">Click a card to assign it. Already assigned cards are dimmed.</p>
+            
+            <div class="deck-grid" id="deck-grid">
+                <!-- 4 suits generated via JS -->
+            </div>
+
+            <div class="picker-actions">
+                <button class="control-btn danger" onclick="clearCurrentSlot()">Remove Card</button>
+                <button class="control-btn" onclick="pickRandomAvailableCard()">Random Card</button>
+                <button class="control-btn" onclick="closeCardPicker()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Footer -->
+    <div id="global-footer"></div>
+
+    <!-- POKER ENGINE & SIMULATOR SCRIPT -->
+    <script>
+        const RANKS = ['2','3','4','5','6','7','8','9','T','J','Q','K','A'];
+        const SUITS = ['s', 'h', 'd', 'c']; // spades, hearts, diamonds, clubs
+        const SUIT_SYMBOLS = { 's': '♠', 'h': '♥', 'd': '♦', 'c': '♣' };
+        const SUIT_CLASSES = { 's': 'suit-spades', 'h': 'suit-hearts', 'd': 'suit-diamonds', 'c': 'suit-clubs' };
+
+        // State
+        let activePlayers = 2; // 2, 3 or 4
+        let playersCards = [
+            [null, null], // Player 0
+            [null, null], // Player 1
+            [null, null], // Player 2
+            [null, null]  // Player 3
+        ];
+        let boardCards = [null, null, null, null, null]; // flop 0..2, turn 3, river 4
+        
+        // Active selection target: { type: 'player'|'board', pIdx: 0..3, cIdx: 0..1 }
+        let currentTarget = null;
+
+        // Initialize
+        document.addEventListener("DOMContentLoaded", function() {
+            renderDeckModal();
+            loadPreset('AA_KK');
+        });
+
+        function renderDeckModal() {
+            const grid = document.getElementById('deck-grid');
+            grid.innerHTML = '';
+
+            SUITS.forEach(suit => {
+                const row = document.createElement('div');
+                row.className = 'deck-suit-row';
+
+                // Display A down to 2
+                for (let i = RANKS.length - 1; i >= 0; i--) {
+                    const rank = RANKS[i];
+                    const cardCode = rank + suit;
+
+                    const btn = document.createElement('button');
+                    btn.className = `picker-card-btn ${SUIT_CLASSES[suit]}`;
+                    btn.id = `deck-${cardCode}`;
+                    btn.setAttribute('data-card', cardCode);
+                    btn.innerHTML = `<span>${rank}</span><span>${SUIT_SYMBOLS[suit]}</span>`;
+                    btn.onclick = () => selectCard(cardCode);
+
+                    row.appendChild(btn);
+                }
+                grid.appendChild(row);
+            });
+        }
+
+        function getAllAssignedCards() {
+            const assigned = new Set();
+            for (let p = 0; p < activePlayers; p++) {
+                if (playersCards[p][0]) assigned.add(playersCards[p][0]);
+                if (playersCards[p][1]) assigned.add(playersCards[p][1]);
+            }
+            boardCards.forEach(c => {
+                if (c) assigned.add(c);
+            });
+            return assigned;
+        }
+
+        function updateDeckModalState() {
+            const assigned = getAllAssignedCards();
+            const currentCard = getTargetCard(currentTarget);
+
+            SUITS.forEach(s => {
+                RANKS.forEach(r => {
+                    const card = r + s;
+                    const btn = document.getElementById(`deck-${card}`);
+                    if (btn) {
+                        btn.disabled = assigned.has(card) && card !== currentCard;
+                    }
+                });
+            });
+        }
+
+        function getTargetCard(target) {
+            if (!target) return null;
+            if (target.type === 'player') {
+                return playersCards[target.pIdx][target.cIdx];
+            } else {
+                return boardCards[target.cIdx];
+            }
+        }
+
+        function openCardPicker(type, pIdx, cIdx) {
+            if (type === 'board') {
+                currentTarget = { type: 'board', cIdx: pIdx };
+                document.getElementById('picker-title').innerText = `SELECT BOARD CARD (${pIdx < 3 ? 'FLOP' : pIdx === 3 ? 'TURN' : 'RIVER'})`;
+            } else {
+                currentTarget = { type: 'player', pIdx, cIdx };
+                document.getElementById('picker-title').innerText = `SELECT PLAYER ${pIdx + 1} CARD ${cIdx + 1}`;
+            }
+
+            // Highlight slot
+            clearActiveSlotHighlights();
+            const slotEl = getSlotElement(currentTarget);
+            if (slotEl) slotEl.classList.add('active-selecting');
+
+            updateDeckModalState();
+            document.getElementById('card-picker-overlay').classList.add('open');
+        }
+
+        function closeCardPicker() {
+            clearActiveSlotHighlights();
+            currentTarget = null;
+            document.getElementById('card-picker-overlay').classList.remove('open');
+        }
+
+        function closeCardPickerOnOutside(e) {
+            if (e.target.id === 'card-picker-overlay') {
+                closeCardPicker();
+            }
+        }
+
+        function clearActiveSlotHighlights() {
+            document.querySelectorAll('.poker-card-slot').forEach(el => {
+                el.classList.remove('active-selecting');
+            });
+        }
+
+        function getSlotElement(target) {
+            if (!target) return null;
+            if (target.type === 'board') {
+                return document.getElementById(`board-${target.cIdx}`);
+            } else {
+                return document.getElementById(`p${target.pIdx}-c${target.cIdx}`);
+            }
+        }
+
+        function selectCard(cardCode) {
+            if (!currentTarget) return;
+
+            if (currentTarget.type === 'player') {
+                playersCards[currentTarget.pIdx][currentTarget.cIdx] = cardCode;
+            } else {
+                boardCards[currentTarget.cIdx] = cardCode;
+            }
+
+            renderCardSlot(currentTarget, cardCode);
+            
+            // Advance automatically to next empty slot
+            const next = findNextEmptySlot(currentTarget);
+            if (next) {
+                openCardPicker(next.type, next.pIdx !== undefined ? next.pIdx : next.cIdx, next.cIdx);
+            } else {
+                closeCardPicker();
+            }
+
+            calculateEquity();
+        }
+
+        function findNextEmptySlot(fromTarget) {
+            if (fromTarget.type === 'player') {
+                // If player card 0 was picked, go to card 1 of same player
+                if (fromTarget.cIdx === 0 && !playersCards[fromTarget.pIdx][1]) {
+                    return { type: 'player', pIdx: fromTarget.pIdx, cIdx: 1 };
+                }
+                // Next player
+                for (let p = fromTarget.pIdx + 1; p < activePlayers; p++) {
+                    if (!playersCards[p][0]) return { type: 'player', pIdx: p, cIdx: 0 };
+                    if (!playersCards[p][1]) return { type: 'player', pIdx: p, cIdx: 1 };
+                }
+            }
+            // Check board
+            for (let b = 0; b < 5; b++) {
+                if (!boardCards[b]) return { type: 'board', cIdx: b };
+            }
+            return null;
+        }
+
+        function renderCardSlot(target, cardCode) {
+            const slot = getSlotElement(target);
+            if (!slot) return;
+
+            if (!cardCode) {
+                slot.className = 'poker-card-slot';
+                slot.innerHTML = `<button class="slot-remove-btn" onclick="clearCard(event, '${target.type}', ${target.pIdx !== undefined ? target.pIdx : target.cIdx}, ${target.cIdx})">✕</button><span class="card-placeholder">+</span>`;
+            } else {
+                const rank = cardCode.charAt(0);
+                const suit = cardCode.charAt(1);
+                const suitClass = SUIT_CLASSES[suit];
+                const suitSymbol = SUIT_SYMBOLS[suit];
+
+                slot.className = `poker-card-slot filled ${suitClass}`;
+                slot.innerHTML = `
+                    <button class="slot-remove-btn" onclick="clearCard(event, '${target.type}', ${target.pIdx !== undefined ? target.pIdx : target.cIdx}, ${target.cIdx})">✕</button>
+                    <span class="card-rank">${rank}</span>
+                    <span class="card-suit">${suitSymbol}</span>
+                `;
+            }
+        }
+
+        function clearCard(event, type, pIdx, cIdx) {
+            event.stopPropagation();
+            if (type === 'board') {
+                boardCards[pIdx] = null;
+                renderCardSlot({ type: 'board', cIdx: pIdx }, null);
+            } else {
+                playersCards[pIdx][cIdx] = null;
+                renderCardSlot({ type: 'player', pIdx, cIdx }, null);
+            }
+            calculateEquity();
+        }
+
+        function clearCurrentSlot() {
+            if (!currentTarget) return;
+            if (currentTarget.type === 'board') {
+                boardCards[currentTarget.cIdx] = null;
+            } else {
+                playersCards[currentTarget.pIdx][currentTarget.cIdx] = null;
+            }
+            renderCardSlot(currentTarget, null);
+            closeCardPicker();
+            calculateEquity();
+        }
+
+        function pickRandomAvailableCard() {
+            const assigned = getAllAssignedCards();
+            const pool = [];
+            SUITS.forEach(s => {
+                RANKS.forEach(r => {
+                    const c = r + s;
+                    if (!assigned.has(c)) pool.push(c);
+                });
+            });
+
+            if (pool.length > 0) {
+                const rand = pool[Math.floor(Math.random() * pool.length)];
+                selectCard(rand);
+            }
+        }
+
+        function clearBoardCards() {
+            for (let i = 0; i < 5; i++) {
+                boardCards[i] = null;
+                renderCardSlot({ type: 'board', cIdx: i }, null);
+            }
+            calculateEquity();
+        }
+
+        function dealRandomBoard() {
+            const assigned = getAllAssignedCards();
+            const pool = [];
+            SUITS.forEach(s => {
+                RANKS.forEach(r => {
+                    const c = r + s;
+                    if (!assigned.has(c)) pool.push(c);
+                });
+            });
+
+            // Deal 3 flop cards
+            for (let i = 0; i < 3; i++) {
+                if (pool.length === 0) break;
+                const randIdx = Math.floor(Math.random() * pool.length);
+                const card = pool.splice(randIdx, 1)[0];
+                boardCards[i] = card;
+                renderCardSlot({ type: 'board', cIdx: i }, card);
+            }
+            calculateEquity();
+        }
+
+        function addPlayer() {
+            if (activePlayers < 4) {
+                activePlayers++;
+                document.getElementById(`player-card-${activePlayers - 1}`).style.display = 'block';
+                if (activePlayers === 4) {
+                    document.getElementById('add-player-btn').style.display = 'none';
+                }
+                calculateEquity();
+            }
+        }
+
+        function removePlayer(pIdx) {
+            if (activePlayers > 2) {
+                playersCards[pIdx] = [null, null];
+                renderCardSlot({ type: 'player', pIdx, cIdx: 0 }, null);
+                renderCardSlot({ type: 'player', pIdx, cIdx: 1 }, null);
+                document.getElementById(`player-card-${pIdx}`).style.display = 'none';
+                
+                // If player 2 was removed and 3 is still active, shift or keep
+                activePlayers--;
+                document.getElementById('add-player-btn').style.display = 'inline-block';
+                calculateEquity();
+            }
+        }
+
+        function resetCalculator() {
+            for (let p = 0; p < 4; p++) {
+                playersCards[p] = [null, null];
+                renderCardSlot({ type: 'player', pIdx: p, cIdx: 0 }, null);
+                renderCardSlot({ type: 'player', pIdx: p, cIdx: 1 }, null);
+            }
+            clearBoardCards();
+            activePlayers = 2;
+            document.getElementById('player-card-2').style.display = 'none';
+            document.getElementById('player-card-3').style.display = 'none';
+            document.getElementById('add-player-btn').style.display = 'inline-block';
+            calculateEquity();
+        }
+
+        function loadPreset(name) {
+            resetCalculator();
+
+            if (name === 'AA_KK') {
+                playersCards[0] = ['As', 'Ah'];
+                playersCards[1] = ['Ks', 'Kh'];
+            } else if (name === 'AKs_QQ') {
+                playersCards[0] = ['As', 'Ks'];
+                playersCards[1] = ['Qh', 'Qd'];
+            } else if (name === 'JJ_AKo') {
+                playersCards[0] = ['Jc', 'Jd'];
+                playersCards[1] = ['Ah', 'Kd'];
+            } else if (name === 'FLOP_DRAW') {
+                playersCards[0] = ['As', '5s']; // Nut flush draw + gutshot
+                playersCards[1] = ['Kd', 'Qh']; // Top pair
+                boardCards[0] = 'Ks';
+                boardCards[1] = '8s';
+                boardCards[2] = '2d';
+            }
+
+            // Render assigned
+            for (let p = 0; p < 2; p++) {
+                renderCardSlot({ type: 'player', pIdx: p, cIdx: 0 }, playersCards[p][0]);
+                renderCardSlot({ type: 'player', pIdx: p, cIdx: 1 }, playersCards[p][1]);
+            }
+            for (let b = 0; b < 5; b++) {
+                renderCardSlot({ type: 'board', cIdx: b }, boardCards[b]);
+            }
+
+            calculateEquity();
+        }
+
+        function randomizeAll() {
+            resetCalculator();
+            const pool = [];
+            SUITS.forEach(s => {
+                RANKS.forEach(r => pool.push(r + s));
+            });
+
+            for (let p = 0; p < activePlayers; p++) {
+                const c1 = pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
+                const c2 = pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
+                playersCards[p] = [c1, c2];
+                renderCardSlot({ type: 'player', pIdx: p, cIdx: 0 }, c1);
+                renderCardSlot({ type: 'player', pIdx: p, cIdx: 1 }, c2);
+            }
+            calculateEquity();
+        }
+
+        // ====================================================
+        // HIGH-PERFORMANCE 7-CARD POKER EVALUATION & SIMULATOR
+        // ====================================================
+        const RANK_VALUES = {
+            '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
+            '8': 8, '9': 9, 'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14
+        };
+
+        // Convert card 'As' to numeric object { rank: 14, suit: 0 }
+        function parseCard(code) {
+            const suitIdx = code.charAt(1) === 's' ? 0 : code.charAt(1) === 'h' ? 1 : code.charAt(1) === 'd' ? 2 : 3;
+            return { rank: RANK_VALUES[code.charAt(0)], suit: suitIdx };
+        }
+
+        // Fast evaluation of 7 cards -> returns numeric rank score
+        function evaluate7Cards(cards) {
+            // Rank counts and suit counts
+            const rankCounts = new Int8Array(15);
+            const suitCounts = new Int8Array(4);
+
+            for (let i = 0; i < 7; i++) {
+                rankCounts[cards[i].rank]++;
+                suitCounts[cards[i].suit]++;
+            }
+
+            // Check flush
+            let flushSuit = -1;
+            for (let s = 0; s < 4; s++) {
+                if (suitCounts[s] >= 5) {
+                    flushSuit = s;
+                    break;
+                }
+            }
+
+            // Check straight flush
+            if (flushSuit !== -1) {
+                let sfMask = 0;
+                for (let i = 0; i < 7; i++) {
+                    if (cards[i].suit === flushSuit) {
+                        sfMask |= (1 << cards[i].rank);
+                        if (cards[i].rank === 14) sfMask |= (1 << 1); // Ace low
+                    }
+                }
+                for (let r = 14; r >= 5; r--) {
+                    const straightMask = (0x1F << (r - 4));
+                    if ((sfMask & straightMask) === straightMask) {
+                        return 8000000 + r; // Straight flush score
+                    }
+                }
+            }
+
+            // Check 4 of a kind
+            for (let r = 14; r >= 2; r--) {
+                if (rankCounts[r] === 4) {
+                    for (let k = 14; k >= 2; k--) {
+                        if (k !== r && rankCounts[k] > 0) {
+                            return 7000000 + r * 100 + k;
+                        }
+                    }
+                }
+            }
+
+            // Check Full House
+            let tripRank = -1;
+            let pairRank = -1;
+            for (let r = 14; r >= 2; r--) {
+                if (rankCounts[r] >= 3) {
+                    if (tripRank === -1) {
+                        tripRank = r;
+                    } else if (pairRank === -1) {
+                        pairRank = r;
+                    }
+                } else if (rankCounts[r] >= 2 && pairRank === -1) {
+                    pairRank = r;
+                }
+            }
+            if (tripRank !== -1 && pairRank !== -1) {
+                return 6000000 + tripRank * 100 + pairRank;
+            }
+
+            // Check Flush
+            if (flushSuit !== -1) {
+                const flushRanks = [];
+                for (let i = 0; i < 7; i++) {
+                    if (cards[i].suit === flushSuit) {
+                        flushRanks.push(cards[i].rank);
+                    }
+                }
+                flushRanks.sort((a, b) => b - a);
+                return 5000000 + flushRanks[0] * 28561 + flushRanks[1] * 2197 + flushRanks[2] * 169 + flushRanks[3] * 13 + flushRanks[4];
+            }
+
+            // Check Straight
+            let straightMask = 0;
+            for (let r = 2; r <= 14; r++) {
+                if (rankCounts[r] > 0) straightMask |= (1 << r);
+            }
+            if (rankCounts[14] > 0) straightMask |= (1 << 1); // Ace-low wheel
+
+            for (let r = 14; r >= 5; r--) {
+                const mask = (0x1F << (r - 4));
+                if ((straightMask & mask) === mask) {
+                    return 4000000 + r;
+                }
+            }
+
+            // Check Three of a Kind
+            if (tripRank !== -1) {
+                const kickers = [];
+                for (let r = 14; r >= 2; r--) {
+                    if (r !== tripRank && rankCounts[r] > 0) {
+                        kickers.push(r);
+                        if (kickers.length === 2) break;
+                    }
+                }
+                return 3000000 + tripRank * 1000 + kickers[0] * 15 + kickers[1];
+            }
+
+            // Check Two Pair
+            let pair1 = -1;
+            let pair2 = -1;
+            for (let r = 14; r >= 2; r--) {
+                if (rankCounts[r] >= 2) {
+                    if (pair1 === -1) pair1 = r;
+                    else if (pair2 === -1) {
+                        pair2 = r;
+                        break;
+                    }
+                }
+            }
+            if (pair1 !== -1 && pair2 !== -1) {
+                for (let k = 14; k >= 2; k--) {
+                    if (k !== pair1 && k !== pair2 && rankCounts[k] > 0) {
+                        return 2000000 + pair1 * 1000 + pair2 * 50 + k;
+                    }
+                }
+            }
+
+            // Check One Pair
+            if (pair1 !== -1) {
+                const kickers = [];
+                for (let r = 14; r >= 2; r--) {
+                    if (r !== pair1 && rankCounts[r] > 0) {
+                        kickers.push(r);
+                        if (kickers.length === 3) break;
+                    }
+                }
+                return 1000000 + pair1 * 10000 + kickers[0] * 300 + kickers[1] * 15 + kickers[2];
+            }
+
+            // High Card
+            const highs = [];
+            for (let r = 14; r >= 2; r--) {
+                if (rankCounts[r] > 0) {
+                    highs.push(r);
+                    if (highs.length === 5) break;
+                }
+            }
+            return highs[0] * 28561 + highs[1] * 2197 + highs[2] * 169 + highs[3] * 13 + highs[4];
+        }
+
+        // Simulation runner
+        function calculateEquity() {
+            // Check if at least 2 players have cards
+            let readyPlayers = 0;
+            for (let p = 0; p < activePlayers; p++) {
+                if (playersCards[p][0] && playersCards[p][1]) readyPlayers++;
+            }
+
+            if (readyPlayers < 2) {
+                // Not enough cards to run
+                for (let p = 0; p < activePlayers; p++) {
+                    updatePlayerDisplay(p, 0, 0, 0);
+                }
+                return;
+            }
+
+            // Build full deck excluding known cards
+            const knownCards = getAllAssignedCards();
+            const remainingDeck = [];
+            SUITS.forEach(s => {
+                RANKS.forEach(r => {
+                    const c = r + s;
+                    if (!knownCards.has(c)) {
+                        remainingDeck.push(parseCard(c));
+                    }
+                });
+            });
+
+            // Parse known board and player cards
+            const parsedBoard = boardCards.filter(c => c !== null).map(parseCard);
+            const neededBoardCards = 5 - parsedBoard.length;
+
+            const parsedPlayers = [];
+            for (let p = 0; p < activePlayers; p++) {
+                if (playersCards[p][0] && playersCards[p][1]) {
+                    parsedPlayers.push({
+                        id: p,
+                        c1: parseCard(playersCards[p][0]),
+                        c2: parseCard(playersCards[p][1])
+                    });
+                } else {
+                    parsedPlayers.push(null);
+                }
+            }
+
+            const numSims = neededBoardCards === 0 ? 1 : 25000;
+            const wins = new Float64Array(activePlayers);
+            const ties = new Float64Array(activePlayers);
+
+            // Simulation loop
+            const sampleCards = new Array(7);
+            const currentBoard = new Array(5);
+
+            for (let t = 0; t < numSims; t++) {
+                // Shuffle needed remaining cards
+                if (neededBoardCards > 0) {
+                    for (let i = 0; i < neededBoardCards; i++) {
+                        const randIdx = i + Math.floor(Math.random() * (remainingDeck.length - i));
+                        const tmp = remainingDeck[i];
+                        remainingDeck[i] = remainingDeck[randIdx];
+                        remainingDeck[randIdx] = tmp;
+                    }
+                    // Combine with known board
+                    for (let b = 0; b < parsedBoard.length; b++) {
+                        currentBoard[b] = parsedBoard[b];
+                    }
+                    for (let b = 0; b < neededBoardCards; b++) {
+                        currentBoard[parsedBoard.length + b] = remainingDeck[b];
+                    }
+                } else {
+                    for (let b = 0; b < 5; b++) currentBoard[b] = parsedBoard[b];
+                }
+
+                // Evaluate all active players
+                let bestScore = -1;
+                let winners = [];
+
+                for (let p = 0; p < activePlayers; p++) {
+                    const player = parsedPlayers[p];
+                    if (!player) continue;
+
+                    sampleCards[0] = player.c1;
+                    sampleCards[1] = player.c2;
+                    sampleCards[2] = currentBoard[0];
+                    sampleCards[3] = currentBoard[1];
+                    sampleCards[4] = currentBoard[2];
+                    sampleCards[5] = currentBoard[3];
+                    sampleCards[6] = currentBoard[4];
+
+                    const score = evaluate7Cards(sampleCards);
+                    if (score > bestScore) {
+                        bestScore = score;
+                        winners = [p];
+                    } else if (score === bestScore) {
+                        winners.push(p);
+                    }
+                }
+
+                if (winners.length === 1) {
+                    wins[winners[0]]++;
+                } else {
+                    for (let w = 0; w < winners.length; w++) {
+                        ties[winners[w]] += (1 / winners.length);
+                    }
+                }
+            }
+
+            // Update UI
+            for (let p = 0; p < activePlayers; p++) {
+                if (parsedPlayers[p]) {
+                    const winPercent = (wins[p] / numSims) * 100;
+                    const tiePercent = (ties[p] / numSims) * 100;
+                    const equityPercent = winPercent + tiePercent;
+                    updatePlayerDisplay(p, equityPercent, winPercent, tiePercent);
+                } else {
+                    updatePlayerDisplay(p, 0, 0, 0);
+                }
+            }
+        }
+
+        function updatePlayerDisplay(pIdx, equity, win, tie) {
+            const eqVal = document.getElementById(`eq-val-${pIdx}`);
+            const winVal = document.getElementById(`win-val-${pIdx}`);
+            const tieVal = document.getElementById(`tie-val-${pIdx}`);
+            const bar = document.getElementById(`bar-${pIdx}`);
+
+            if (!eqVal || !bar) return;
+
+            const eqStr = equity.toFixed(1) + '%';
+            eqVal.innerText = eqStr;
+            winVal.innerText = win.toFixed(1) + '%';
+            tieVal.innerText = tie.toFixed(1) + '%';
+
+            bar.style.width = eqStr;
+
+            if (equity > 50) {
+                eqVal.classList.add('high');
+            } else {
+                eqVal.classList.remove('high');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -9,10 +9,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 <img src="logo.png" alt="OpenPokerLab Logo" style="height: 45px; margin-right: 15px; border-radius: 4px;">
                 OPENPOKER<span class="neon-text-small">LAB</span>
             </a>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <nav>
                 <ul id="nav-links">
                     <li><a href="index.html">HOME</a></li>
                     <li><a href="beginner.html">BEGINNER</a></li>
+                    <li><a href="calculator.html">CALCULATOR</a></li>
                     <li><a href="ranges.html">RANGES</a></li>
                     <li><a href="glossary.html">GLOSSARY</a></li>
                     <li><a href="software.html">SOFTWARE</a></li>
@@ -30,6 +36,46 @@ document.addEventListener("DOMContentLoaded", function() {
     const globalHeader = document.getElementById("global-header");
     if (globalHeader) {
         globalHeader.innerHTML = menuHTML;
+    }
+
+    // Mobile navigation toggle logic
+    const menuToggle = document.getElementById("mobile-menu-toggle");
+    const navElement = document.querySelector("header nav");
+    if (menuToggle && navElement) {
+        menuToggle.addEventListener("click", function(e) {
+            e.stopPropagation();
+            const isOpen = navElement.classList.toggle("open");
+            menuToggle.classList.toggle("open");
+            menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            document.body.classList.toggle("nav-open", isOpen);
+        });
+
+        navElement.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", function() {
+                navElement.classList.remove("open");
+                menuToggle.classList.remove("open");
+                menuToggle.setAttribute("aria-expanded", "false");
+                document.body.classList.remove("nav-open");
+            });
+        });
+
+        document.addEventListener("click", function(e) {
+            if (!e.target.closest("header") && navElement.classList.contains("open")) {
+                navElement.classList.remove("open");
+                menuToggle.classList.remove("open");
+                menuToggle.setAttribute("aria-expanded", "false");
+                document.body.classList.remove("nav-open");
+            }
+        });
+
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape" && navElement.classList.contains("open")) {
+                navElement.classList.remove("open");
+                menuToggle.classList.remove("open");
+                menuToggle.setAttribute("aria-expanded", "false");
+                document.body.classList.remove("nav-open");
+            }
+        });
     }
 
     // Highlight the active page in the navigation menu

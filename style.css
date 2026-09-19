@@ -35,17 +35,19 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 40px 60px; 
+    padding: 30px 45px; 
+    position: relative;
+    z-index: 100;
 }
 
 .logo {
     font-weight: 400;
     font-size: 1.1rem;
     letter-spacing: 3px;
-    text-decoration: none; /* Fjerner stregen under linket */
-    color: var(--text-color); /* Sørger for at det forbliver hvidt */
-    
-    /* Gør teksten umarkérbar */
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
     -webkit-user-select: none; 
     -ms-user-select: none; 
     user-select: none; 
@@ -59,21 +61,117 @@ header {
 nav ul {
     list-style: none;
     display: flex;
-    gap: 50px; 
+    gap: 22px; 
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 nav a {
     color: #888888; 
     text-decoration: none;
     font-weight: 400;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    transition: color 0.4s ease, text-shadow 0.4s ease;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    white-space: nowrap;
 }
 
 nav a:hover, nav a.active {
     color: var(--text-color); 
     text-shadow: 0 0 10px var(--neon-green);
+}
+
+/* Hamburger menu button */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 32px;
+    height: 26px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1002;
+}
+
+.mobile-menu-toggle span {
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-toggle.open span:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg);
+    background-color: var(--neon-green);
+}
+
+.mobile-menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.mobile-menu-toggle.open span:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg);
+    background-color: var(--neon-green);
+}
+
+/* Mobile navigation drawer */
+@media (max-width: 1100px) {
+    header {
+        padding: 20px 25px;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    header nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 300px;
+        max-width: 85vw;
+        height: 100vh;
+        background-color: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-left: 1px solid #222;
+        box-shadow: -15px 0 35px rgba(0, 0, 0, 0.8);
+        padding: 90px 30px 40px 30px;
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1001;
+        overflow-y: auto;
+    }
+
+    header nav.open {
+        transform: translateX(0);
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 22px;
+        align-items: flex-start;
+    }
+
+    header nav a {
+        font-size: 1rem;
+        display: block;
+        padding: 6px 0;
+        letter-spacing: 2px;
+        color: #bbb;
+    }
+
+    header nav a:hover, header nav a.active {
+        color: var(--neon-green);
+    }
+
+    body.nav-open {
+        overflow: hidden !important;
+    }
 }
 
 /* =========================================
@@ -656,3 +754,423 @@ nav a:hover, nav a.active {
         gap: 10px;
     }
 }
+
+/* =========================================
+   12. RANGE MAKER & WEIGHTED FREQUENCIES
+========================================= */
+.range-matrix-container,
+.poker-grid {
+    touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.weight-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.weight-presets {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.weight-btn {
+    background: #151515;
+    color: #888;
+    border: 1px solid #333;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-family: var(--font-main);
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.weight-btn:hover {
+    color: #fff;
+    border-color: #555;
+}
+
+.weight-btn.active {
+    background: var(--neon-green);
+    color: #000;
+    border-color: var(--neon-green);
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+}
+
+.weight-slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.weight-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: #222;
+    outline: none;
+    width: 120px;
+}
+
+.weight-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--neon-green);
+    cursor: pointer;
+    box-shadow: 0 0 8px var(--neon-green);
+}
+
+.weight-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--neon-green);
+    cursor: pointer;
+    box-shadow: 0 0 8px var(--neon-green);
+    border: none;
+}
+
+.weight-display {
+    font-family: monospace;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--neon-green);
+    min-width: 48px;
+    text-align: right;
+}
+
+/* =========================================
+   13. EQUITY CALCULATOR STYLES
+========================================= */
+.calc-page-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 20px 80px 20px;
+}
+
+.calc-card-main {
+    background: #0d0d0d;
+    border: 1px solid #1f1f1f;
+    border-top: 4px solid var(--neon-green);
+    border-radius: 8px;
+    padding: 35px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+/* Board section */
+.board-section {
+    background: #060606;
+    border: 1px solid #1a1a1a;
+    border-radius: 6px;
+    padding: 25px;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.board-label {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.board-cards {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Playing Card visual representation */
+.poker-card-slot {
+    width: 60px;
+    height: 85px;
+    border: 1.5px dashed #333;
+    border-radius: 6px;
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    user-select: none;
+}
+
+.poker-card-slot:hover {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 12px rgba(57, 255, 20, 0.2);
+    transform: translateY(-2px);
+}
+
+.poker-card-slot.filled {
+    border: 1.5px solid #444;
+    background: #161616;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.card-rank {
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.card-suit {
+    font-size: 1.2rem;
+    line-height: 1;
+    margin-top: 3px;
+}
+
+/* 4-color deck */
+.suit-spades { color: #f0f0f0; }
+.suit-hearts { color: #ff3344; }
+.suit-diamonds { color: #3388ff; }
+.suit-clubs { color: #00dd55; }
+
+/* Players grid */
+.players-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+.player-box {
+    background: #070707;
+    border: 1px solid #1c1c1c;
+    border-radius: 6px;
+    padding: 22px;
+    transition: border-color 0.3s ease;
+    position: relative;
+}
+
+.player-box.hero {
+    border-left: 3px solid var(--neon-green);
+}
+
+.player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.player-title {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.player-cards-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Equity stats & bar */
+.equity-display {
+    background: #0f0f0f;
+    border: 1px solid #1e1e1e;
+    border-radius: 4px;
+    padding: 12px 15px;
+}
+
+.equity-bar-bg {
+    height: 8px;
+    background: #1a1a1a;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.equity-bar-fill {
+    height: 100%;
+    background: var(--neon-green);
+    width: 0%;
+    transition: width 0.4s ease;
+    box-shadow: 0 0 10px var(--neon-green);
+}
+
+.equity-numbers {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #aaa;
+    font-family: monospace;
+}
+
+.equity-val {
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.equity-val.high {
+    color: var(--neon-green);
+    text-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
+}
+
+/* Calculator control buttons */
+.calc-action-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.calc-run-btn {
+    background: var(--neon-green);
+    color: #000;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 16px 40px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.25);
+}
+
+.calc-run-btn:hover {
+    background: #32e612;
+    box-shadow: 0 0 30px rgba(57, 255, 20, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Card Picker Modal */
+.card-picker-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.card-picker-overlay.open {
+    display: flex;
+}
+
+.card-picker-modal {
+    background: #0e0e0e;
+    border: 1px solid #282828;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 650px;
+    padding: 25px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+}
+
+.picker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #222;
+}
+
+.picker-header h3 {
+    color: #fff;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.picker-close {
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.picker-close:hover {
+    color: #fff;
+}
+
+.deck-grid {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.deck-suit-row {
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    gap: 5px;
+}
+
+.picker-card-btn {
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    aspect-ratio: 0.75;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 2px;
+    transition: all 0.15s ease;
+}
+
+.picker-card-btn:hover:not(:disabled) {
+    border-color: var(--neon-green);
+    transform: scale(1.1);
+    z-index: 2;
+}
+
+.picker-card-btn:disabled {
+    opacity: 0.18;
+    cursor: not-allowed;
+    background: #090909;
+    border-color: #191919;
+}
+
+.picker-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    border-top: 1px solid #222;
+    padding-top: 15px;
+}
+
