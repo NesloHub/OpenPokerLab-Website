@@ -1060,15 +1060,15 @@
         <div class="container">
             <div class="badge-pill">
                 <span class="badge-dot"></span>
-                OpenPokerLab &bull; PokerEquity Lab v1.0.0 &bull; Free open-source equity calculator
+                OpenPokerLab &bull; PokerEquity Lab v1.0.0 &bull; Free equity and range calculator for Windows
             </div>
-            <h1>PokerStove-class equity, <em>rebuilt for today</em></h1>
+            <h1>See how often your hand wins &mdash; <em>before the money goes in</em></h1>
             <p class="lead">
-                PokerEquity Lab is a free Texas Hold'em equity and range calculator for Windows. Put two to ten
-                players on a board, paint their ranges in a 13x13 matrix, and get win, tie, lose and equity numbers
-                that are <strong>exact when the scenario is small</strong> and sampled up to five million runouts when
-                it is not. It replaces the discontinued PokerStove with a current build for Windows 10 and 11 &mdash;
-                no installer required, no runtime to download, no account, and no network calls at all.
+                PokerEquity Lab is a free Windows program that answers one question: how often does each hand win?
+                Pick the cards, or draw the ranges you think your opponents play, and press <strong>Calculate</strong>.
+                You get win, tie and lose percentages plus the equity for two to ten players &mdash; before the flop, or
+                on a flop, a turn and a river. The answer is counted exactly whenever the situation allows it and
+                estimated very closely everywhere else. No account, nothing to install and no internet connection needed.
             </p>
             <div class="hero-actions">
                 <a href="#download" class="btn-primary" id="hero-dl-btn">
@@ -1083,19 +1083,19 @@
             <div class="hero-highlights">
                 <div class="highlight-item">
                     <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    <span>No .NET install &mdash; self-contained build</span>
+                    <span>Just unzip and run &mdash; nothing to install</span>
                 </div>
                 <div class="highlight-item">
                     <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    <span>Exact enumeration, not a rough guess</span>
+                    <span>Exact numbers wherever it is possible</span>
                 </div>
                 <div class="highlight-item">
                     <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5V4H2v16h5m10 0v-2a4 4 0 00-4-4H9a4 4 0 00-4 4v2m10 0H7m5-10a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    <span>2 to 10 players, preflop and postflop</span>
+                    <span>2 to 10 players, preflop or on any board</span>
                 </div>
                 <div class="highlight-item">
                     <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l7 4v5c0 4.5-3 8.2-7 9-4-.8-7-4.5-7-9V7l7-4z"/></svg>
-                    <span>100% offline &mdash; nothing leaves your PC</span>
+                    <span>Works offline &mdash; your hands stay on your own PC</span>
                 </div>
             </div>
         </div>
@@ -1110,52 +1110,52 @@
             <span>Mode: Auto &middot; Runouts: 200000 &middot; Board: Preflop</span>
             <span>portable &middot; v1.0.0 &middot; no installer &middot; no network calls</span>
         </div>
-        <p class="app-shot-caption">That is the whole program in one window. Left: the players with their hole cards and equity, plus the 52 card palette in a four colour deck. Right: the 13x13 range matrix with the paint weights, the live combo counter and the quick presets. Bottom: one status line that reports the mode, the runouts and the elapsed time. The shot above is "JJ+, AKs, AQs+, KQs:50" against "Top 30%" &mdash; 69.23% / 30.77% after 200,000 runouts in 0.08&nbsp;s.</p>
+        <p class="app-shot-caption">The whole program is this one window. On the left you see the players and the deck of cards; on the right the 13x13 range grid with the paint weights and the ready-made ranges. The line at the bottom tells you what just happened. The picture above shows <em>JJ+, AKs, AQs+, KQs:50</em> against <em>Top 30%</em>: 69.23% against 30.77% after 200,000 runouts in 0.08 seconds.</p>
     </section>
 
     <!-- Key Feature Pillars -->
     <section class="container" id="features">
         <div class="section-header">
-            <div class="section-label">What is inside</div>
-            <h2 class="section-title">Everything an equity calculator needs</h2>
-            <p class="section-desc">Range versus range, preflop or on a flop, turn and river &mdash; with a range editor you can draw with the mouse instead of typing.</p>
+            <div class="section-label">What you can do</div>
+            <h2 class="section-title">Everything you need to check a hand</h2>
+            <p class="section-desc">Compare two hands, two ranges or ten players &mdash; on any board. Here is what the program gives you, explained in plain language.</p>
         </div>
         <div class="features-grid">
             <!-- 1 -->
             <div class="feature-card">
                 <div class="feature-icon-box">⚖️</div>
-                <h3>Precise equity for 2 to 10 players</h3>
-                <p>Every combo and every runout is enumerated exactly when the scenario is small. When it is too big to enumerate, the engine switches to a multi threaded Monte Carlo sample &mdash; and tells you which one it used.</p>
+                <h3>Equity for 2 to 10 players</h3>
+                <p>Add as many players as your table has. In small spots the program counts every possible runout; in big ones it switches to a fast random sample &mdash; and the status line always tells you which of the two you got.</p>
             </div>
             <!-- 2 -->
             <div class="feature-card">
                 <div class="feature-icon-box">🎨</div>
-                <h3>A 13x13 matrix you paint</h3>
-                <p>Drag across the grid to add hands, drag again to take them away. The matrix, the combo counter ("290 combos &middot; 21.9%") and the range text stay in sync in both directions.</p>
+                <h3>Draw ranges with your mouse</h3>
+                <p>Hold the left mouse button and drag across the 13x13 grid to add hands; drag across them again to take them away. The range text and the hand counter ("290 combos &middot; 21.9%") follow along on their own.</p>
             </div>
             <!-- 3 -->
             <div class="feature-card">
                 <div class="feature-icon-box">🖌</div>
-                <h3>Paint weights of 100 / 75 / 50 / 25%</h3>
-                <p>Pick a paint weight and drag, or type the frequency: <code>JJ+:50</code>, <code>AKs:25</code>. Partly weighted cells show their weight in the corner, so you can mix a range the way you actually play it.</p>
+                <h3>Mix in weights</h3>
+                <p>Playing a hand only half the time? Paint it at 100, 75, 50 or 25 percent, or type the frequency in the range box as <code>JJ+:50</code> or <code>AKs:25</code>. Cells painted below 100% show their weight in the corner.</p>
             </div>
             <!-- 4 -->
             <div class="feature-card">
                 <div class="feature-icon-box">⚡</div>
-                <h3>Quick range presets</h3>
-                <p>Top 5%, 12%, 20% and 30%, pairs, suited aces, broadways, suited connectors and gappers, any two suited &mdash; and <strong>Random hand</strong>, which fills all 1326 combos at 100% just like PokerStove.</p>
+                <h3>Ready-made ranges in one click</h3>
+                <p>Top 5, 12, 20 and 30 percent, pairs, suited aces, broadways, suited connectors, gappers or any two suited &mdash; and <strong>Random hand</strong>, which simply means "any two cards" for an opponent you know nothing about.</p>
             </div>
             <!-- 5 -->
             <div class="feature-card">
                 <div class="feature-icon-box">🃏</div>
-                <h3>Board builder &amp; hand readout</h3>
-                <p>Fill the flop, turn and river from the palette; cards already in play are dimmed so a card can never be dealt twice. Every player gets a plain English readout of the current hand, for example <em>Two pair, aces and kings</em>.</p>
+                <h3>Add a board and see who is ahead</h3>
+                <p>Click the flop, turn and river slots and pick the cards from the deck. Cards that are already in play are greyed out, so one card can never be dealt twice. Every player also gets the current hand in words, like <em>Two pair, aces and kings</em>.</p>
             </div>
             <!-- 6 -->
             <div class="feature-card">
                 <div class="feature-icon-box">📊</div>
-                <h3>Numbers you can reproduce</h3>
-                <p>Win, tie, lose and equity per player, coloured red below 30%, amber around 50% and green above 70%. Choose 10,000 to 5,000,000 runouts, set a seed for a repeatable sample, and read the elapsed time in the status bar.</p>
+                <h3>Numbers you can repeat</h3>
+                <p>Equity in percent, coloured from red through amber to green, plus win, tie and lose for every player. Choose how many runouts to use, and set a seed if you want to get the exact same sample again later.</p>
             </div>
         </div>
     </section>
@@ -1165,7 +1165,7 @@
         <div class="section-header">
             <div class="section-label">Documentation</div>
             <h2 class="section-title">The complete user guide</h2>
-            <p class="section-desc">Five short chapters: from the first launch to a painted range, the board, the calculation modes and the files in the ZIP.</p>
+            <p class="section-desc">Five short chapters in plain language: getting started, drawing ranges, the range text, the board, and the settings plus what is in the download.</p>
         </div>
 
         <div class="guide-nav-tabs">
@@ -1181,13 +1181,13 @@
             <div class="guide-grid">
                 <div class="guide-text">
                     <h3>Your first equity number in two minutes</h3>
-                    <p>PokerEquity Lab is a self-contained Windows build. There is nothing to install, no .NET runtime to download and no account to create &mdash; and nothing is written anywhere but in the folder you unzip it into.</p>
+                    <p>PokerEquity Lab is a single Windows program. There is nothing to install, no extra download and no account to create &mdash; and it does not write anything outside the folder you unzip it into.</p>
                     <ul class="guide-steps">
                         <li>
                             <div class="step-num">1</div>
                             <div>
                                 <strong>Unpack the portable package</strong><br>
-                                Right-click the ZIP and choose <em>Extract All</em>. Anywhere will do &mdash; Desktop, a tools folder or a USB stick. You get <code>PokerEquityLab.App.exe</code> and a short <code>README.txt</code>. Prefer a normal installation? Run the setup instead: it installs into your user profile with a Start Menu shortcut and an uninstaller, and it needs no admin rights.
+                                Right-click the ZIP and choose <em>Extract All</em>. Anywhere will do &mdash; Desktop, a tools folder or a USB stick. You get <code>PokerEquityLab.App.exe</code> and a short <code>README.txt</code>. Prefer a normal installation? Run the setup instead: it installs the program for your user with a Start Menu shortcut and an uninstaller, and it needs no admin rights.
                             </div>
                         </li>
                         <li>
@@ -1233,7 +1233,7 @@
                         <li>
                             <div class="step-num">✓</div>
                             <div>
-                                <strong>Weights:</strong> choose <strong>Paint weight</strong> 100%, 75%, 50% or 25% and then drag &mdash; a cell painted below 100% keeps its weight in the corner. Painted and typed weights mix freely, and <code>:50</code> is the same as <code>:0.5</code>.
+                                <strong>Weights:</strong> playing a hand only sometimes? Choose a paint weight (100, 75, 50 or 25 percent) and drag. A cell painted below 100% shows the weight in its corner, and <code>:50</code> means the same as <code>:0.5</code>.
                             </div>
                         </li>
                         <li>
@@ -1245,7 +1245,7 @@
                         <li>
                             <div class="step-num">✓</div>
                             <div>
-                                <strong>Random, Clear range, Clear:</strong> <strong>Random</strong> fills the selected player with every hand at 100% (the PokerStove and Equilab default), <strong>Clear range</strong> empties one player, and <strong>Clear</strong> resets every range and the board.
+                                <strong>Random, Clear range, Clear:</strong> <strong>Random</strong> gives the selected player every hand, which simply means "any two cards". <strong>Clear range</strong> empties one player, and <strong>Clear</strong> resets every range and the board.
                             </div>
                         </li>
                     </ul>
@@ -1340,8 +1340,8 @@
             <div class="guide-grid" style="margin-top: 26px;">
                 <div class="guide-text">
                     <h3>Combos and percentages</h3>
-                    <p>There are 1326 possible starting hands and the matrix counter always shows how many of them your range contains &mdash; both as a combo count and as a percentage of all hands. A range of "290 combos" is the 21.9% you see in the corner of the matrix, which makes it easy to compare your range with the charts you study.</p>
-                    <p>Weights scale the combos: painting a hand at 50% counts it as half a combo, exactly like a solver frequency. That is how you build a mixed range such as <code>JJ+:50, AKo:25</code> without leaving the calculator.</p>
+                    <p>There are 1326 possible starting hands. The counter in the corner of the grid always shows how many of them your range contains &mdash; as a number and as a percentage of all hands. "290 combos" is the 21.9% you see up there, so you can compare your own range with the charts you study.</p>
+                    <p>A weight counts a hand as a fraction of itself: painted at 50% it counts as half a hand. That is how you build a mixed range such as <code>JJ+:50, AKo:25</code> without leaving the program.</p>
                 </div>
                 <div class="guide-callout">
                     <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">📋 Copy a range into the box</h4>
@@ -1364,7 +1364,7 @@
                         <li>
                             <div class="step-num">🃏</div>
                             <div>
-                                <strong>The board:</strong> <code>F1</code>, <code>F2</code> and <code>F3</code> are the flop, then <code>Trn</code> and <code>Rvr</code>. The label next to the row tells you where you are (<em>Preflop</em>, <em>Flop</em>, <em>Turn</em>, <em>River</em>) and the mode hint explains what the engine will do. <strong>Clear board</strong> empties it again.
+                                <strong>The board:</strong> <code>F1</code>, <code>F2</code> and <code>F3</code> are the flop, then <code>Trn</code> and <code>Rvr</code>. The label next to the row tells you where you are (<em>Preflop</em>, <em>Flop</em>, <em>Turn</em>, <em>River</em>) and what the program is about to do. <strong>Clear board</strong> empties it again.
                             </div>
                         </li>
                         <li>
@@ -1402,43 +1402,43 @@
         <div class="tab-content" id="tab-modes">
             <div class="guide-grid">
                 <div class="guide-text">
-                    <h3>Modes, numbers and what is inside the ZIP</h3>
-                    <p>Two settings decide how the engine works: the <strong>mode</strong> and the number of <strong>runouts</strong>. Everything else is a convenience you can ignore until you need it.</p>
+                    <h3>Settings, numbers and what is in the download</h3>
+                    <p>Two settings decide how the numbers are found: the <strong>mode</strong> and the number of <strong>runouts</strong> (one runout is one complete deal of the remaining cards). Everything else you can safely ignore until you need it.</p>
                     <ul class="guide-steps">
                         <li>
                             <div class="step-num">✓</div>
                             <div>
-                                <strong>Mode Auto:</strong> exact enumeration when the scenario is small, random sampling when it is not. This is the default and the right choice for almost everything.
+                                <strong>Mode Auto:</strong> counts everything exactly when the spot is small enough, and samples when it is not. This is the default, and the right choice if you are unsure.
                             </div>
                         </li>
                         <li>
                             <div class="step-num">✓</div>
                             <div>
-                                <strong>Mode Exact:</strong> every combo and every runout is enumerated &mdash; no approximation. <code>AA</code> against <code>KK</code> comes out as 81.9% because all of it was counted.
+                                <strong>Mode Exact:</strong> always counts every possibility, so nothing is estimated. <code>AA</code> against <code>KK</code> comes out as 81.9% because every deal was looked at.
                             </div>
                         </li>
                         <li>
                             <div class="step-num">✓</div>
                             <div>
-                                <strong>Mode Monte Carlo:</strong> always samples, using the runout count you pick: 10,000, 50,000, 200,000 (the default), 1,000,000 or 5,000,000. Sampling error falls with the square root of the count, so 5M runouts is about five times tighter than 200,000.
+                                <strong>Mode Monte Carlo:</strong> always samples, using the number of runouts you choose &mdash; 10,000, 50,000, 200,000 (the default), 1,000,000 or 5,000,000. More runouts give a tighter number and take a little longer.
                             </div>
                         </li>
                         <li>
                             <div class="step-num">✓</div>
                             <div>
-                                <strong>Seed:</strong> leave the box empty and every calculation is a fresh sample; type an integer such as <code>12345</code> and you get the same sample back, which is useful when you compare two ranges.
+                                <strong>Seed:</strong> leave the box empty and every calculation is a fresh sample. Type a number such as <code>12345</code> and you get the same sample back &mdash; handy when you compare two ranges.
                             </div>
                         </li>
                         <li>
                             <div class="step-num">✓</div>
                             <div>
-                                <strong>Inside the portable ZIP:</strong> <code>PokerEquityLab.App.exe</code> and a short <code>README.txt</code> &mdash; no DLLs to keep together. Unzip it anywhere and delete the folder to remove the app again. The installer instead puts the app in your user profile with a Start Menu entry and an uninstaller; neither version needs admin rights.
+                                <strong>In the portable download:</strong> <code>PokerEquityLab.App.exe</code> and a short <code>README.txt</code>, nothing else to look after. Unzip it anywhere, and delete the folder again when you are done with it. The installer version instead puts the program in your own user folder with a Start Menu entry and an uninstall button; neither version needs admin rights.
                             </div>
                         </li>
                         <li>
                             <div class="step-num">✓</div>
                             <div>
-                                <strong>Verify your download:</strong> <code>SHA256SUMS.txt</code> lists the SHA-256 hash of the ZIP and the installer. Run <code>certutil -hashfile "PokerEquityLab-1.0.0-win-x64.zip" SHA256</code> in a command prompt and compare. The build is not code signed, so Windows SmartScreen may ask for confirmation the first time you start it: choose <em>More info</em> and then <em>Run anyway</em>.
+                                <strong>Check your download:</strong> <code>SHA256SUMS.txt</code> on this page lists a fingerprint (SHA-256) of both files. Run <code>certutil -hashfile "PokerEquityLab-1.0.0-win-x64.zip" SHA256</code> in a command prompt and compare the long string. Windows may also warn that the program is not signed yet &mdash; choose <em>More info</em> and then <em>Run anyway</em> if the fingerprint matches.
                             </div>
                         </li>
                     </ul>
@@ -1456,11 +1456,11 @@
                 </div>
 
                 <div class="guide-callout">
-                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">🧮 One engine, two layers</h4>
-                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">The cards, ranges, hand evaluator and equity engine live in a library without any user interface, and the window is a thin layer on top of it. That is why the numbers can be tested against known values, and why the same code builds for other desktops: the published download is the Windows x64 build, and Linux or macOS builds can be produced from source with the .NET 10 SDK.</p>
+                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">📁 Does it save anything?</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">No. The program never writes a database, never touches the registry and never contacts a server. Your last scenario lives in the window while it is open, and when you close it, nothing is left behind but the folder you unzipped. Copy that folder to a USB stick and the whole program travels with it.</p>
                     <div class="code-box">
-                        <span>src/PokerEquity.Core &middot; src/PokerEquityLab.App</span>
-                        <button class="btn-copy" onclick="copySnippet('src/PokerEquity.Core, src/PokerEquityLab.App')">Copy</button>
+                        <span>PokerEquityLab.App.exe &middot; README.txt</span>
+                        <button class="btn-copy" onclick="copySnippet('PokerEquityLab.App.exe')">Copy</button>
                     </div>
                 </div>
             </div>
@@ -1471,8 +1471,8 @@
     <section class="container tos-section" id="rules">
         <div class="section-header">
             <div class="section-label">Fair play</div>
-            <h2 class="section-title">Where an equity calculator fits in the rules</h2>
-            <p class="section-desc">An equity calculator is a study tool. PokerEquity Lab is a normal offline desktop program: it has no connection to a poker client, no overlay, no automation and no server. Poker rooms still differ on what you may run <em>while</em> you play, so the honest answer is below.</p>
+            <h2 class="section-title">Where does a calculator like this fit in the rules?</h2>
+            <p class="section-desc">PokerEquity Lab is an ordinary offline program. It does not connect to a poker room, it shows nothing on your tables and it never plays for you &mdash; it is made for studying hands away from the table. What you are allowed to run <em>while</em> you play differs from room to room, so here is the honest picture.</p>
         </div>
 
         <div class="tos-table-wrap">
@@ -1480,8 +1480,8 @@
                 <thead>
                     <tr>
                         <th>Criterion</th>
-                        <th>Live assistance tools</th>
-                        <th>PokerEquity Lab (OpenPokerLab)</th>
+                        <th>Tools that help you live</th>
+                        <th>PokerEquity Lab</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1524,7 +1524,7 @@
             </table>
         </div>
 
-        <p style="max-width: 860px; margin: 24px auto 0 auto; font-size: 0.85rem; color: var(--text-dim); text-align: center;">Tools like PokerStove, Equilab and PokerEquity Lab are widely treated as study software, but "widely" is not a licence. Read the third-party tools section of your room's terms before you use any calculator during play, and never use one as a live decision aid.</p>
+        <p style="max-width: 860px; margin: 24px auto 0 auto; font-size: 0.85rem; color: var(--text-dim); text-align: center;">A calculator like this one is a study tool, and most rooms accept it away from the tables. That is not a licence to use it anywhere: read the third-party tools section of your room's rules before you run a calculator during play, and never use one as a live decision aid.</p>
     </section>
 
     <!-- Frequently Asked Questions -->
@@ -1536,11 +1536,21 @@
 
         <div class="faq-item open">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span>Is PokerEquity Lab meant to replace PokerStove?</span>
+                <span>What exactly does the program do?</span>
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                For day-to-day equity work, yes. It does the same job &mdash; range versus range equity, preflop and postflop &mdash; in a build that runs on current Windows. You get more players (up to 10), a range matrix you can paint with the mouse, paint weights of 100 / 75 / 50 / 25% for mixed frequencies, 15 one-click presets, a board builder and a window that scales down to small screens. PokerStove's last Windows snapshot is from another era; this is the same idea, maintained.
+                It works out how often each hand or range wins. Set up two to ten players, give them cards or ranges, add a board if you want one, and press Calculate. You get the equity, the win, tie and lose percentages, and the current hand written out &mdash; the number you would otherwise have to guess at during a session.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Is it free, and what do I get for it?</span>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                It is completely free, with no account, no trial limit and no paid tier. Every feature described on this page is in the download: the exact engine, the range grid, the paint weights, the ready-made ranges, the board and the installer. It is part of OpenPokerLab's free tool collection, together with the browser calculator and the range maker on this site.
             </div>
         </div>
 
@@ -1550,7 +1560,7 @@
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                No. The portable ZIP and the installer both contain everything the app needs, including the .NET runtime it was built with: unzip, run <code>PokerEquityLab.App.exe</code>, done. Nothing is installed into the system, no admin rights are needed and there is no library to register.
+                No. Everything the program needs is already inside the download: unzip the folder, start <code>PokerEquityLab.App.exe</code> and you are running. Nothing is added to Windows, no admin rights are needed and there is no library to register.
             </div>
         </div>
 
@@ -1560,7 +1570,7 @@
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                Exact when the scenario is small enough to enumerate, and there the answer is not an estimate: <code>AA</code> against <code>KK</code> is 81.9%, counted runout by runout. Otherwise the engine samples and labels the result as <em>Monte Carlo</em>, with the error shrinking like one over the square root of the runout count &mdash; 200,000 runouts land within a few tenths of a percent, and you can raise it to 5,000,000. Set a seed if you want the exact same sample again.
+                Small spots are counted hand by hand, so those percentages are not estimates: <code>AA</code> against <code>KK</code> is 81.9% because every deal was looked at. Big spots &mdash; many players, wide ranges &mdash; are sampled instead, and the status line says so. With the default 200,000 runouts the answer is normally within a few tenths of a percent, and you can raise the number to 5,000,000 for a tighter figure.
             </div>
         </div>
 
@@ -1570,7 +1580,7 @@
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                Yes. <a href="downloads/SHA256SUMS.txt" style="color: var(--primary);">SHA256SUMS.txt</a> on this page lists the SHA-256 hash of both download files (and of <code>version.txt</code>); the binaries themselves are hosted on GitHub Releases (tag <code>v1.0.0</code>). In a command prompt, run <code>certutil -hashfile "PokerEquityLab-1.0.0-win-x64.zip" SHA256</code> and compare the result with the file. The build is not code signed yet, so SmartScreen can show a warning on first start &mdash; that is the signature, not the checksum, missing.
+                Yes. <a href="downloads/SHA256SUMS.txt" style="color: var(--primary);">SHA256SUMS.txt</a> on this page lists a fingerprint (SHA-256) of both files; the two files themselves are hosted on GitHub, because together they are bigger than this website may host. In a command prompt, run <code>certutil -hashfile "PokerEquityLab-1.0.0-win-x64.zip" SHA256</code> and compare the long string with the file. Windows may also warn that the program is not signed yet &mdash; that is the missing signature, not the fingerprint.
             </div>
         </div>
 
@@ -1580,7 +1590,7 @@
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                Yes &mdash; the browser-based <a href="calculator.html" style="color: var(--primary);">Poker Equity Calculator</a> and the <a href="range-maker.html" style="color: var(--primary);">Interactive Range Maker</a> on this site cover quick pot odds, equities and range building without installing anything. PokerEquity Lab is the desktop version: up to 10 players, exact enumeration, painted weights, presets and a full board, all offline and much faster on big scenarios.
+                Yes &mdash; the browser-based <a href="calculator.html" style="color: var(--primary);">Poker Equity Calculator</a> and the <a href="range-maker.html" style="color: var(--primary);">Interactive Range Maker</a> on this site cover quick pot odds, equities and range building without installing anything. PokerEquity Lab is the desktop version: two to ten players, exact counting, painted weights, ready-made ranges and a full board &mdash; all offline and much faster on the big spots.
             </div>
         </div>
 
@@ -1590,7 +1600,7 @@
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                The published download is the Windows x64 build (Windows 10 version 1809 or newer, and Windows 11). The engine is a plain library without user interface dependencies and the window is built with Avalonia, so the project also builds for Linux and macOS from source with the .NET 10 SDK &mdash; OpenPokerLab ships the Windows build first.
+                The download is for 64-bit Windows 10 (version 1809 or newer) and Windows 11. The program is built with a cross-platform toolkit, so it can also be compiled for Linux and macOS from the source code; OpenPokerLab publishes the Windows version first.
             </div>
         </div>
 
@@ -1609,13 +1619,13 @@
     <section class="container" id="download">
         <div class="download-box">
             <h2>Download PokerEquity Lab v1.0.0</h2>
-            <p>Grab the portable ZIP if you would rather not install anything, or the installer if you want a Start Menu entry and an uninstaller. Both are self-contained &mdash; no .NET runtime, no account, no admin rights &mdash; and both are served from GitHub Releases (tag <code>v1.0.0</code>).</p>
+            <p>Take the portable version if you would rather not install anything, or the installer if you want the program in your Start Menu with an uninstall button. Both work straight away: no account, no extra software, no admin rights. The two files are served from GitHub, because they are larger than this website is allowed to host.</p>
             <div class="hero-actions" style="margin-bottom: 20px; flex-wrap: wrap;">
-                <a href="https://github.com/NesloHub/OpenPokerLab-Website/releases/download/v1.0.0/PokerEquityLab-1.0.0-win-x64.zip" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size: 1.15rem; padding: 18px 40px;">
+                <a href="https://raw.githubusercontent.com/NesloHub/OpenPokerLab-Website/34fb8f0/downloads/PokerEquityLab-1.0.0-win-x64.zip" class="btn-primary" style="font-size: 1.15rem; padding: 18px 40px;">
                     <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                     Download v1.0.0 Portable (.ZIP) &mdash; 42 MB
                 </a>
-                <a href="https://github.com/NesloHub/OpenPokerLab-Website/releases/download/v1.0.0/PokerEquityLab-1.0.0-win-x64-setup.exe" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size: 1.05rem; padding: 18px 32px;">
+                <a href="https://raw.githubusercontent.com/NesloHub/OpenPokerLab-Website/34fb8f0/downloads/PokerEquityLab-1.0.0-win-x64-setup.exe" class="btn-secondary" style="font-size: 1.05rem; padding: 18px 32px;">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
                     Installer (.EXE) &mdash; 42.6 MB
                 </a>
@@ -1628,13 +1638,13 @@
             </div>
             <div class="guide-callout" style="max-width: 760px; margin: 26px auto 0 auto; padding: 20px;">
                 <h4 style="font-family: var(--font-display); font-size: 1.05rem; margin-bottom: 8px;">🔐 Verify your download</h4>
-                <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px;">The hashes are published in <a href="downloads/SHA256SUMS.txt" style="color: var(--primary);">SHA256SUMS.txt</a>. Compare them before you run the app:</p>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px;">The fingerprints are published in <a href="downloads/SHA256SUMS.txt" style="color: var(--primary);">SHA256SUMS.txt</a>. Compare them before you start the program:</p>
                 <div class="code-box">
                     <span>certutil -hashfile "PokerEquityLab-1.0.0-win-x64.zip" SHA256</span>
                     <button class="btn-copy" onclick="copySnippet('certutil -hashfile &quot;PokerEquityLab-1.0.0-win-x64.zip&quot; SHA256')">Copy</button>
                 </div>
             </div>
-            <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 20px;">Version 1.0.0 is the first public Windows build and it is not code signed yet, so SmartScreen may ask for confirmation the first time you start it: choose <em>More info</em> and then <em>Run anyway</em> if the checksum matched. The ZIP holds <code>PokerEquityLab.App.exe</code> and <code>README.txt</code> only; delete the folder to remove the app. The binaries are served from GitHub Releases because each file is larger than the 25 MiB asset limit of the web host.</p>
+            <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 20px;">Version 1.0.0 is the first Windows release and it is not signed yet, so Windows may ask for confirmation the first time you start it: choose <em>More info</em> and then <em>Run anyway</em> once the fingerprint above matches. The portable download holds <code>PokerEquityLab.App.exe</code> and <code>README.txt</code> only &mdash; delete the folder when you want the program gone.</p>
         </div>
     </section>
 
@@ -1652,7 +1662,7 @@
                 <li><a href="calculator.html">Browser Calculator</a></li>
             </ul>
             <p>&copy; 2026 OpenPokerLab (OpenPokerLab.org). Built for players who want the real number instead of a guess. All rights reserved.</p>
-            <p style="margin-top: 6px; font-size: 0.8rem; color: #475569;">Disclaimer: PokerEquity Lab is an offline equity and range calculator. It contains no tracker, no overlay, no solver service and no automated play, and it is not affiliated with any poker room, with PokerStove or with Equilab.</p>
+            <p style="margin-top: 6px; font-size: 0.8rem; color: #475569;">Disclaimer: PokerEquity Lab is an offline calculator for studying hands. It has no tracker, no overlay and no automated play, and it is not affiliated with any poker room.</p>
         </div>
     </footer>
 
