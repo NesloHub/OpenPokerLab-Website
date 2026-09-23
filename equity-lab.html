@@ -1570,7 +1570,7 @@
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                Yes. <code>SHA256SUMS.txt</code> next to the downloads lists the SHA-256 hash of both download files (and of <code>version.txt</code>). In a command prompt, run <code>certutil -hashfile "PokerEquityLab-1.0.0-win-x64.zip" SHA256</code> and compare the result with the file. The build is not code signed yet, so SmartScreen can show a warning on first start &mdash; that is the signature, not the checksum, missing.
+                Yes. <a href="downloads/SHA256SUMS.txt" style="color: var(--primary);">SHA256SUMS.txt</a> on this page lists the SHA-256 hash of both download files (and of <code>version.txt</code>); the binaries themselves are hosted on GitHub Releases (tag <code>v1.0.0</code>). In a command prompt, run <code>certutil -hashfile "PokerEquityLab-1.0.0-win-x64.zip" SHA256</code> and compare the result with the file. The build is not code signed yet, so SmartScreen can show a warning on first start &mdash; that is the signature, not the checksum, missing.
             </div>
         </div>
 
@@ -1609,13 +1609,13 @@
     <section class="container" id="download">
         <div class="download-box">
             <h2>Download PokerEquity Lab v1.0.0</h2>
-            <p>Grab the portable ZIP if you would rather not install anything, or the installer if you want a Start Menu entry and an uninstaller. Both are self-contained &mdash; no .NET runtime, no account, no admin rights &mdash; and both are served straight from OpenPokerLab.org.</p>
+            <p>Grab the portable ZIP if you would rather not install anything, or the installer if you want a Start Menu entry and an uninstaller. Both are self-contained &mdash; no .NET runtime, no account, no admin rights &mdash; and both are served from GitHub Releases (tag <code>v1.0.0</code>).</p>
             <div class="hero-actions" style="margin-bottom: 20px; flex-wrap: wrap;">
-                <a href="downloads/PokerEquityLab-1.0.0-win-x64.zip" class="btn-primary" style="font-size: 1.15rem; padding: 18px 40px;">
+                <a href="https://github.com/NesloHub/OpenPokerLab-Website/releases/download/v1.0.0/PokerEquityLab-1.0.0-win-x64.zip" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size: 1.15rem; padding: 18px 40px;">
                     <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                     Download v1.0.0 Portable (.ZIP) &mdash; 42 MB
                 </a>
-                <a href="downloads/PokerEquityLab-1.0.0-win-x64-setup.exe" class="btn-secondary" style="font-size: 1.05rem; padding: 18px 32px;">
+                <a href="https://github.com/NesloHub/OpenPokerLab-Website/releases/download/v1.0.0/PokerEquityLab-1.0.0-win-x64-setup.exe" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size: 1.05rem; padding: 18px 32px;">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
                     Installer (.EXE) &mdash; 42.6 MB
                 </a>
@@ -1634,7 +1634,7 @@
                     <button class="btn-copy" onclick="copySnippet('certutil -hashfile &quot;PokerEquityLab-1.0.0-win-x64.zip&quot; SHA256')">Copy</button>
                 </div>
             </div>
-            <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 20px;">Version 1.0.0 is the first public Windows build and it is not code signed yet, so SmartScreen may ask for confirmation the first time you start it: choose <em>More info</em> and then <em>Run anyway</em> if the checksum matched. The ZIP holds <code>PokerEquityLab.App.exe</code> and <code>README.txt</code> only; delete the folder to remove the app.</p>
+            <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 20px;">Version 1.0.0 is the first public Windows build and it is not code signed yet, so SmartScreen may ask for confirmation the first time you start it: choose <em>More info</em> and then <em>Run anyway</em> if the checksum matched. The ZIP holds <code>PokerEquityLab.App.exe</code> and <code>README.txt</code> only; delete the folder to remove the app. The binaries are served from GitHub Releases because each file is larger than the 25 MiB asset limit of the web host.</p>
         </div>
     </section>
 
