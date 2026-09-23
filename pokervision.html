@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PokerVision HUD | OpenPokerLab.org - Smart Notes & Live OCR Tracker</title>
-    <meta name="description" content="Official guide and presentation for PokerVision HUD by OpenPokerLab. The non-invasive, visual OCR poker HUD and smart note assistant for Unibet, iPoker, and modern poker rooms.">
+    <title>Poker Notes v2.0 | OpenPokerLab.org - Portable Poker Player Notes (No HUD, No Tracker)</title>
+    <meta name="description" content="Poker Notes by OpenPokerLab is the portable, tracker-free successor to PokerVision HUD: player notes, tags, aliases, note history, CSV export and optional OCR hover boxes that never steal focus.">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1081,6 +1081,16 @@
             .seat-5 { left: 10%; }
         }
     </style>
+    <!-- Extra styles used by the interactive notes demo -->
+    <style>
+        .hud-sticker { transition: opacity 0.3s ease; }
+        .hud-sticker.box-hidden { opacity: 0; pointer-events: none; }
+        .hud-sticker.box-unknown { background: rgba(15, 23, 42, 0.92); border: 1px dashed #64748b; border-left: 3px dashed #64748b; }
+        .hud-sticker.box-unknown .hud-name { color: #94a3b8; }
+        .hud-sticker.box-unknown .hud-notes-preview { color: #64748b; font-style: italic; }
+        .hud-sticker.box-unknown .hud-tag { background: rgba(100, 116, 139, 0.25) !important; color: #94a3b8 !important; }
+        .hud-sticker.box-unknown .stat-hands { color: #64748b; }
+    </style>
 </head>
 <body>
 
@@ -1090,21 +1100,21 @@
     <nav>
         <div class="container nav-inner">
             <a href="software.html" class="brand-logo" id="nav-brand" title="Back to OpenPokerLab Software">
-                <div class="logo-chip">P</div>
+                <div class="logo-chip">N</div>
                 <div class="brand-text">
-                    <div class="brand-name">PokerVision <span>HUD</span></div>
-                    <div class="brand-sub">OpenPokerLab.org Research</div>
+                    <div class="brand-name">Poker <span>Notes</span></div>
+                    <div class="brand-sub">OpenPokerLab.org &middot; v2.0</div>
                 </div>
             </a>
             <ul class="nav-links">
-                <li><a href="software.html" style="color: var(--primary);">← Back to Hub</a></li>
+                <li><a href="software.html" style="color: var(--primary);">&larr; Back to Hub</a></li>
                 <li><a href="#simulator">Live Demo</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#guide">User Guide</a></li>
-                <li><a href="#stats-breakdown">Stats Matrix</a></li>
+                <li><a href="#changelog">What's New</a></li>
                 <li><a href="#safety">TOS Safety</a></li>
                 <li><a href="#faq">FAQ</a></li>
-                <li><a href="https://drive.google.com/file/d/15LD3zrreiWuEQuUoljMvwcsy-08f0cuq/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-nav-cta">Download v1.0</a></li>
+                <li><a href="#download" class="btn-nav-cta">Download v2.0</a></li>
             </ul>
         </div>
     </nav>
@@ -1114,84 +1124,82 @@
         <div class="container">
             <div class="badge-pill">
                 <span class="badge-dot"></span>
-                OpenPokerLab • v1.0 Portable Ready
+                OpenPokerLab &bull; v2.0 Portable &mdash; successor to PokerVision HUD
             </div>
-            <h1>Next-Generation Poker HUD &amp; <em>Smart OCR Tracker</em></h1>
+            <h1>Player notes that <em>never steal focus</em></h1>
             <p class="lead">
-                Read player tendencies, screen names, and live action statistics (VPIP, PFR, 3-Bet%, Fold-to-3Bet%) directly from your screen using high-speed computer vision. 100% compliant with poker room Terms of Service.
+                Poker Notes is the rebuild of PokerVision HUD with the tracker taken out. No live VPIP/PFR stats,
+                no timers and no background scanning &mdash; just an instant notes editor with tags, aliases, note
+                history and CSV export, plus optional OCR hover boxes that read the seat names off your tables and
+                show your own notes right there. 100% local, 100% TOS safe.
             </p>
             <div class="hero-actions">
-                <a href="https://drive.google.com/file/d/15LD3zrreiWuEQuUoljMvwcsy-08f0cuq/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-primary" id="hero-dl-btn">
+                <a href="#download" class="btn-primary" id="hero-dl-btn">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                    Download v1.0 (Google Drive)
+                    Download v2.0 Portable (ZIP)
                 </a>
                 <a href="#simulator" class="btn-secondary" id="hero-guide-btn">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    Try Interactive HUD Demo
+                    Try the Interactive Notes Demo
                 </a>
             </div>
             <div class="hero-highlights">
                 <div class="highlight-item">
                     <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    <span>Zero .NET installation needed</span>
+                    <span>No .NET install &mdash; self-contained single EXE</span>
                 </div>
                 <div class="highlight-item">
                     <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                    <span>Zero memory injection (TOS safe)</span>
+                    <span>No timers, no background scanning</span>
                 </div>
                 <div class="highlight-item">
-                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    <span>Unibet &amp; iPoker optimized</span>
+                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg>
+                    <span>Click-through overlay that cannot take focus</span>
                 </div>
                 <div class="highlight-item">
                     <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7z"/></svg>
-                    <span>Automatic dual backup</span>
+                    <span>Plain JSON database + automatic .bak</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Interactive Simulator Section -->
+    <!-- Interactive Capture & Hover-Box Demo -->
     <section class="container preview-section" id="simulator">
         <div class="interactive-card">
             <div class="interactive-header">
                 <div class="interactive-title">
-                    <div class="logo-chip" style="width:30px; height:30px; font-size: 0.9rem;">⚡</div>
+                    <div class="logo-chip" style="width:30px; height:30px; font-size: 0.9rem;">📝</div>
                     <div>
-                        <h3>Live Table Simulation</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-muted);">Hover over any seat or trigger table events to see how PokerVision HUD analyzes player tendencies.</p>
+                        <h3>Interactive Capture &amp; Hover-Box Demo</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Press <strong>Capture &amp; Scan</strong> to see exactly what the overlay does at a real table: one box per seat, <em>your</em> note on hover &mdash; and no stats anywhere.</p>
                     </div>
                 </div>
                 <div class="table-controls">
-                    <span style="font-size: 0.8rem; color: var(--text-dim);">Simulate Action:</span>
-                    <button class="btn-sim" id="sim-raise" onclick="simulateHandEvent('raise')">3-Bet Preflop</button>
-                    <button class="btn-sim" id="sim-fish" onclick="simulateHandEvent('fish_call')">Fish Limp/Call</button>
-                    <button class="btn-sim" id="sim-reset" onclick="resetSimStats()">Reset Hands</button>
+                    <span style="font-size: 0.8rem; color: var(--text-dim);">Simulate:</span>
+                    <button class="btn-sim" id="sim-capture" onclick="simulateCapture()">📸 Capture &amp; Scan</button>
+                    <button class="btn-sim" id="sim-miss" onclick="simulateOcrMiss()">🔍 OCR misread</button>
+                    <button class="btn-sim" id="sim-remove" onclick="simulateBoxRemove()">Ctrl+click a box</button>
+                    <button class="btn-sim" id="sim-reset" onclick="resetBoxes()">🧹 Clear boxes</button>
                 </div>
             </div>
 
             <!-- Virtual Felt -->
             <div class="poker-felt">
                 <div class="felt-center">
-                    <div class="felt-logo">OpenPokerLab</div>
-                    <div class="felt-sub">Autonomous Vision Engine</div>
+                    <div class="felt-logo">Poker Notes</div>
+                    <div class="felt-sub">Click-transparent overlay &middot; no timers</div>
                 </div>
 
                 <!-- Seat 1: The Fish -->
                 <div class="seat seat-1" id="seat-1" onclick="showSeatDetails('FishyPete')">
-                    <div class="hud-sticker" style="border-left-color: #ff8c00;">
+                    <div class="hud-sticker box-hidden" id="box-1" style="border-left-color: #ff8c00;">
                         <div class="hud-top-row">
                             <span class="hud-name">FishyPete</span>
                             <span class="hud-tag" style="background: rgba(255, 140, 0, 0.25); color: #ff8c00;">Fish</span>
                         </div>
-                        <div class="hud-stats-line">
-                            <span>V:<span class="stat-val stat-vpip" id="s1-vpip">52</span></span>
-                            <span>P:<span class="stat-val stat-pfr" id="s1-pfr">12</span></span>
-                            <span>3B:<span class="stat-val stat-3b" id="s1-3b">3%</span></span>
-                            <span>F3B:<span class="stat-val stat-f3b" id="s1-f3b">86%</span></span>
-                            <span class="stat-hands" id="s1-hands">(48h)</span>
-                        </div>
-                        <div class="hud-notes-preview">Limps A-rag, folds to 3bet...</div>
+                        <div class="hud-notes-preview">Limps A-rag, calls any raise, folds to a 3-bet...</div>
+                        <div class="hud-stats-line"><span class="stat-hands" id="meta-1">in database &middot; alias: fishpete12</span></div>
                     </div>
                     <div class="avatar-circle" style="border-color: #ff8c00;">FP</div>
                     <div class="player-info-badge">€124.50</div>
@@ -1199,88 +1207,71 @@
 
                 <!-- Seat 2: The Regular -->
                 <div class="seat seat-2" id="seat-2" onclick="showSeatDetails('SolidPro')">
-                    <div class="hud-sticker" style="border-left-color: #008080;">
+                    <div class="hud-sticker box-hidden" id="box-2" style="border-left-color: #2dd4bf;">
                         <div class="hud-top-row">
                             <span class="hud-name">SolidPro</span>
                             <span class="hud-tag" style="background: rgba(0, 128, 128, 0.3); color: #2dd4bf;">Reg</span>
                         </div>
-                        <div class="hud-stats-line">
-                            <span>V:<span class="stat-val stat-vpip" id="s2-vpip">23</span></span>
-                            <span>P:<span class="stat-val stat-pfr" id="s2-pfr">19</span></span>
-                            <span>3B:<span class="stat-val stat-3b" id="s2-3b">8%</span></span>
-                            <span>F3B:<span class="stat-val stat-f3b" id="s2-f3b">56%</span></span>
-                            <span class="stat-hands" id="s2-hands">(142h)</span>
-                        </div>
-                        <div class="hud-notes-preview">Standard 2.5x open, balances...</div>
+                        <div class="hud-notes-preview">3-bets vs late opens, gives up on wet boards...</div>
+                        <div class="hud-stats-line"><span class="stat-hands" id="meta-2">in database &middot; 2 tags</span></div>
                     </div>
-                    <div class="avatar-circle" style="border-color: #008080;">SP</div>
-                    <div class="player-info-badge">€205.00</div>
+                    <div class="avatar-circle" style="border-color: #2dd4bf;">SP</div>
+                    <div class="player-info-badge">€312.00</div>
                 </div>
 
                 <!-- Seat 3: The Aggro Spewer -->
                 <div class="seat seat-3" id="seat-3" onclick="showSeatDetails('AggroDan')">
-                    <div class="hud-sticker" style="border-left-color: #dc143c;">
+                    <div class="hud-sticker box-hidden" id="box-3" style="border-left-color: #a855f7;">
                         <div class="hud-top-row">
                             <span class="hud-name">AggroDan</span>
-                            <span class="hud-tag" style="background: rgba(220, 20, 60, 0.3); color: #fb7185;">Aggro</span>
+                            <span class="hud-tag" style="background: rgba(168, 85, 247, 0.25); color: #c084fc;">LAG</span>
                         </div>
-                        <div class="hud-stats-line">
-                            <span>V:<span class="stat-val stat-vpip" id="s3-vpip">34</span></span>
-                            <span>P:<span class="stat-val stat-pfr" id="s3-pfr">28</span></span>
-                            <span>3B:<span class="stat-val stat-3b" id="s3-3b">15%</span></span>
-                            <span>F3B:<span class="stat-val stat-f3b" id="s3-f3b">38%</span></span>
-                            <span class="stat-hands" id="s3-hands">(76h)</span>
-                        </div>
-                        <div class="hud-notes-preview">Constant 3bets from late pos...</div>
+                        <div class="hud-notes-preview">Over-bluffs turns, barrels rivers with air...</div>
+                        <div class="hud-stats-line"><span class="stat-hands" id="meta-3">in database &middot; alias: AggroDan88</span></div>
                     </div>
-                    <div class="avatar-circle" style="border-color: #dc143c;">AD</div>
-                    <div class="player-info-badge">€312.20</div>
+                    <div class="avatar-circle" style="border-color: #a855f7;">AD</div>
+                    <div class="player-info-badge">€207.75</div>
                 </div>
 
-                <!-- Seat 4: The Hero (You) -->
-                <div class="seat seat-4" id="seat-4">
-                    <div class="avatar-circle" style="border-color: #38bdf8; background: #0284c7;">YOU</div>
-                    <div class="player-info-badge" style="border-color: #38bdf8;">€200.00 [Hero]</div>
+                <!-- Seat 4: Hero (you) - never gets a box -->
+                <div class="seat seat-4" id="seat-4" onclick="showSeatDetails('Your own seat')">
+                    <div class="hud-sticker" style="border-left-color: #334155; background: rgba(15, 23, 42, 0.5);">
+                        <div class="hud-top-row">
+                            <span class="hud-name" style="color: #64748b;">Your seat</span>
+                            <span class="hud-tag" style="background: rgba(51, 65, 85, 0.4); color: #64748b;">no box</span>
+                        </div>
+                        <div class="hud-notes-preview" style="color: #475569;">Poker Notes never draws a box over you.</div>
+                    </div>
+                    <div class="avatar-circle" style="border-color: #38bdf8;">YOU</div>
+                    <div class="player-info-badge">€188.00</div>
                 </div>
 
                 <!-- Seat 5: The Maniac -->
-                <div class="seat seat-5" id="seat-5" onclick="showSeatDetails('CrazyTilt')">
-                    <div class="hud-sticker" style="border-left-color: #9932cc;">
+                <div class="seat seat-5" id="seat-5" onclick="showSeatDetails('ManiacMike')">
+                    <div class="hud-sticker box-hidden" id="box-5" style="border-left-color: #c084fc;">
                         <div class="hud-top-row">
-                            <span class="hud-name">CrazyTilt</span>
-                            <span class="hud-tag" style="background: rgba(153, 50, 204, 0.3); color: #c084fc;">Maniac</span>
+                            <span class="hud-name">ManiacMike</span>
+                            <span class="hud-tag" style="background: rgba(192, 132, 252, 0.25); color: #c084fc;">Maniac</span>
                         </div>
-                        <div class="hud-stats-line">
-                            <span>V:<span class="stat-val stat-vpip" id="s5-vpip">68</span></span>
-                            <span>P:<span class="stat-val stat-pfr" id="s5-pfr">45</span></span>
-                            <span>3B:<span class="stat-val stat-3b" id="s5-3b">24%</span></span>
-                            <span>F3B:<span class="stat-val stat-f3b" id="s5-f3b">18%</span></span>
-                            <span class="stat-hands" id="s5-hands">(33h)</span>
-                        </div>
-                        <div class="hud-notes-preview">Donk bets turns, overshoves...</div>
+                        <div class="hud-notes-preview">Overshoves draws, donk-bets turns - trap him...</div>
+                        <div class="hud-stats-line"><span class="stat-hands" id="meta-5">in database &middot; 1 tag</span></div>
                     </div>
-                    <div class="avatar-circle" style="border-color: #9932cc;">CT</div>
-                    <div class="player-info-badge">€89.40</div>
+                    <div class="avatar-circle" style="border-color: #c084fc;">MM</div>
+                    <div class="player-info-badge">€96.30</div>
                 </div>
 
                 <!-- Seat 6: The Rock / Nit -->
                 <div class="seat seat-6" id="seat-6" onclick="showSeatDetails('TightTom')">
-                    <div class="hud-sticker" style="border-left-color: #00008b;">
+                    <div class="hud-sticker box-hidden" id="box-6" style="border-left-color: #60a5fa;">
                         <div class="hud-top-row">
-                            <span class="hud-name">TightTom</span>
-                            <span class="hud-tag" style="background: rgba(0, 0, 139, 0.35); color: #60a5fa;">Nit</span>
+                            <span class="hud-name" id="name-6">TightTom</span>
+                            <span class="hud-tag" id="tag-6" style="background: rgba(96, 165, 250, 0.25); color: #60a5fa;">Nit</span>
                         </div>
-                        <div class="hud-stats-line">
-                            <span>V:<span class="stat-val stat-vpip" id="s6-vpip">13</span></span>
-                            <span>P:<span class="stat-val stat-pfr" id="s6-pfr">11</span></span>
-                            <span>3B:<span class="stat-val stat-3b" id="s6-3b">4%</span></span>
-                            <span>F3B:<span class="stat-val stat-f3b" id="s6-f3b">78%</span></span>
-                            <span class="stat-hands" id="s6-hands">(110h)</span>
-                        </div>
-                        <div class="hud-notes-preview">Only 3-bets QQ+, AK. Steal blinds!</div>
+                        <div class="hud-notes-preview" id="note-6">Only 3-bets QQ+/AK. Steal his blinds every orbit...</div>
+                        <div class="hud-stats-line"><span class="stat-hands" id="meta-6">in database &middot; 1 tag</span></div>
                     </div>
-                    <div class="avatar-circle" style="border-color: #3b82f6;">TT</div>
-                    <div class="player-info-badge">€194.00</div>
+                    <div class="avatar-circle" style="border-color: #60a5fa;">TT</div>
+                    <div class="player-info-badge">€410.10</div>
                 </div>
             </div>
 
@@ -1288,10 +1279,10 @@
             <div class="table-footer-status">
                 <div class="live-pulse-badge">
                     <div class="live-dot"></div>
-                    <span>Visual Heartbeat: OCR Action Engine active (1.5s interval)</span>
+                    <span>Overlay: click-through &middot; cannot take focus</span>
                 </div>
-                <div id="sim-status-text" style="color: #cbd5e1; font-family: var(--font-mono); font-size: 0.8rem;">
-                    [OCR] Tables detected: 1 | Tracked Opponents: 5 | Memory Hooks: 0 (Pure Screen OCR)
+                <div id="sim-status" style="font-family: var(--font-mono); font-size: 0.8rem; color: #cbd5e1; text-align: right;">
+                    [idle] No timers and no background scanning - press the Capture &amp; Scan button above.
                 </div>
             </div>
         </div>
@@ -1300,64 +1291,46 @@
     <!-- Key Feature Pillars -->
     <section class="container" id="features">
         <div class="section-header">
-            <div class="section-label">Core Capabilities</div>
-            <h2 class="section-title">Built for Modern Poker Security &amp; Maximum Edge</h2>
-            <p class="section-desc">Traditional HUDs inject DLLs or hook memory, violating casino TOS. PokerVision HUD re-engineers tracking from the ground up using non-invasive visual computer vision.</p>
+            <div class="section-label">What is inside</div>
+            <h2 class="section-title">A notes app - not a tracker</h2>
+            <p class="section-desc">Everything you need to write, find and reuse your reads on hundreds of opponents - without a single stat field, timer or hand-history engine.</p>
         </div>
-
         <div class="features-grid">
             <!-- 1 -->
             <div class="feature-card">
-                <div class="feature-icon-box" style="background: rgba(56, 189, 248, 0.1); color: #38bdf8;">
-                    👁️
-                </div>
-                <h4>Real-Time OCR Action Engine</h4>
-                <p>The 1.5-second visual pulse reads table action banners (Bet, Raise, Call, Check, Fold) directly from the screen, calculating live VPIP, PFR, 3-Bet%, and Fold-to-3Bet% on the fly.</p>
+                <div class="feature-icon-box">⚡</div>
+                <h3>Focus-first editor</h3>
+                <p>Type and stay typing. There are no timers that create windows, no <code>Topmost</code> updates and no <code>Activate()</code> calls - the deferred save runs 1.2 s after your last keystroke and never touches focus.</p>
             </div>
-
             <!-- 2 -->
             <div class="feature-card">
-                <div class="feature-icon-box" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
-                    ⚡
-                </div>
-                <h4>Instant Middle-Click Snip</h4>
-                <p>Simply middle-click anywhere on your poker tables. The program automatically scans table boundaries, extracts player names, and floats persistent HUD stickers right above each seat.</p>
+                <div class="feature-icon-box">🏷</div>
+                <h3>Tags in your own colours</h3>
+                <p>Create tags with a hex colour, tag players with one click, filter the player list by tag - and let the same colours frame the hover boxes on the table.</p>
             </div>
-
             <!-- 3 -->
             <div class="feature-card">
-                <div class="feature-icon-box" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
-                    🏷️
-                </div>
-                <h4>Dynamic Tag Palette</h4>
-                <p>Preloaded with color-coded archetypes: Nit, Fish, Reg, Whale, Aggro, Maniac. Automated text luminance ensures crisp legibility regardless of chosen tag background color.</p>
+                <div class="feature-icon-box">🔎</div>
+                <h3>Aliases &amp; instant search</h3>
+                <p>Store every nick a player uses in one record. <code>Ctrl+F</code> searches the name, the aliases <strong>and</strong> the note text, so a read you wrote months ago is one keystroke away.</p>
             </div>
-
             <!-- 4 -->
             <div class="feature-card">
-                <div class="feature-icon-box" style="background: rgba(99, 102, 241, 0.1); color: #818cf8;">
-                    📋
-                </div>
-                <h4>Auto-Clipboard Monitor</h4>
-                <p>When you copy a player name anywhere in Windows (or from hand histories), PokerVision HUD instantly detects it, queries the database, and prepares note editing with zero clicks.</p>
+                <div class="feature-icon-box">🗂</div>
+                <h3>Note history &amp; CSV export</h3>
+                <p><code>Ctrl+E</code> snapshots the current note with a timestamp (up to 40 per player) and loads any copy back into the editor. One click exports everything to Excel-ready CSV.</p>
             </div>
-
             <!-- 5 -->
             <div class="feature-card">
-                <div class="feature-icon-box" style="background: rgba(244, 63, 94, 0.1); color: #fb7185;">
-                    🤖
-                </div>
-                <h4>Autopilot Watchdog</h4>
-                <p>Enable Autopilot to let the program automatically rescan all active tables every 5 minutes. New players who sit down are instantly profiled without lifting a finger.</p>
+                <div class="feature-icon-box">📸</div>
+                <h3>Capture &amp; hover boxes</h3>
+                <p>Middle mouse button or one button press: the app finds your tables, reads the seat names with OCR and places a click-through box on every seat. Green = player in database, grey <strong>?</strong> = new name.</p>
             </div>
-
             <!-- 6 -->
             <div class="feature-card">
-                <div class="feature-icon-box" style="background: rgba(168, 85, 247, 0.1); color: #c084fc;">
-                    🛡️
-                </div>
-                <h4>Dual-Layer Auto-Backups</h4>
-                <p>Every note edit or stat update creates an immediate <code>.bak</code> file and a timestamped snapshot in your <code>Backups/</code> folder (storing up to 20 historical versions).</p>
+                <div class="feature-icon-box">🛡</div>
+                <h3>Portable and private</h3>
+                <p>One self-contained EXE, one plain JSON database, atomic saves and a <code>.bak</code> before every write. No installer, no admin rights, no network calls, no memory reading.</p>
             </div>
         </div>
     </section>
@@ -1366,260 +1339,335 @@
     <section class="container guide-section" id="guide">
         <div class="section-header">
             <div class="section-label">Documentation</div>
-            <h2 class="section-title">Official PokerVision HUD User Guide</h2>
-            <p class="section-desc">Learn how to configure, run, and master the HUD to crush your games with maximum efficiency.</p>
+            <h2 class="section-title">The complete user guide</h2>
+            <p class="section-desc">Five short chapters covering everything from the first launch to the OCR hover boxes, your data files and every keyboard shortcut.</p>
         </div>
 
         <div class="guide-nav-tabs">
             <button class="tab-btn active" onclick="switchGuideTab('quickstart', this)">🚀 Quick Start</button>
-            <button class="tab-btn" onclick="switchGuideTab('livehud', this)">📊 Live HUD &amp; OCR</button>
-            <button class="tab-btn" onclick="switchGuideTab('snip', this)">✂️ Snip &amp; Player Notes</button>
-            <button class="tab-btn" onclick="switchGuideTab('database', this)">📂 Database &amp; Backups</button>
-            <button class="tab-btn" onclick="switchGuideTab('shortcuts', this)">⌨️ Shortcuts</button>
+            <button class="tab-btn" onclick="switchGuideTab('notes', this)">📝 Notes &amp; Tags</button>
+            <button class="tab-btn" onclick="switchGuideTab('capture', this)">📸 Capture &amp; Hover Boxes</button>
+            <button class="tab-btn" onclick="switchGuideTab('data', this)">🗂 Aliases, History &amp; CSV</button>
+            <button class="tab-btn" onclick="switchGuideTab('shortcuts', this)">⌨️ Files &amp; Shortcuts</button>
         </div>
 
         <!-- Tab 1: Quick Start -->
         <div class="tab-content active" id="tab-quickstart">
             <div class="guide-grid">
                 <div class="guide-text">
-                    <h3>Zero Setup Needed: Ready in 60 Seconds</h3>
-                    <p>PokerVision HUD is distributed as a 100% self-contained portable application. You don't have to install any runtimes, configure python environments, or setup SQL servers.</p>
+                    <h3>Zero setup: taking notes in 60 seconds</h3>
+                    <p>Poker Notes is a 100% self-contained portable application. There is no installer, no .NET runtime to download, no Python environment, no SQL server and no account to create.</p>
                     <ul class="guide-steps">
                         <li>
                             <div class="step-num">1</div>
                             <div>
-                                <strong>Download &amp; Extract</strong><br>
-                                Download <code>PokerVisionHUD_v1.0.zip</code> from Google Drive and unzip to any location (e.g. Desktop or a dedicated folder).
+                                <strong>Unzip the portable package</strong><br>
+                                Extract it anywhere - Desktop, a second drive or your poker tools folder. Keep <code>Tesseract.dll</code>, the <code>tessdata\</code> folder and the <code>x64\</code> DLLs next to the EXE; they are only used by the optional Capture &amp; OCR features.
                             </div>
                         </li>
                         <li>
                             <div class="step-num">2</div>
                             <div>
-                                <strong>Run Executable</strong><br>
-                                Double-click <code>PokerVisionHUD.exe</code>. A fresh <code>players.json</code> starter database is automatically created and ready!
+                                <strong>Run PokerVisionHUD.exe</strong><br>
+                                The app opens the database you used last; the path is remembered in <code>%AppData%\PokerNoteManager_Settings.txt</code>. So a fresh install starts with your existing notes already loaded.
                             </div>
                         </li>
                         <li>
                             <div class="step-num">3</div>
                             <div>
-                                <strong>Start Playing</strong><br>
-                                Open your poker client (Unibet, iPoker, etc.). Middle-click any table or press <code>Ctrl+Alt+S</code> to tag players and overlay live stats!
+                                <strong>Write the note and keep playing</strong><br>
+                                Pick a player in the left column - or press <code>＋ New player</code> (<code>Ctrl+N</code>) and type the name exactly as the client shows it. The note saves itself about a second after you stop typing; <code>saved HH:MM:SS</code> next to the name confirms it.
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="guide-callout">
-                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">💡 Pro-Tip for Multi-Tablers</h4>
-                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">Toggle on <strong>"Autopilot"</strong> in the top header. Set the interval to 3 or 5 minutes, and PokerVision HUD will quietly refresh seat lineups across all monitors in the background.</p>
+                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">💡 Pro-tip for multi-tablers</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">Set <strong>AUTO</strong> to 30 s or 1 min and the hover boxes follow players who come and go - without a single timer ever creating or activating a window. Boxes you removed yourself stay removed.</p>
                     <div class="code-box">
-                        <span>Starter Database: players.json</span>
-                        <button class="btn-copy" onclick="copySnippet('players.json')">Copy</button>
+                        <span>%AppData%\PokerNoteManager_Settings.txt</span>
+                        <button class="btn-copy" onclick="copySnippet('%AppData%\\PokerNoteManager_Settings.txt')">Copy</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tab 2: Live HUD & OCR -->
-        <div class="tab-content" id="tab-livehud">
+        <!-- Tab 2: Notes & Tags -->
+        <div class="tab-content" id="tab-notes">
             <div class="guide-grid">
                 <div class="guide-text">
-                    <h3>How the Visual Action Tracker Operates</h3>
-                    <p>Unlike standard trackers that depend on client chat logs or internal memory pointers, PokerVision HUD's optical tracker works like an alert pair of human eyes:</p>
+                    <h3>Write it, tag it, find it again</h3>
+                    <p>The editor is the whole workflow: one player record with tags, aliases, the note and its history. Nothing is ever written behind your back.</p>
                     <ul class="guide-steps">
                         <li>
                             <div class="step-num">✓</div>
                             <div>
-                                <strong>Action Recognition:</strong> Every 1.5 seconds, the engine observes player action badges (e.g. "RAISE", "CALL", "FOLD").
-                            </div>
-                        </li>
-                        <li>
-                            <div class="step-num">✓</div>
-                            <div>
-                                <strong>Hand Demarcation:</strong> The system automatically notices dealer button rotation and chip collection to split sessions into distinct hands.
+                                <strong>Autosave &amp; Ctrl+S:</strong> the note is saved about 1.2 seconds after your last keystroke, and only when something actually changed. <code>Ctrl+S</code> forces a save. Before every write the previous file is copied to <code>&lt;your-db&gt;.json.bak</code>.
                             </div>
                         </li>
                         <li>
                             <div class="step-num">✓</div>
                             <div>
-                                <strong>HUD Floating Overlays:</strong> Lightweight, transparent WPF stickers float directly over player avatars and remain synchronized with table positions.
+                                <strong>Tag chips:</strong> click a chip to add or remove a tag (filled = the player has it). <code>🏷 Tags</code> opens the tag manager where you create tags and give each one a hex colour such as <code>#FF8C00</code>. Deleting a tag removes it from every player, after a warning.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">✓</div>
+                            <div>
+                                <strong>Filters &amp; search:</strong> every tag also appears as a filter chip under <code>PLAYERS</code>. <code>Ctrl+F</code> jumps to the search box, which matches the player name, the aliases <em>and</em> the note text.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">✓</div>
+                            <div>
+                                <strong>Rename &amp; delete:</strong> <code>F2</code> renames the selected player - notes, tags, aliases and history follow. <code>Delete</code> asks first, and a <code>.bak</code> is always written before the change.
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="guide-callout">
-                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">HUD Stat Breakdown</h4>
-                    <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">
-                        <strong style="color: #38bdf8;">V:</strong> VPIP % (Voluntarily Put in Pot)<br>
-                        <strong style="color: #f59e0b;">P:</strong> PFR % (Preflop Raise)<br>
-                        <strong style="color: #a855f7;">3B:</strong> 3-Bet % (Re-raise preflop frequency)<br>
-                        <strong style="color: #f43f5e;">F3B:</strong> Fold to 3-Bet %<br>
-                        <strong style="color: #64748b;">(Xh):</strong> Total observed sample hands
-                    </p>
+                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">🏷 Where your colours live</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">Tags and their colours are stored in a small JSON file next to your settings, so your colour scheme survives a database switch. Left-over <code>tag_&lt;number&gt;</code> entries from the old HUD version are ignored instead of shown as garbage tags.</p>
+                    <div class="code-box">
+                        <span>%AppData%\PokerNoteManager_Tags.json</span>
+                        <button class="btn-copy" onclick="copySnippet('%AppData%\\PokerNoteManager_Tags.json')">Copy</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tab 3: Snip & Notes -->
-        <div class="tab-content" id="tab-snip">
+        <!-- Tab 3: Capture & Hover Boxes -->
+        <div class="tab-content" id="tab-capture">
             <div class="guide-grid">
                 <div class="guide-text">
-                    <h3>Snip &amp; Profile Any Player in 2 Seconds</h3>
-                    <p>Notice a new player making an absurd move? Record it immediately without losing focus on your action:</p>
+                    <h3>Read the table, show the note</h3>
+                    <p>Screen reading is back in this release - rebuilt so it can never disturb your tables. There is no background scanning at all: images are only captured when <em>you</em> press the button.</p>
                     <ul class="guide-steps">
                         <li>
-                            <div class="step-num">1</div>
+                            <div class="step-num">✓</div>
                             <div>
-                                <strong>Trigger Snip:</strong> Press <kbd style="background: #1e293b; padding: 2px 6px; border-radius: 4px; border: 1px solid #475569;">Ctrl + Alt + S</kbd> or click <strong>"✂️ SNIP PLAYER"</strong>.
+                                <strong>Pick the screen:</strong> the <code>📺 SCREEN</code> selector at the top right chooses the monitor to look at (the choice is remembered). When you capture with the mouse, the screen under the cursor wins - handy when you run several tables.
                             </div>
                         </li>
                         <li>
-                            <div class="step-num">2</div>
+                            <div class="step-num">✓</div>
                             <div>
-                                <strong>Crop Name:</strong> Drag a small box over the player's name banner on your table.
+                                <strong>Capture &amp; Scan:</strong> press <code>📸 Capture &amp; Scan</code> or the <strong>middle mouse button</strong>. Every window on that screen is checked for a green felt (browsers and lobbies are skipped, and a table without felt is judged by its window title), the seat names are read with OCR and one hover box is placed per seat. The status bar reports how many tables and names were found.
                             </div>
                         </li>
                         <li>
-                            <div class="step-num">3</div>
+                            <div class="step-num">✓</div>
                             <div>
-                                <strong>AI Text Extraction:</strong> The integrated Tesseract OCR engine transcribes their nickname into the editor with punctuation normalization.
+                                <strong>Green box vs. grey box:</strong> a green box means the player is in your database - hover it and your tags and note appear in a card next to the mouse. A grey dashed box with a <code>?</code> means the name was read but is not in the database yet.
                             </div>
                         </li>
                         <li>
-                            <div class="step-num">4</div>
+                            <div class="step-num">✓</div>
                             <div>
-                                <strong>Assign Tags &amp; Notes:</strong> Select tags (e.g. Fish, Nit), write your notes, and hit <strong>Save Note</strong>.
+                                <strong>Ctrl+click to edit on the table:</strong> opens the note editor right there. Write, toggle tags with a click and save with the button or <code>Ctrl+Enter</code>. New names are created automatically and the old note is copied into the history. <code>Esc</code> or a click outside closes it. A normal click always goes through to the poker client, and right-click is never used (it folds on Unibet).
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">✓</div>
+                            <div>
+                                <strong>Optional extras:</strong> <code>🗂 DB only: ON</code> ignores names that are not in the database, tag colours frame the boxes, <code>👁 Boxes: ON/OFF</code> hides the overlay, <code>🧹 Clear</code> wipes it, <code>📋 Paste &amp; Scan</code> reads a screenshot from the clipboard and <code>✂️ Snip Player</code> reads the name under the mouse.
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="guide-callout">
-                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">Auto-Clipboard Mode</h4>
-                    <p style="font-size: 0.9rem; color: var(--text-muted);">Activate the <strong>AUTO-CLIPBOARD</strong> button. Anytime you copy a nickname from a forum, poker client, or external notes, the player editor instantly pops up ready to take notes!</p>
+                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">🔍 Did OCR read the name wrong?</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">Use Ctrl+click or ✂️ Snip Player to correct the name once - afterwards the name matches reliably. Matching is tolerant of the classic OCR mix-ups (<code>1/l/I</code>, <code>0/O</code>, <code>5/S</code>, <code>8/B</code>, <code>3/E</code>) with a distance-based fallback, and the debug log lists every reading.</p>
+                    <div class="code-box">
+                        <span>Tesseract.dll + tessdata\eng.traineddata + x64\</span>
+                        <button class="btn-copy" onclick="copySnippet('Tesseract.dll + tessdata\\eng.traineddata + x64\\')">Copy</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tab 4: Database & Backups -->
-        <div class="tab-content" id="tab-database">
+        <!-- Tab 4: Aliases, History & CSV -->
+        <div class="tab-content" id="tab-data">
             <div class="guide-grid">
                 <div class="guide-text">
-                    <h3>Database Browser &amp; Automated Safety</h3>
-                    <p>Your notes and player stats are your most valuable poker asset. PokerVision HUD treats your database with bank-grade safety:</p>
+                    <h3>One player, many nicks, one place</h3>
+                    <p>Opponents rename themselves weekly. Aliases keep every nick attached to the same note instead of splitting your reads in two.</p>
                     <ul class="guide-steps">
                         <li>
-                            <div class="step-num">📁</div>
+                            <div class="step-num">✓</div>
                             <div>
-                                <strong>Universal JSON Format:</strong> Notes and stats are stored in clean, transparent JSON format compatible with standard backup tools.
+                                <strong>Aliases:</strong> list the other nicks of a player separated by commas. Search matches aliases too, and the on-table note editor follows the same record.
                             </div>
                         </li>
                         <li>
-                            <div class="step-num">🛡️</div>
+                            <div class="step-num">✓</div>
                             <div>
-                                <strong>Immediate .bak Safety Net:</strong> Every time you save notes, a <code>.bak</code> file is instantly updated in the same folder.
+                                <strong>Note history:</strong> <code>Save note copy</code> (<code>Ctrl+E</code>) stores a timestamped copy of the current note. <code>History</code> lists them - pick one and press <code>Load into editor</code>, or <code>Clear history</code> to delete them. Up to 40 copies per player.
                             </div>
                         </li>
                         <li>
-                            <div class="step-num">⏱️</div>
+                            <div class="step-num">✓</div>
                             <div>
-                                <strong>20 Versioned Backups:</strong> The app maintains up to 20 timestamped archives in the <code>Backups/</code> subfolder automatically.
+                                <strong>CSV export:</strong> <code>Export CSV</code> writes one row per player with aliases, tags, the full note text and the number of history copies - semicolon separated with a UTF-8 BOM, so Excel opens it without any import dialog.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">✓</div>
+                            <div>
+                                <strong>Same player on two tables:</strong> every hover box belongs to its own table. The note is shared, but a box you remove with <code>Ctrl+click</code> disappears only on that table. The hover card shows e.g. <em>ruhhy · at 2 tables</em> and the status bar counts them.
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="guide-callout">
-                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">Switching Databases</h4>
-                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">Click <strong>"📂 LOAD DB"</strong> at any time to point the program to an existing backup file or external drive. All future edits will automatically persist to that selected file.</p>
+                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">🗂 Good notes beat more notes</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">Write one careful line per read - "calls down light", "min-raises nut draws", "folds to turn barrels" - and let tags do the sorting. The hover card shows the tags first and the note right after, so a read you wrote in June is still useful in December.</p>
+                    <div class="code-box">
+                        <span>Export CSV · players.csv</span>
+                        <button class="btn-copy" onclick="copySnippet('Export CSV')">Copy</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tab 5: Shortcuts -->
+        <!-- Tab 5: Files & Shortcuts -->
         <div class="tab-content" id="tab-shortcuts">
             <div class="guide-grid">
                 <div class="guide-text">
-                    <h3>Master Keyboard &amp; Mouse Shortcuts</h3>
-                    <p>Designed for fast multi-tabling ergonomics. You never have to take your hands off the mouse:</p>
-                    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
-                        <div class="code-box">
-                            <span>Middle Mouse Click (Scroll Wheel)</span>
-                            <span style="color: var(--text-muted); font-size: 0.8rem;">Scan tables &amp; update HUD</span>
-                        </div>
-                        <div class="code-box">
-                            <span>Ctrl + Alt + S</span>
-                            <span style="color: var(--text-muted); font-size: 0.8rem;">Quick Snip Player Name</span>
-                        </div>
-                        <div class="code-box">
-                            <span>Escape (Esc)</span>
-                            <span style="color: var(--text-muted); font-size: 0.8rem;">Close active dialog / guide</span>
-                        </div>
-                        <div class="code-box">
-                            <span>[?] In Header</span>
-                            <span style="color: var(--text-muted); font-size: 0.8rem;">Open in-app interactive manual</span>
-                        </div>
+                    <h3>Your data, and where it lives</h3>
+                    <p>Everything is plain text and fully yours - no cloud, no account, no telemetry. Copy the database file to a USB stick and your notes travel with you.</p>
+                    <ul class="guide-steps">
+                        <li>
+                            <div class="step-num">✓</div>
+                            <div>
+                                <strong>The database:</strong> a JSON file in the same format the HUD version wrote (<code>version 1</code>: players, tags, notes, note_history, aliases). Old <code>stats</code> and <code>watch</code> fields are ignored but preserved, so an old file opens unchanged and no note is lost.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">✓</div>
+                            <div>
+                                <strong>Safe saving:</strong> writes go to a temporary file that is then swapped in, and the previous version is kept as <code>&lt;your-db&gt;.json.bak</code> next to the database. Only one instance of the app runs at a time, so two copies can never overwrite each other.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">✓</div>
+                            <div>
+                                <strong>Settings &amp; log:</strong> <code>PokerNoteManager_Settings.txt</code> (last database), <code>PokerNoteManager_Tags.json</code> (tags + colours) and <code>PokerNotes_Window.txt</code> (window size) live in <code>%AppData%</code>. The log <code>%LocalAppData%\PokerVisionHUD\pokervision_debug.log</code> rotates at 2 MB and opens straight from the <code>?</code> menu.
+                            </div>
+                        </li>
+                    </ul>
+                    <h3 style="margin-top: 28px;">Keyboard shortcuts</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-top: 12px; font-size: 0.88rem; color: var(--text-muted);">
+                        <div><code>Ctrl+N</code> - new player</div>
+                        <div><code>Ctrl+F</code> - search name, alias or note</div>
+                        <div><code>Ctrl+S</code> - save now</div>
+                        <div><code>Ctrl+E</code> - save a note copy to history</div>
+                        <div><code>F2</code> - rename the selected player</div>
+                        <div><code>Esc</code> - close dialog / clear search</div>
+                        <div><code>Middle mouse</code> - Capture &amp; Scan</div>
+                        <div><code>Ctrl+click box</code> - note editor on the table</div>
+                        <div><code>Ctrl+Enter</code> - save in the on-table editor</div>
                     </div>
                 </div>
+
                 <div class="guide-callout">
-                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">HUD Management</h4>
-                    <p style="font-size: 0.9rem; color: var(--text-muted);">Moving between tables or finishing a session? Click <strong>"CLEAR HUD"</strong> to instantly dismiss all floating overlays and clear memory for a fresh session.</p>
+                    <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px;">🧪 Power-user self tests</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">The EXE ships with its own diagnostics. Start it with a switch and the answer is written to <code>%LocalAppData%\PokerVisionHUD\selftest.txt</code> - the UI and screen tests also save PNGs in <code>debug_snapshots</code>, ready to send along if something looks off.</p>
+                    <div class="code-box">
+                        <span>--selftest-ocr · --selftest-ui · --selftest-overlay · --selftest-screens</span>
+                        <button class="btn-copy" onclick="copySnippet('PokerVisionHUD.exe --selftest-ocr')">Copy</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Breakdown & Exploitative Strategy Guide -->
-    <section class="container stats-explorer" id="stats-breakdown">
+    <!-- What's new: the v2.0 rebuild -->
+    <section class="container stats-explorer" id="changelog">
         <div class="section-header">
-            <div class="section-label">Strategic Advantage</div>
-            <h2 class="section-title">Deciphering HUD Stats &amp; Exploits</h2>
-            <p class="section-desc">Understand what the numbers mean and how to adjust your game against each player archetype.</p>
+            <div class="section-label">What's new</div>
+            <h2 class="section-title">The HUD left - the notes stayed</h2>
+            <p class="section-desc">Poker Notes is the same program, rebuilt around the thing you actually used: your own reads. Here is exactly what changed, and why.</p>
         </div>
 
         <div class="stats-grid">
-            <!-- VPIP -->
+            <!-- Removed -->
             <div class="stat-card">
-                <div class="stat-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">VPIP</div>
-                <h4>Voluntarily Put In Pot</h4>
-                <p>Percentage of hands where the player willingly puts money into the pot preflop (calls, limps, raises).</p>
+                <div class="stat-badge" style="background: rgba(244, 63, 94, 0.15); color: #f43f5e;">REMOVED</div>
+                <h4>Live stat tracking</h4>
+                <p>VPIP, PFR, 3-Bet, Fold-to-3-Bet, hand demarcation, action-badge watching, auto-tag rules, the watchlist and table calibration are gone. The database no longer writes a <code>stats</code> field.</p>
                 <div class="stat-thresholds">
-                    <strong>&lt; 18%:</strong> Very Tight / Nit<br>
-                    <strong>20 - 28%:</strong> Solid Regular<br>
-                    <strong>&gt; 35%:</strong> Loose Fish / Target
+                    <strong>Why:</strong> optical statistics drifted between sessions and themes - and a wrong number is worse than no number.
                 </div>
             </div>
 
-            <!-- PFR -->
+            <!-- Fixed -->
             <div class="stat-card">
-                <div class="stat-badge" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">PFR</div>
-                <h4>Preflop Raise Frequency</h4>
-                <p>How often the player enters the pot with an open raise or re-raise rather than limping or calling.</p>
+                <div class="stat-badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">FIXED</div>
+                <h4>Focus stealing - the real bug</h4>
+                <p>The old build refreshed its HUD windows on a timer, forced them <code>Topmost</code> and activated them. That is exactly what took the cursor out of the notes field while you were typing.</p>
                 <div class="stat-thresholds">
-                    <strong>VPIP/PFR Gap &gt; 15%:</strong> Passive calling station<br>
-                    <strong>Gap &lt; 5%:</strong> Aggressive tight reg
+                    <strong>Now:</strong> no timer creates or activates a window, the overlay cannot take focus (<code>WS_EX_NOACTIVATE</code>) and can only be brought forward with <code>SWP_NOACTIVATE</code>.
                 </div>
             </div>
 
-            <!-- 3-Bet% -->
+            <!-- Kept -->
             <div class="stat-card">
-                <div class="stat-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc;">3-Bet%</div>
-                <h4>Preflop 3-Bet Frequency</h4>
-                <p>Percentage of opportunities where a player re-raises an open raiser preflop.</p>
+                <div class="stat-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">KEPT</div>
+                <h4>Every note you ever wrote</h4>
+                <p>An existing database opens unchanged: players, tags, notes, note history and aliases are read from the same <code>version 1</code> JSON layout the HUD version wrote.</p>
                 <div class="stat-thresholds">
-                    <strong>&lt; 5%:</strong> Only QQ+, AK<br>
-                    <strong>7 - 10%:</strong> Optimal / Balanced<br>
-                    <strong>&gt; 14%:</strong> 4-Bet them relentlessly
+                    <strong>Bonus:</strong> the legacy <code>stats</code> and <code>watch</code> fields are preserved on disk instead of being thrown away.
                 </div>
             </div>
 
-            <!-- Fold to 3-Bet -->
+            <!-- New -->
             <div class="stat-card">
-                <div class="stat-badge" style="background: rgba(244, 63, 94, 0.15); color: #fb7185;">Fold to 3B%</div>
-                <h4>Fold to 3-Bet Rate</h4>
-                <p>How often a player surrenders when facing a re-raise after opening the pot.</p>
+                <div class="stat-badge" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;">NEW</div>
+                <h4>Capture &amp; hover boxes, rebuilt</h4>
+                <p>The overlay is click-through (<code>WS_EX_TRANSPARENT</code>), so every click reaches the poker client. Boxes can be removed one by one and per table, plus DB-only mode, tag colours, Snapshot PNGs and an on-table note editor.</p>
                 <div class="stat-thresholds">
-                    <strong>&gt; 70%:</strong> Auto-profit 3-bet bluff<br>
-                    <strong>&lt; 40%:</strong> Only 3-bet for value
+                    <strong>Also:</strong> multi-monitor and per-monitor DPI aware, window placement clamped to the screens that exist right now.
                 </div>
             </div>
+
+            <!-- Legacy -->
+            <div class="stat-card">
+                <div class="stat-badge" style="background: rgba(100, 116, 139, 0.2); color: #94a3b8;">LEGACY</div>
+                <h4>Nothing was taken away</h4>
+                <p>Miss the numbers? The tracker build (PokerVision HUD v1.0) is kept as a separate backup, so the old live-stats version is still there whenever you want it.</p>
+                <div class="stat-thresholds">
+                    <strong>Both programs</strong> read and write the very same <code>.json</code> database file.
+                </div>
+            </div>
+        </div>
+
+        <div style="max-width: 860px; margin: 0 auto 100px auto; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 30px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 16px;">Version history</h3>
+            <ul class="guide-steps">
+                <li>
+                    <div class="step-num">✓</div>
+                    <div>
+                        <strong>v2.0 - the notes release</strong><br>
+                        Tracker and stat engine removed. The notes editor arrives with autosave, tags with hex colours, aliases, note history, CSV export, single-instance protection and a focus-friendly UI.
+                    </div>
+                </li>
+                <li>
+                    <div class="step-num">✓</div>
+                    <div>
+                        <strong>Also in this build - capture and robustness</strong><br>
+                        The capture layer is included (screen picker, hover boxes, on-table note editor, DB-only filter, optional AUTO scan) together with multi-monitor and DPI fixes, log rotation at 2 MB, a wrapping scan bar, a scrollable editor on small screens and a thread-safe OCR engine.
+                    </div>
+                </li>
+                <li>
+                    <div class="step-num">✓</div>
+                    <div>
+                        <strong>v1.0 - legacy HUD</strong><br>
+                        The original OCR tracker with live VPIP/PFR stats, kept as a backup for anyone who still wants the numbers.
+                    </div>
+                </li>
+            </ul>
+            <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 6px;">Note: the packaged EXE still reports version 2.0.0 and keeps the file name <code>PokerVisionHUD.exe</code> - so your shortcuts, settings and databases keep working without a single change.</p>
         </div>
     </section>
 
@@ -1627,48 +1675,55 @@
     <section class="container tos-section" id="safety">
         <div class="section-header">
             <div class="section-label">Compliance Architecture</div>
-            <h2 class="section-title">Why PokerVision HUD is 100% TOS Compliant</h2>
-            <p class="section-desc">Traditional poker trackers trigger anti-cheat software because they read or modify game process memory. PokerVision HUD uses pure optical computer vision, functioning exactly like a player taking notes with pen and paper.</p>
+            <h2 class="section-title">Why Poker Notes is TOS friendly</h2>
+            <p class="section-desc">Classic trackers get flagged because they read or modify the memory of the poker client. Poker Notes never touches the client: it stores the text <em>you</em> write, and the optional capture only looks at a screenshot you asked for.</p>
         </div>
 
         <div class="tos-table-wrap">
             <table class="tos-table">
                 <thead>
                     <tr>
-                        <th>Security Criterion</th>
-                        <th>Traditional Poker HUDs</th>
-                        <th>PokerVision HUD (OpenPokerLab)</th>
+                        <th>Security criterion</th>
+                        <th>Traditional poker HUDs</th>
+                        <th>Poker Notes (OpenPokerLab)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Memory Reading (Process Hooks)</strong></td>
+                        <td><strong>Memory reading (process hooks)</strong></td>
                         <td><span class="tag-danger">❌ Reads client RAM memory</span></td>
-                        <td><span class="tag-safe">✓ 0% Memory Reading (Pure Screen OCR)</span></td>
+                        <td><span class="tag-safe">✓ 0% memory reading - only your own notes</span></td>
                     </tr>
                     <tr>
-                        <td><strong>DLL Injection / Code Modification</strong></td>
-                        <td><span class="tag-danger">❌ Injects hooks into poker client</span></td>
-                        <td><span class="tag-safe">✓ Zero Code Injection</span></td>
+                        <td><strong>DLL injection / code modification</strong></td>
+                        <td><span class="tag-danger">❌ Injects hooks into the poker client</span></td>
+                        <td><span class="tag-safe">✓ Zero code injection, no process access</span></td>
                     </tr>
                     <tr>
-                        <td><strong>Terms of Service (Unibet / iPoker)</strong></td>
-                        <td><span class="tag-danger">⚠️ Frequently blocked or banned</span></td>
-                        <td><span class="tag-safe">✓ 100% Compliant (External Visual Tool)</span></td>
+                        <td><strong>Background scanning on a timer</strong></td>
+                        <td><span class="tag-danger">⚠️ Polls the tables every 1-2 seconds</span></td>
+                        <td><span class="tag-safe">✓ No timers - capture only when you press it</span></td>
                     </tr>
                     <tr>
-                        <td><strong>Real-Time Assistance (RTA)</strong></td>
-                        <td><span class="tag-danger">⚠️ Complex solver outputs</span></td>
-                        <td><span class="tag-safe">✓ Only Historical Statistics &amp; Notes</span></td>
+                        <td><strong>Focus &amp; input automation</strong></td>
+                        <td><span class="tag-danger">⚠️ Can activate windows and click for you</span></td>
+                        <td><span class="tag-safe">✓ Click-through overlay that cannot take focus</span></td>
                     </tr>
                     <tr>
-                        <td><strong>Privacy &amp; Data Ownership</strong></td>
-                        <td><span class="tag-dim">⚠️ Uploads to cloud servers</span></td>
-                        <td><span class="tag-safe">✓ 100% Local JSON on your PC</span></td>
+                        <td><strong>Real-time assistance (RTA)</strong></td>
+                        <td><span class="tag-danger">⚠️ Live solver output and strategy hints</span></td>
+                        <td><span class="tag-safe">✓ Only the plain text you wrote yourself</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Privacy &amp; data ownership</strong></td>
+                        <td><span class="tag-dim">⚠️ Uploads hands and stats to cloud servers</span></td>
+                        <td><span class="tag-safe">✓ 100% local JSON file, zero network calls</span></td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
+        <p style="max-width: 860px; margin: 24px auto 0 auto; font-size: 0.85rem; color: var(--text-dim); text-align: center;">Third-party tool policies differ from room to room - always check the current rules of the poker room you play on. Poker Notes is a manual note organizer: it never plays, clicks or decides for you.</p>
     </section>
 
     <!-- Frequently Asked Questions -->
@@ -1680,41 +1735,71 @@
 
         <div class="faq-item open">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span>Does PokerVision HUD work on Unibet, iPoker, and 888poker?</span>
+                <span>Does Poker Notes still show live VPIP / PFR stats?</span>
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                Yes! Because PokerVision HUD uses advanced computer vision to recognize tables and cards visually, it is compatible with virtually all modern poker sites that display screen names and bet action badges.
+                No - and that is deliberate. The optical stat engine was removed in v2.0 because on-screen numbers drift with themes, bet sizes and skins: a wrong VPIP is worse than none, and the timer that refreshed them was exactly what stole focus while you were typing. Notes, tags, aliases and history all stay, and the old tracker build (v1.0) is kept as a separate backup download if you still want the numbers.
             </div>
         </div>
 
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span>Do I or my friends need to install .NET 10 or Python?</span>
+                <span>Do I need .NET, Python or an installer - and which rooms work?</span>
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                No! The v1.0 release is published as a <strong>self-contained portable bundle</strong>. All .NET runtime files, OpenCV native libraries, and Tesseract optical OCR files are bundled directly in the folder. Just unzip and run.
+                Nothing to install: the package is a self-contained portable EXE, runs without admin rights and needs no runtime, database server or account. It works with any client that draws the player names at the table - the window check simply skips browsers and lobbies that have no green felt. Just remember to keep <code>Tesseract.dll</code>, the <code>tessdata\</code> folder and the <code>x64\</code> DLLs next to the EXE if you want the optional Capture &amp; OCR features.
             </div>
         </div>
 
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span>What happens if players leave or join the table?</span>
+                <span>Can it disturb my typing or my table while I play?</span>
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                PokerVision HUD dynamically updates seat lineups whenever you middle-click on the table or when Autopilot triggers. If a new player sits down, their name is scanned and their stats immediately load from your database.
+                No. There are no timers that create, activate or move windows, the hover overlay is click-through (<code>WS_EX_TRANSPARENT</code>) and can never take focus (<code>WS_EX_NOACTIVATE</code>), so every click lands in the poker client. The only background activity is the deferred save, which runs about 1.2 seconds after your last keystroke and only if something actually changed.
             </div>
         </div>
 
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-                <span>Can I share my player database with a friend?</span>
+                <span>Is my old PokerVision HUD database still usable?</span>
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                Yes! Your entire player library is saved in a standard <code>players.json</code> file. You can send this file to a friend, and they can load it via <strong>"📂 LOAD DB"</strong> or replace their local file.
+                Yes. Poker Notes reads and writes the same <code>version 1</code> JSON layout, so an existing file opens unchanged with all players, tags, notes, aliases and note history. The legacy <code>stats</code> and <code>watch</code> fields are preserved on disk but no longer used, and a <code>.bak</code> copy of the previous file is written before every save.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Can I share or move my player database?</span>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes - it is a single plain <code>.json</code> file. Send it to a friend, drop it in Dropbox or open it with <strong>📂 Open DB</strong> and keep several databases side by side. Prefer a spreadsheet? <strong>Export CSV</strong> writes every player with aliases, tags, notes and history count in an Excel-ready format.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>What if the OCR reads a name wrong?</span>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                Fix it once with <strong>Ctrl+click</strong> on the box or <strong>✂️ Snip Player</strong> - after that the name matches reliably. Matching tolerates the classic OCR mix-ups (<code>1/l/I</code>, <code>0/O</code>, <code>5/S</code>, <code>8/B</code>, <code>3/E</code>) plus a distance-based fallback, and the box turns grey with a <code>?</code> instead of guessing when a name is unknown. <strong>🔎 Snapshot</strong> saves the captured table with the readings, ready to send along if something looks odd.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Is there a version that needs no download at all?</span>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes - the browser-based <a href="notemanager.html" style="color: var(--primary);">Note Manager</a> on this site covers the same idea with tabs, tags and local storage. Poker Notes is the desktop version: faster to reach while you play, with many more players, aliases, history, CSV export and the OCR hover boxes.
             </div>
         </div>
     </section>
@@ -1722,20 +1807,21 @@
     <!-- Download / Call to Action Box -->
     <section class="container" id="download">
         <div class="download-box">
-            <h2>Ready to Elevate Your Poker Strategy?</h2>
-            <p>Download the official PokerVision HUD v1.0 Portable release. Unzip and dominate your tables with smart notes and live visual stats in under 60 seconds.</p>
+            <h2>Ready to keep your reads where you can find them?</h2>
+            <p>Download Poker Notes v2.0 Portable. Unzip it, point it at your database and start writing notes in under 60 seconds - no installer, no runtime, no account.</p>
             <div class="hero-actions" style="margin-bottom: 20px;">
                 <a href="https://drive.google.com/file/d/15LD3zrreiWuEQuUoljMvwcsy-08f0cuq/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size: 1.15rem; padding: 18px 40px;">
                     <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                    Download PokerVision HUD v1.0 Portable (Google Drive) ↓
+                    Download Poker Notes v2.0 Portable (.ZIP)
                 </a>
             </div>
             <div class="dl-details">
-                <span>📁 Package: PokerVisionHUD_v1.0.zip</span>
-                <span>📦 Size: ~118 MB (Self-Contained)</span>
+                <span>📁 Package: portable ZIP - unzip anywhere</span>
+                <span>📦 Size: ~120 MB (self-contained)</span>
                 <span>💻 OS: Windows 10 / 11 (x64)</span>
-                <span>🛡️ VirusTotal Clean • 100% TOS Safe</span>
+                <span>🛡️ No installer · no admin rights · no network calls</span>
             </div>
+            <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 20px;">Keep <code>Tesseract.dll</code>, the <code>tessdata\</code> folder and the <code>x64\</code> DLLs next to <code>PokerVisionHUD.exe</code>; they are only used by the optional Capture &amp; OCR features. The download opens in Google Drive.</p>
         </div>
     </section>
 
@@ -1743,98 +1829,100 @@
     <footer>
         <div class="container">
             <ul class="footer-links">
-                <li><a href="software.html">← Back to Hub</a></li>
-                <li><a href="#simulator">Simulator</a></li>
+                <li><a href="software.html">Software Hub</a></li>
+                <li><a href="#simulator">Demo</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#guide">User Guide</a></li>
+                <li><a href="#changelog">What's New</a></li>
                 <li><a href="#safety">TOS Compliance</a></li>
                 <li><a href="#faq">FAQ</a></li>
-                <li><a href="https://drive.google.com/file/d/15LD3zrreiWuEQuUoljMvwcsy-08f0cuq/view?usp=sharing" target="_blank" rel="noopener noreferrer">Download</a></li>
+                <li><a href="#download">Download</a></li>
             </ul>
-            <p>&copy; 2026 OpenPokerLab (OpenPokerLab.org). Engineered for serious poker players. All rights reserved.</p>
-            <p style="margin-top: 6px; font-size: 0.8rem; color: #475569;">Disclaimer: PokerVision HUD is an external, non-invasive visual note organizer and historical statistical display tool. It does not provide real-time automated play.</p>
+            <p>&copy; 2026 OpenPokerLab (OpenPokerLab.org). Built for players who write their own reads. All rights reserved.</p>
+            <p style="margin-top: 6px; font-size: 0.8rem; color: #475569;">Disclaimer: Poker Notes is an external, non-invasive note organizer with an optional screen-capture overlay. It contains no tracker, no solver output and no automated play.</p>
         </div>
     </footer>
 
     <!-- Interactive Scripts -->
     <script>
-        // Interactive Poker Table Simulation
-        let simState = {
-            s1: { vpip: 52, pfr: 12, threeBet: 3, foldThreeBet: 86, hands: 48 },
-            s2: { vpip: 23, pfr: 19, threeBet: 8, foldThreeBet: 56, hands: 142 },
-            s3: { vpip: 34, pfr: 28, threeBet: 15, foldThreeBet: 38, hands: 76 },
-            s5: { vpip: 68, pfr: 45, threeBet: 24, foldThreeBet: 18, hands: 33 },
-            s6: { vpip: 13, pfr: 11, threeBet: 4, foldThreeBet: 78, hands: 110 }
+        // ---- Interactive Capture & Hover-Box Demo ----
+        const simPlayers = {
+            s1: { name: 'FishyPete', note: 'Limps A-rag, calls any raise, folds to a 3-bet. Value-bet thin against him - he pays off with any pair.', meta: 'in database · alias: fishpete12' },
+            s2: { name: 'SolidPro', note: '3-bets vs late opens and gives up on wet boards. Do not bluff the river; he calls with bluff-catchers.', meta: 'in database · tags: Reg, LAG' },
+            s3: { name: 'AggroDan', note: 'Over-bluffs turns and barrels rivers with air. Call him down lighter than usual and let him hang himself.', meta: 'in database · alias: AggroDan88' },
+            s5: { name: 'ManiacMike', note: 'Overshoves draws and donk-bets turns. Trap him with top pair instead of raising him off his bluffs.', meta: 'in database · 1 tag' },
+            s6: { name: 'TightTom', note: 'Only 3-bets QQ+/AK. Steal his blinds every orbit and get out of the way when he plays back.', meta: 'in database · 1 tag' }
         };
+        const boxIds = ['box-1', 'box-2', 'box-3', 'box-5', 'box-6'];
 
-        const initialSimState = JSON.parse(JSON.stringify(simState));
-
-        function updateSimDisplay() {
-            for (let seatKey in simState) {
-                const s = simState[seatKey];
-                const seatNum = seatKey.replace('s', '');
-                document.getElementById(`${seatKey}-vpip`).innerText = s.vpip;
-                document.getElementById(`${seatKey}-pfr`).innerText = s.pfr;
-                document.getElementById(`${seatKey}-3b`).innerText = s.threeBet + '%';
-                document.getElementById(`${seatKey}-f3b`).innerText = s.foldThreeBet + '%';
-                document.getElementById(`${seatKey}-hands`).innerText = `(${s.hands}h)`;
-            }
+        function simStatus(text, color) {
+            const el = document.getElementById('sim-status');
+            if (!el) return;
+            el.innerText = text;
+            el.style.color = color || '#cbd5e1';
         }
 
-        function simulateHandEvent(eventType) {
-            const statusEl = document.getElementById('sim-status-text');
-            if (eventType === 'raise') {
-                // AggroDan 3-bets, Fish folds, Reg folds
-                simState.s3.hands += 1;
-                simState.s3.threeBet = Math.min(22, simState.s3.threeBet + 1);
-                simState.s3.pfr = Math.min(32, simState.s3.pfr + 1);
-
-                simState.s1.hands += 1;
-                simState.s1.foldThreeBet = Math.min(90, simState.s1.foldThreeBet + 1);
-
-                simState.s2.hands += 1;
-                simState.s5.hands += 1;
-                simState.s6.hands += 1;
-
-                statusEl.innerText = "[OCR Event: 3-Bet Preflop] AggroDan raised 3B. FishyPete folded. Stats recalculated in 1.5s.";
-                statusEl.style.color = "#38bdf8";
-            } else if (eventType === 'fish_call') {
-                // FishyPete limps/calls
-                simState.s1.hands += 1;
-                simState.s1.vpip = Math.min(65, simState.s1.vpip + 1);
-
-                simState.s5.hands += 1;
-                simState.s5.vpip = Math.min(75, simState.s5.vpip + 1);
-
-                simState.s2.hands += 1;
-                simState.s3.hands += 1;
-                simState.s6.hands += 1;
-
-                statusEl.innerText = "[OCR Event: Limp/Call] FishyPete limped in. VPIP increased to " + simState.s1.vpip + "%.";
-                statusEl.style.color = "#ff8c00";
-            }
-            updateSimDisplay();
+        function setBoxHidden(id, hidden) {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('box-hidden', hidden);
         }
 
-        function resetSimStats() {
-            simState = JSON.parse(JSON.stringify(initialSimState));
-            updateSimDisplay();
-            const statusEl = document.getElementById('sim-status-text');
-            statusEl.innerText = "[OCR Engine Reset] Table statistics reset to initial baseline.";
-            statusEl.style.color = "#cbd5e1";
+        function simulateCapture() {
+            boxIds.forEach(id => {
+                setBoxHidden(id, false);
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('box-unknown');
+            });
+            document.getElementById('name-6').innerText = simPlayers.s6.name;
+            document.getElementById('tag-6').innerText = 'Nit';
+            document.getElementById('note-6').innerText = simPlayers.s6.note.substring(0, 52) + '...';
+            simStatus("[Capture & Scan] 2 tables found · 6 seats read by OCR · 6 boxes placed (green = player in database).", '#10b981');
+        }
+
+        function simulateOcrMiss() {
+            setBoxHidden('box-6', false);
+            const el = document.getElementById('box-6');
+            if (el) el.classList.add('box-unknown');
+            document.getElementById('name-6').innerText = 'TiqhtT0m';
+            document.getElementById('tag-6').innerText = '?';
+            document.getElementById('note-6').innerText = 'name read, but not in the database yet...';
+            document.getElementById('meta-6').innerText = 'Ctrl+click to create the player';
+            simStatus("[OCR] seat 6 read as 'TiqhtT0m' - no database match, so the box turns grey with a ? instead of showing another player's note.", '#f59e0b');
+        }
+
+        function simulateBoxRemove() {
+            setBoxHidden('box-3', true);
+            simStatus("[Ctrl+click] box removed for AggroDan - only on this table. The note stays in the database and the box on your other table is untouched.", '#f43f5e');
+        }
+
+        function resetBoxes() {
+            boxIds.forEach(id => {
+                setBoxHidden(id, true);
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('box-unknown');
+            });
+            document.getElementById('name-6').innerText = simPlayers.s6.name;
+            document.getElementById('tag-6').innerText = 'Nit';
+            document.getElementById('note-6').innerText = simPlayers.s6.note.substring(0, 52) + '...';
+            document.getElementById('meta-6').innerText = 'in database · 1 tag';
+            simStatus("[Clear] Overlay wiped. Nothing runs in the background until you press Capture & Scan again.", '#cbd5e1');
         }
 
         function showSeatDetails(playerName) {
-            const statusEl = document.getElementById('sim-status-text');
-            statusEl.innerText = `[Selected Player: ${playerName}] Profile inspected. Notes synced to database.`;
-            statusEl.style.color = "#10b981";
+            if (playerName === 'Your own seat') {
+                simStatus("[Hover] Your own seat never gets a box - Poker Notes only annotates opponents.", '#64748b');
+                return;
+            }
+            const hit = Object.values(simPlayers).find(p => p.name === playerName);
+            if (!hit) return;
+            simStatus(`[Hover] ${hit.name} — "${hit.note}"`, '#38bdf8');
         }
 
         // Tab Switcher for User Guide
         function switchGuideTab(tabId, btnElement) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
+
             btnElement.classList.add('active');
             const target = document.getElementById('tab-' + tabId);
             if (target) target.classList.add('active');
@@ -1853,5 +1941,6 @@
             });
         }
     </script>
+
 </body>
 </html>
