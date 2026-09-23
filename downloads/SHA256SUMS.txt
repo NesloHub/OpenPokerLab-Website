@@ -1,0 +1,3 @@
+﻿a99fe04fb6a9d75d3deccf8d61b70712f083e504cee147b1ab05870c38edb3cd *PokerEquityLab-1.0.0-win-x64-setup.exe
+7452b10bcc514d7f0649d67b24ecb785310d72e1d8898904bc78d0674bc3152e *PokerEquityLab-1.0.0-win-x64.zip
+603f99d8187cffc1d216a54f0e9ad36f40fbcb40ba306f5a9e87850ef8bb88ea *version.txt
