@@ -361,6 +361,7 @@ nav a:hover, nav a.active {
 
 .software-preview {
     width: 100%;
+    height: auto;
     display: block;
     opacity: 0.85; /* Gør billedet en anelse mørkt indtil man holder musen over */
     transition: opacity 0.4s ease, transform 0.4s ease;
@@ -1282,4 +1283,23 @@ nav a:hover, nav a.active {
 
 .related-tools a:hover {
     border-bottom-color: var(--neon-green);
+}
+
+/* ---------- Image sizing ----------
+   A width/height attribute is only a hint: when CSS sets one dimension (for example width: 100 %)
+   the other dimension must stay auto, otherwise the picture is stretched. */
+img {
+    height: auto;
+}
+
+.site-logo {
+    height: 40px;
+    width: auto;
+    border-radius: 4px;
+}
+
+.logo-mark {
+    height: 35px;
+    width: auto;
+    border-radius: 4px;
 }
