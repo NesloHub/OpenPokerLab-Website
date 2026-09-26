@@ -1,48 +1,20 @@
-document.addEventListener("DOMContentLoaded", function() {
-    
-    // ==========================================
-    // 1. HEADER & NAVIGATION LOGIC
-    // ==========================================
-    const menuHTML = `
-        <header>
-            <a href="index.html" class="logo" style="display: flex; align-items: center; text-decoration: none;">
-                <img src="logo.png" alt="OpenPokerLab Logo" style="height: 45px; margin-right: 15px; border-radius: 4px;">
-                OPENPOKER<span class="neon-text-small">LAB</span>
-            </a>
-            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <nav>
-                <ul id="nav-links">
-                    <li><a href="index.html">HOME</a></li>
-                    <li><a href="beginner.html">BEGINNER</a></li>
-                    <li><a href="calculator.html">CALCULATOR</a></li>
-                    <li><a href="ranges.html">RANGES</a></li>
-                    <li><a href="glossary.html">GLOSSARY</a></li>
-                    <li><a href="software.html">SOFTWARE</a></li>
-                    <li><a href="strategy.html">STRATEGY</a></li>
-                    <li><a href="bankroll.html">BANKROLL</a></li>
-                    <li><a href="content.html">CONTENT</a></li>
-                    <li><a href="sites.html">SITES</a></li>
-                    <li><a href="notemanager.html">NOTE MANAGER</a></li>
-                </ul>
-            </nav>
-        </header>
-    `;
+// Mobile menu behaviour and the "you are here" highlight for the navigation.
+// The header and footer markup lives inside the pages themselves, so search engines and readers
+// without JavaScript still see the navigation and the disclaimer text.
+document.addEventListener("DOMContentLoaded", function () {
 
-    // Inject header into the DOM
-    const globalHeader = document.getElementById("global-header");
-    if (globalHeader) {
-        globalHeader.innerHTML = menuHTML;
-    }
-
-    // Mobile navigation toggle logic
     const menuToggle = document.getElementById("mobile-menu-toggle");
     const navElement = document.querySelector("header nav");
+
     if (menuToggle && navElement) {
-        menuToggle.addEventListener("click", function(e) {
+        const closeMenu = function () {
+            navElement.classList.remove("open");
+            menuToggle.classList.remove("open");
+            menuToggle.setAttribute("aria-expanded", "false");
+            document.body.classList.remove("nav-open");
+        };
+
+        menuToggle.addEventListener("click", function (e) {
             e.stopPropagation();
             const isOpen = navElement.classList.toggle("open");
             menuToggle.classList.toggle("open");
@@ -50,78 +22,33 @@ document.addEventListener("DOMContentLoaded", function() {
             document.body.classList.toggle("nav-open", isOpen);
         });
 
-        navElement.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", function() {
-                navElement.classList.remove("open");
-                menuToggle.classList.remove("open");
-                menuToggle.setAttribute("aria-expanded", "false");
-                document.body.classList.remove("nav-open");
-            });
+        navElement.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", closeMenu);
         });
 
-        document.addEventListener("click", function(e) {
+        document.addEventListener("click", function (e) {
             if (!e.target.closest("header") && navElement.classList.contains("open")) {
-                navElement.classList.remove("open");
-                menuToggle.classList.remove("open");
-                menuToggle.setAttribute("aria-expanded", "false");
-                document.body.classList.remove("nav-open");
+                closeMenu();
             }
         });
 
-        document.addEventListener("keydown", function(e) {
+        document.addEventListener("keydown", function (e) {
             if (e.key === "Escape" && navElement.classList.contains("open")) {
-                navElement.classList.remove("open");
-                menuToggle.classList.remove("open");
-                menuToggle.setAttribute("aria-expanded", "false");
-                document.body.classList.remove("nav-open");
+                closeMenu();
             }
         });
     }
 
-    // Highlight the active page in the navigation menu
-    let currentPage = window.location.pathname.split('/').pop();
+    // Highlight the page you are on.
+    let currentPage = window.location.pathname.split("/").pop();
     if (currentPage === "") {
         currentPage = "index.html";
     }
 
-    const navLinks = document.querySelectorAll("#nav-links a");
-    navLinks.forEach(link => {
-        const linkHref = link.getAttribute("href");
-        if (currentPage === linkHref || currentPage === linkHref.replace('.html', '')) {
+    document.querySelectorAll("#nav-links a").forEach(function (link) {
+        const href = link.getAttribute("href");
+        if (currentPage === href || currentPage === href.replace(".html", "")) {
             link.classList.add("active");
         }
     });
-
-    // ==========================================
-    // 2. FOOTER & LEGAL DISCLAIMER LOGIC
-    // ==========================================
-    const footerHTML = `
-        <footer class="site-footer" style="margin-top: 60px; padding: 40px 20px; border-top: 1px solid #1a1a1a; color: #666; font-size: 0.75rem; line-height: 1.6; text-align: center; background-color: #050505;">
-            <div style="max-width: 900px; margin: 0 auto;">
-                
-                <p style="margin-bottom: 15px;">
-                    <strong>Disclaimer & Terms of Use:</strong> OpenPokerLab is an independent, open-source educational platform. We are not affiliated with, endorsed by, or sponsored by any third-party poker rooms or software providers mentioned on this site. All product names, logos, and brands are property of their respective owners.
-                </p>
-                
-                <p style="margin-bottom: 15px;">
-                    Poker involves financial risk. The software, content, and strategy guides provided on this site are for educational and informational purposes only and do not constitute financial advice. All open-source software is provided "as-is" without warranty of any kind. Please review the Terms of Service of your specific poker room regarding the use of third-party tools while playing.
-                </p>
-                
-                <p style="margin-bottom: 25px; color: #888;">
-                    🔞 <strong>18+ Only.</strong> Please play responsibly. If you or someone you know has a gambling problem, seek help at <a href="https://www.gamblingtherapy.org" target="_blank" rel="noopener noreferrer" style="color: var(--neon-green); text-decoration: none; border-bottom: 1px solid var(--neon-green);">GamblingTherapy.org</a> or <a href="http://gambleaware.org/" target="_blank" rel="noopener noreferrer" style="color: var(--neon-green); text-decoration: none; border-bottom: 1px solid var(--neon-green);">GambleAware.org</a>.
-                </p>
-                
-                <p style="margin-top: 20px; font-size: 0.7rem; color: #444;">
-                    &copy; 2026 OpenPokerLab.org. All rights reserved. Built by the community, for the community.
-                </p>
-                
-            </div>
-        </footer>
-    `;
-
-    // Inject footer into the DOM
-    const globalFooter = document.getElementById("global-footer");
-    if (globalFooter) {
-        globalFooter.innerHTML = footerHTML;
-    }
 });

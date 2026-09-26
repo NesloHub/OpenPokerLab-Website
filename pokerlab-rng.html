@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokerLab RNG v1.0 | OpenPokerLab.org - Random Numbers for Mixed Frequencies</title>
+    <meta name="description" content="PokerLab RNG is a small Windows program that rolls a random number from 1 to 100 for GTO mixed frequencies. Set your frequency, roll, and read the answer. Free, portable and completely offline.">
+    <link rel="canonical" href="https://openpokerlab.org/pokerlab-rng.html">
+    <!-- Social preview (Open Graph / Twitter) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://openpokerlab.org/pokerlab-rng.html">
+    <meta property="og:title" content="PokerLab RNG v1.0 | OpenPokerLab.org - Random Numbers for Mixed Frequencies">
+    <meta property="og:description" content="PokerLab RNG is a small Windows program that rolls a random number from 1 to 100 for GTO mixed frequencies. Set your frequency, roll, and read the answer.">
+    <meta property="og:image" content="https://openpokerlab.org/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://openpokerlab.org/pokerlab-rng.html">
+    <meta name="twitter:title" content="PokerLab RNG v1.0 | OpenPokerLab.org - Random Numbers for Mixed Frequencies">
+    <meta name="twitter:description" content="PokerLab RNG is a small Windows program that rolls a random number from 1 to 100 for GTO mixed frequencies. Set your frequency, roll, and read the answer.">
+    <meta name="twitter:image" content="https://openpokerlab.org/og-image.png">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fonts.css">
+    <style>
+        .rng-main { max-width: 1100px; margin: 0 auto; padding: 0 20px 60px 20px; }
+        .rng-section { margin-bottom: 46px; }
+        .rng-section h2 { font-family: var(--font-main); font-size: 1.6rem; font-weight: 600; letter-spacing: 1px; color: #fff; margin-bottom: 14px; }
+        .rng-section h3 { font-size: 1.05rem; color: #fff; margin: 18px 0 6px 0; }
+        .rng-section p, .rng-section li { color: #a9a9a9; line-height: 1.75; font-size: 0.98rem; }
+        .rng-steps { counter-reset: step; list-style: none; padding: 0; }
+        .rng-steps > li { position: relative; padding-left: 44px; margin-bottom: 18px; color: #a9a9a9; line-height: 1.7; }
+        .rng-steps > li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: rgba(57, 255, 20, 0.12); color: var(--neon-green); border: 1px solid rgba(57, 255, 20, 0.5); font-weight: 600; text-align: center; line-height: 28px; }
+        .rng-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
+        .rng-table th, .rng-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #1c1c1c; color: #a9a9a9; vertical-align: top; }
+        .rng-table th { color: #fff; font-weight: 600; letter-spacing: 1px; font-size: 0.8rem; text-transform: uppercase; }
+        .rng-table code { color: var(--neon-green); }
+        .rng-shot { width: 100%; max-width: 620px; display: block; margin: 0 auto; border: 1px solid #222; border-radius: 4px; }
+        .download-box { background: linear-gradient(135deg, rgba(14, 165, 233, 0.10), rgba(99, 102, 241, 0.10)); border: 1px solid rgba(56, 189, 248, 0.28); border-radius: 6px; padding: 32px; text-align: center; }
+        .download-box h2 { margin-bottom: 10px; }
+        .dl-details { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: center; margin-top: 18px; font-size: 0.85rem; color: #8a8a8a; }
+        .btn-primary, .btn-secondary { display: inline-flex; align-items: center; gap: 10px; padding: 16px 34px; border-radius: 4px; text-decoration: none; font-weight: 600; letter-spacing: 1px; }
+        .btn-primary { background: var(--neon-green); color: #000; }
+        .btn-secondary { background: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); }
+        .faq-item { border: 1px solid #1c1c1c; border-radius: 4px; margin-bottom: 12px; overflow: hidden; background: #0b0b0b; }
+        .faq-question { display: flex; justify-content: space-between; gap: 12px; cursor: pointer; padding: 16px 18px; color: #fff; font-size: 0.95rem; }
+        .faq-answer { display: none; padding: 0 18px 16px 18px; color: #a9a9a9; line-height: 1.7; font-size: 0.92rem; }
+    </style>
+</head>
+<body class="content-page">
+
+    <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="OpenPokerLab logo" width="320" height="180">
+            OPENPOKER<span class="neon-text-small">LAB</span>
+        </a>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav>
+            <ul id="nav-links">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="beginner.html">BEGINNER</a></li>
+                <li><a href="calculator.html">CALCULATOR</a></li>
+                <li><a href="ranges.html">RANGES</a></li>
+                <li><a href="glossary.html">GLOSSARY</a></li>
+                <li><a href="software.html">SOFTWARE</a></li>
+                <li><a href="strategy.html">STRATEGY</a></li>
+                <li><a href="bankroll.html">BANKROLL</a></li>
+                <li><a href="content.html">CONTENT</a></li>
+                <li><a href="sites.html">SITES</a></li>
+                <li><a href="notemanager.html">NOTE MANAGER</a></li>
+            </ul>
+        </nav>
+    </header>
+    <script src="menu.js"></script>
+
+    <main class="rng-main">
+
+        <section class="page-header">
+            <h1 class="elegant-title-small">POKERLAB <span class="title-highlight">RNG</span></h1>
+            <p class="subtitle">A small random number generator for GTO mixed frequencies.</p>
+        </section>
+
+        <section class="rng-section">
+            <h2>What it does</h2>
+            <p>PokerLab RNG rolls a random number from <strong>1 to 100</strong>. You decide how often you want to bet or raise &mdash; say 50 percent &mdash; and the program rolls the number for you, so the decision is random and honest instead of a feeling. It is the same idea as rolling a die or looking at your watch, just quicker and easier to repeat.</p>
+            <p>It is <strong>not</strong> a tracker, not a HUD and not a solver. It does not read your tables, does not count hands, stores no statistics and never goes online. It only rolls a number.</p>
+        </section>
+
+        <section class="rng-section">
+            <h2>How it works</h2>
+            <ol class="rng-steps">
+                <li><strong>Set your frequency.</strong> Click 25, 33, 50 or 75 percent, or drag the slider to any value between 1 and 100.</li>
+                <li><strong>Roll.</strong> Press the big ROLL RNG button, the space bar, or click the number card itself. With Hover mode on, the mouse passing over the card is enough.</li>
+                <li><strong>Read the answer.</strong> A roll inside your frequency shows <strong>BET / RAISE</strong> in green; a roll above it shows <strong>CHECK / FOLD</strong> in grey. With a frequency of 50 percent, a roll of 12 means BET / RAISE and a roll of 58 means CHECK / FOLD.</li>
+            </ol>
+        </section>
+
+        <section class="rng-section">
+            <h2>The screen</h2>
+            <img src="pokerrng.webp" alt="PokerLab RNG window: a roll of 58, the CHECK / FOLD answer, the frequency slider and the preset buttons" class="rng-shot" width="1200" height="750">
+            <table class="rng-table">
+                <tr><th>Part of the window</th><th>What it does</th></tr>
+                <tr><td>The big number</td><td>The latest roll, from 1 to 100. Click the card to roll again.</td></tr>
+                <tr><td>Green or grey line underneath</td><td>The action that follows from the roll and your frequency.</td></tr>
+                <tr><td><strong>ROLL RNG (Space)</strong></td><td>Rolls a new number.</td></tr>
+                <tr><td><strong>Manual / Hover / Auto 2s / Auto 1s</strong></td><td>How rolls happen: only when you ask, when the mouse sweeps over the card, or on a timer.</td></tr>
+                <tr><td><strong>Threshold</strong> and the slider</td><td>Your frequency, in percent.</td></tr>
+                <tr><td><strong>25% / 33% / 50% / 75%</strong></td><td>Quick buttons for the frequencies most players use.</td></tr>
+                <tr><td>The row of small boxes</td><td>Your last six rolls.</td></tr>
+                <tr><td><strong>Rolls / Avg</strong></td><td>How many times you have rolled this session, and the average.</td></tr>
+                <tr><td>Speaker and pin button</td><td>Sound on or off, and keep the window on top of your tables.</td></tr>
+            </table>
+        </section>
+
+        <section class="rng-section">
+            <h2>Keyboard shortcuts</h2>
+            <table class="rng-table">
+                <tr><th>Key</th><th>Action</th></tr>
+                <tr><td><code>Space</code></td><td>Roll a new number</td></tr>
+                <tr><td><code>H</code></td><td>Turn Hover mode on or off</td></tr>
+                <tr><td><code>A</code></td><td>Turn Auto-roll (2 seconds) on or off</td></tr>
+                <tr><td><code>T</code></td><td>Turn "always on top" on or off</td></tr>
+                <tr><td><code>M</code></td><td>Mute or unmute the sound</td></tr>
+                <tr><td><code>Up</code> / <code>Down</code></td><td>Frequency plus or minus 5 percent</td></tr>
+            </table>
+        </section>
+
+        <section class="rng-section">
+            <h2>Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)"><span>Are the numbers really random?</span><span class="faq-icon">▼</span></div>
+                <div class="faq-answer">Yes. Every roll comes from Python's <code>secrets</code> module, which is built for cryptographic randomness. Each value from 1 to 100 is equally likely, and a low roll never makes a high roll more likely.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)"><span>Does it save anything while I play?</span><span class="faq-icon">▼</span></div>
+                <div class="faq-answer">No. Nothing is written to disk and nothing leaves your computer. Close the program and the roll history is gone; the next start begins fresh.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)"><span>Is it allowed by the poker rooms?</span><span class="faq-icon">▼</span></div>
+                <div class="faq-answer">That is up to your poker room. PokerLab RNG is an offline random number generator: it does not read the game, does not show statistics and never acts for you. Many rooms still restrict any third-party program running while you play, so check their rules &mdash; the same advice that applies to a dice or a coin.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)"><span>Why is such a small program a 37 MB download?</span><span class="faq-icon">▼</span></div>
+                <div class="faq-answer">Everything it needs is packed into one file, including the Qt user interface library and the Python runtime. That is why there is nothing to install: unzip it anywhere and run <code>PokerLabRNG.exe</code>.</div>
+            </div>
+        </section>
+
+        <section class="rng-section" id="download">
+            <div class="download-box">
+                <h2>Download PokerLab RNG v1.0</h2>
+                <p>Unzip the file anywhere and double-click <code>PokerLabRNG.exe</code>. No installation, no account, no internet connection.</p>
+                <div style="margin: 22px 0 6px 0; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://github.com/NesloHub/PokerLabRNG/releases/download/v1.0.0/PokerLab_RNG_v1.0.zip" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        Download v1.0 Portable (ZIP)
+                    </a>
+                    <a href="https://github.com/NesloHub/PokerLabRNG" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+                        Source code
+                    </a>
+                </div>
+                <div class="dl-details">
+                    <span>📦 Portable ZIP - unzip anywhere</span>
+                    <span>📦 Size: about 37 MB</span>
+                    <span>💻 Windows 10 / 11 (64-bit)</span>
+                    <span>🛡️ No installer · no admin rights · no network calls</span>
+                </div>
+                <p style="font-size: 0.85rem; color: #7a7a7a; margin-top: 18px;">The download comes from GitHub Releases (release v1.0.0). The zip holds <code>PokerLabRNG.exe</code>, <code>README.txt</code>, <code>Start.bat</code> and the program icon.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p><strong>Disclaimer &amp; Terms of Use:</strong> OpenPokerLab is an independent, open-source educational platform. We are not affiliated with, endorsed by, or sponsored by any third-party poker rooms or software providers mentioned on this site. All product names, logos, and brands are property of their respective owners.</p>
+        <p>Poker involves financial risk. The software, content, and strategy guides provided on this site are for educational and informational purposes only and do not constitute financial advice. All open-source software is provided "as-is" without warranty of any kind. Please review the Terms of Service of your specific poker room regarding the use of third-party tools while playing.</p>
+        <p class="footer-18">&#128286; <strong>18+ Only.</strong> Please play responsibly. If you or someone you know has a gambling problem, seek help at <a href="https://www.gamblingtherapy.org" target="_blank" rel="noopener noreferrer">GamblingTherapy.org</a> or <a href="https://www.gambleaware.org/" target="_blank" rel="noopener noreferrer">GambleAware.org</a>.</p>
+        <p class="footer-copy">&copy; 2026 OpenPokerLab.org. All rights reserved. Built by the community, for the community.</p>
+    </footer>
+
+    <script>
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const open = answer.style.display === "block";
+            answer.style.display = open ? "none" : "block";
+            const icon = element.querySelector(".faq-icon");
+            if (icon) { icon.textContent = open ? "\u25BC" : "\u25B2"; }
+        }
+    </script>
+
+</body>
+</html>
+

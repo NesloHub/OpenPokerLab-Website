@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Poker Equity Calculator | OpenPokerLab</title>
     <meta name="description" content="Free, fast in-browser Texas Hold'em poker equity calculator. Calculate preflop and postflop equities with multiway Monte Carlo simulations.">
+    <link rel="canonical" href="https://openpokerlab.org/calculator.html">
     
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -14,7 +15,7 @@
     <meta property="og:image" content="https://openpokerlab.org/og-image.png">
 
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fonts.css">
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
@@ -110,10 +111,43 @@
 <body class="content-page">
 
     <!-- Dynamic Header -->
-    <div id="global-header"></div>
+        <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="OpenPokerLab logo" width="320" height="180">
+            OPENPOKER<span class="neon-text-small">LAB</span>
+        </a>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav>
+            <ul id="nav-links">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="beginner.html">BEGINNER</a></li>
+                <li><a href="calculator.html">CALCULATOR</a></li>
+                <li><a href="ranges.html">RANGES</a></li>
+                <li><a href="glossary.html">GLOSSARY</a></li>
+                <li><a href="software.html">SOFTWARE</a></li>
+                <li><a href="strategy.html">STRATEGY</a></li>
+                <li><a href="bankroll.html">BANKROLL</a></li>
+                <li><a href="content.html">CONTENT</a></li>
+                <li><a href="sites.html">SITES</a></li>
+                <li><a href="notemanager.html">NOTE MANAGER</a></li>
+            </ul>
+        </nav>
+    </header>
     <script src="menu.js"></script>
 
     <main class="strategy-main">
+
+        <nav class="related-tools" aria-label="Related tools">
+            <span>Related</span>
+            <a href="calculator.html">Equity Calculator (browser)</a>
+            <a href="ranges.html">Preflop Range Charts</a>
+            <a href="range-maker.html">Interactive Range Maker</a>
+            <a href="equity-lab.html">PokerEquity Lab (desktop program)</a>
+        </nav>
         <section class="page-header">
             <h1 class="elegant-title-small">EQUITY <span class="title-highlight">CALCULATOR</span></h1>
             <p class="subtitle">Lightning-fast Monte Carlo Texas Hold'em equity simulation in your browser.</p>
@@ -315,7 +349,12 @@
     </div>
 
     <!-- Dynamic Footer -->
-    <div id="global-footer"></div>
+        <footer class="site-footer">
+        <p><strong>Disclaimer &amp; Terms of Use:</strong> OpenPokerLab is an independent, open-source educational platform. We are not affiliated with, endorsed by, or sponsored by any third-party poker rooms or software providers mentioned on this site. All product names, logos, and brands are property of their respective owners.</p>
+        <p>Poker involves financial risk. The software, content, and strategy guides provided on this site are for educational and informational purposes only and do not constitute financial advice. All open-source software is provided "as-is" without warranty of any kind. Please review the Terms of Service of your specific poker room regarding the use of third-party tools while playing.</p>
+        <p class="footer-18">&#128286; <strong>18+ Only.</strong> Please play responsibly. If you or someone you know has a gambling problem, seek help at <a href="https://www.gamblingtherapy.org" target="_blank" rel="noopener noreferrer">GamblingTherapy.org</a> or <a href="https://www.gambleaware.org/" target="_blank" rel="noopener noreferrer">GambleAware.org</a>.</p>
+        <p class="footer-copy">&copy; 2026 OpenPokerLab.org. All rights reserved. Built by the community, for the community.</p>
+    </footer>
 
     <!-- POKER ENGINE & SIMULATOR SCRIPT -->
     <script>

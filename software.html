@@ -5,8 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free & Premium Poker Software | OpenPokerLab</title>
     <meta name="description" content="Download completely free poker tools and discover the best premium software like GTO Wizard, Holdem Manager, and PokerTracker.">
+    <link rel="canonical" href="https://openpokerlab.org/software.html">
+    <!-- Social preview (Open Graph / Twitter) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://openpokerlab.org/software.html">
+    <meta property="og:title" content="Free &amp; Premium Poker Software | OpenPokerLab">
+    <meta property="og:description" content="Download completely free poker tools and discover the best premium software like GTO Wizard, Holdem Manager, and PokerTracker.">
+    <meta property="og:image" content="https://openpokerlab.org/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://openpokerlab.org/software.html">
+    <meta name="twitter:title" content="Free &amp; Premium Poker Software | OpenPokerLab">
+    <meta name="twitter:description" content="Download completely free poker tools and discover the best premium software like GTO Wizard, Holdem Manager, and PokerTracker.">
+    <meta name="twitter:image" content="https://openpokerlab.org/og-image.png">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fonts.css">
     <link rel="icon" type="image/png" href="favicon.png">
 
     <!-- Dual column layout styling for the software page -->
@@ -65,7 +77,32 @@
 <body class="content-page">
 
     <!-- Dynamic header injected via menu.js -->
-    <div id="global-header"></div>
+        <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="OpenPokerLab logo" width="320" height="180">
+            OPENPOKER<span class="neon-text-small">LAB</span>
+        </a>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav>
+            <ul id="nav-links">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="beginner.html">BEGINNER</a></li>
+                <li><a href="calculator.html">CALCULATOR</a></li>
+                <li><a href="ranges.html">RANGES</a></li>
+                <li><a href="glossary.html">GLOSSARY</a></li>
+                <li><a href="software.html">SOFTWARE</a></li>
+                <li><a href="strategy.html">STRATEGY</a></li>
+                <li><a href="bankroll.html">BANKROLL</a></li>
+                <li><a href="content.html">CONTENT</a></li>
+                <li><a href="sites.html">SITES</a></li>
+                <li><a href="notemanager.html">NOTE MANAGER</a></li>
+            </ul>
+        </nav>
+    </header>
     <script src="menu.js"></script>
 
     <main class="strategy-main">
@@ -86,18 +123,18 @@
                         <!-- Poker Notes (v2.1) -->
                         <div class="resource-box featured software-card software-card-compact">
                             <div class="software-image-container">
-                                <img src="pokernotes.png" alt="Poker Notes desktop app interface" class="software-preview">
+                                <img src="pokernotes.webp" alt="Poker Notes desktop app interface" class="software-preview" width="1150" height="760">
                             </div>
                             <div class="software-details">
-                                <div class="box-content software-content" style="max-width: 100%;">
+                                <div class="box-content software-content software-text">
                                     <span class="tag">FLAGSHIP OPEN-SOURCE NOTE TOOL</span>
                                     <h3>Poker Notes</h3>
                                     <h4>Portable Player Notes &amp; Optional OCR Hover Boxes</h4>
                                     <p>A fast, self-contained Windows notes app for poker. Write reads with autosave, organise players with colour-coded tags, aliases and note history, export to CSV, and optionally let it read the seat names off your tables and show your notes in click-through hover boxes. No installer, no runtime, no background scanning, zero client memory injection - 100% local JSON.</p>
                                 </div>
-                                <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; width: 100%;">
-                                    <a href="pokervision.html" class="download-link" style="flex: 1; min-width: 140px; text-align: center; background: transparent; border: 1px solid var(--neon-green); color: var(--neon-green);">VIEW GUIDE →</a>
-                                    <a href="https://github.com/NesloHub/PokerNoteManager/releases/download/v2.1.0/PokerNotes_v2.1_Portable.zip" target="_blank" rel="noopener noreferrer" class="download-link" style="flex: 1; min-width: 140px; text-align: center;">DOWNLOAD v2.1 (GITHUB) ↓</a>
+                                <div class="card-actions">
+                                    <a href="pokervision.html" class="download-link wide ghost">VIEW GUIDE →</a>
+                                    <a href="https://github.com/NesloHub/PokerNoteManager/releases/download/v2.1.0/PokerNotes_v2.1_Portable.zip" target="_blank" rel="noopener noreferrer" class="download-link wide">DOWNLOAD v2.1 (GITHUB) ↓</a>
                                 </div>
                             </div>
                         </div>
@@ -106,18 +143,18 @@
                         <!-- PokerEquity Lab (v1.0.0) -->
                         <div class="resource-box featured software-card software-card-compact">
                             <div class="software-image-container">
-                                <img src="poker-equity-lab.png" alt="PokerEquity Lab desktop equity calculator: players, the 13x13 range matrix and the card palette" class="software-preview">
+                                <img src="poker-equity-lab.webp" alt="PokerEquity Lab desktop equity calculator: players, the 13x13 range matrix and the card palette" class="software-preview" loading="lazy" width="1200" height="843">
                             </div>
                             <div class="software-details">
-                                <div class="box-content software-content" style="max-width: 100%;">
+                                <div class="box-content software-content software-text">
                                     <span class="tag">FREE EQUITY &amp; RANGE CALCULATOR</span>
                                     <h3>PokerEquity Lab</h3>
                                     <h4>Equity &amp; Ranges, in Plain Numbers</h4>
                                     <p>A free Windows program that shows how often each hand wins. Compare two to ten players, draw their ranges on a 13x13 grid, add a flop, turn or river and press Calculate: you get equity plus win, tie and lose percentages, and the current hand written out in words. Unzip and run &mdash; no installation, no account and no internet connection needed.</p>
                                 </div>
-                                <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; width: 100%;">
-                                    <a href="equity-lab.html" class="download-link" style="flex: 1; min-width: 140px; text-align: center; background: transparent; border: 1px solid var(--neon-green); color: var(--neon-green);">VIEW GUIDE →</a>
-                                    <a href="https://raw.githubusercontent.com/NesloHub/OpenPokerLab-Website/34fb8f0/downloads/PokerEquityLab-1.0.0-win-x64.zip" class="download-link" style="flex: 1; min-width: 140px; text-align: center;">DOWNLOAD v1.0.0 (ZIP) ↓</a>
+                                <div class="card-actions">
+                                    <a href="equity-lab.html" class="download-link wide ghost">VIEW GUIDE →</a>
+                                    <a href="https://github.com/NesloHub/PokerEquityLab/releases/download/v1.0.0/PokerEquityLab-1.0.0-win-x64.zip" target="_blank" rel="noopener noreferrer" class="download-link wide">DOWNLOAD v1.0.0 (GITHUB) ↓</a>
                                 </div>
                             </div>
                         </div>
@@ -125,18 +162,19 @@
                         <!-- PokerLab RNG -->
                         <div class="resource-box software-card software-card-compact">
                             <div class="software-image-container">
-                                <img src="pokerrng.png" alt="PokerLab RNG: a small always-on-top window with a roll of 58, the CHECK / FOLD answer and the 25 / 33 / 50 / 75 % frequency buttons" class="software-preview">
+                                <img src="pokerrng.webp" alt="PokerLab RNG: a small always-on-top window with a roll of 58, the CHECK / FOLD answer and the 25 / 33 / 50 / 75 % frequency buttons" class="software-preview" loading="lazy" width="1200" height="750">
                             </div>
                             <div class="software-details">
-                                <div class="box-content software-content" style="max-width: 100%;">
+                                <div class="box-content software-content software-text">
                                     <span class="tag">FREE OPEN-SOURCE RNG</span>
                                     <h3>PokerLab RNG</h3>
                                     <h4>Roll the Number for Your Mixed Frequencies</h4>
                                     <p>A small Windows program that rolls a random number from 1 to 100. Set how often you want to bet or raise (25, 33, 50 or 75 %, or any value on the slider) and press <strong>ROLL RNG</strong>, the space bar or the number card: the program answers in plain words &mdash; <strong>BET / RAISE</strong> in green when the roll is inside your frequency, <strong>CHECK / FOLD</strong> when it is above it. There is a <strong>Hover</strong> mode that rolls once every time the mouse passes over the card, auto-roll every 1 or 2 seconds, the last six rolls with a running average, and a short beep you can mute. Unzip and run: no installation, no account, no internet connection, and nothing is saved to disk. It is a plain random number generator for mixed frequencies &mdash; not a tracker or a HUD.</p>
                                 </div>
-                                <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; width: 100%;">
-                                    <a href="https://github.com/NesloHub/PokerLabRNG" target="_blank" rel="noopener noreferrer" class="download-link" style="flex: 1; min-width: 140px; text-align: center; background: transparent; border: 1px solid var(--neon-green); color: var(--neon-green);">VIEW SOURCE →</a>
-                                    <a href="https://github.com/NesloHub/PokerLabRNG/releases/download/v1.0.0/PokerLab_RNG_v1.0.zip" target="_blank" rel="noopener noreferrer" class="download-link" style="flex: 1; min-width: 140px; text-align: center;">DOWNLOAD v1.0.0 (GITHUB) ↓</a>
+                                <div class="card-actions">
+                                    <a href="pokerlab-rng.html" class="download-link wide ghost">VIEW GUIDE →</a>
+                                    <a href="https://github.com/NesloHub/PokerLabRNG" target="_blank" rel="noopener noreferrer" class="download-link wide ghost">VIEW SOURCE →</a>
+                                    <a href="https://github.com/NesloHub/PokerLabRNG/releases/download/v1.0.0/PokerLab_RNG_v1.0.zip" target="_blank" rel="noopener noreferrer" class="download-link wide">DOWNLOAD v1.0.0 (GITHUB) ↓</a>
                                 </div>
                             </div>
                         </div>
@@ -152,10 +190,10 @@
 
                         <!-- GTO Wizard -->
                         <div class="resource-box">
-                            <div class="box-content" style="max-width: 100%;">
-                                <span class="tag" style="color: #ff9900;">GTO SOLVER (FREE PREFLOP)</span>
+                            <div class="box-content full">
+                                <span class="tag paid">GTO SOLVER (FREE PREFLOP)</span>
                                 <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 5px; margin-top: 10px;">
-                                    <img src="gtowizard.png" alt="GTO Wizard Logo" style="height: 35px; border-radius: 4px;">
+                                    <img src="gtowizard.png" alt="GTO Wizard Logo" style="height: 35px; border-radius: 4px;" width="900" height="900" loading="lazy">
                                     <h3 style="margin: 0;">GTO Wizard</h3>
                                 </div>
                                 <h4 style="margin-top: 5px;">Poker Software for Studying Spots</h4>
@@ -166,10 +204,10 @@
 
                         <!-- Jurojin Poker -->
                         <div class="resource-box">
-                            <div class="box-content" style="max-width: 100%;">
-                                <span class="tag" style="color: #ff9900;">MULTI-TABLING (FREE TIER)</span>
+                            <div class="box-content full">
+                                <span class="tag paid">MULTI-TABLING (FREE TIER)</span>
                                 <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 5px; margin-top: 10px;">
-                                    <img src="jurojin.png" alt="Jurojin Logo" style="height: 35px; border-radius: 4px;">
+                                    <img src="jurojin.png" alt="Jurojin Logo" style="height: 35px; border-radius: 4px;" width="200" height="200" loading="lazy">
                                     <h3 style="margin: 0;">Jurojin Poker</h3>
                                 </div>
                                 <h4 style="margin-top: 5px;">Window Manager & Layout Tools</h4>
@@ -180,10 +218,10 @@
 
                         <!-- Hand2Note -->
                         <div class="resource-box">
-                            <div class="box-content" style="max-width: 100%;">
-                                <span class="tag" style="color: #ff9900;">ADVANCED HUD (FREE BASELINE)</span>
+                            <div class="box-content full">
+                                <span class="tag paid">ADVANCED HUD (FREE BASELINE)</span>
                                 <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 5px; margin-top: 10px;">
-                                    <img src="hand2note.png" alt="Hand2Note Logo" style="height: 35px; border-radius: 4px;">
+                                    <img src="hand2note.png" alt="Hand2Note Logo" style="height: 35px; border-radius: 4px;" width="900" height="900" loading="lazy">
                                     <h3 style="margin: 0;">Hand2Note (H2N)</h3>
                                 </div>
                                 <h4 style="margin-top: 5px;">Next-Gen Dynamic Tracking</h4>
@@ -194,10 +232,10 @@
 
                         <!-- PokerTracker 4 -->
                         <div class="resource-box">
-                            <div class="box-content" style="max-width: 100%;">
-                                <span class="tag" style="color: #ff9900;">DATABASE & HUD</span>
+                            <div class="box-content full">
+                                <span class="tag paid">DATABASE & HUD</span>
                                 <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 5px; margin-top: 10px;">
-                                    <img src="pt4.png" alt="PokerTracker 4 Logo" style="height: 35px; border-radius: 4px;">
+                                    <img src="pt4.png" alt="PokerTracker 4 Logo" style="height: 35px; border-radius: 4px;" width="122" height="122" loading="lazy">
                                     <h3 style="margin: 0;">PokerTracker 4 (PT4)</h3>
                                 </div>
                                 <h4 style="margin-top: 5px;">The Classic Industry Standard</h4>
@@ -208,10 +246,10 @@
 
                         <!-- Hold'em Manager 3 -->
                         <div class="resource-box">
-                            <div class="box-content" style="max-width: 100%;">
-                                <span class="tag" style="color: #ff9900;">DATABASE & HUD</span>
+                            <div class="box-content full">
+                                <span class="tag paid">DATABASE & HUD</span>
                                 <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 5px; margin-top: 10px;">
-                                    <img src="hm3.png" alt="Hold'em Manager 3 Logo" style="height: 35px; border-radius: 4px;">
+                                    <img src="hm3.png" alt="Hold'em Manager 3 Logo" style="height: 35px; border-radius: 4px;" width="432" height="432" loading="lazy">
                                     <h3 style="margin: 0;">Hold'em Manager 3 (HM3)</h3>
                                 </div>
                                 <h4 style="margin-top: 5px;">Visual Analysis & Game Tracking</h4>
@@ -229,7 +267,12 @@
     </main>
 
     <!-- Dynamic footer placeholder -->
-    <div id="global-footer"></div>
+        <footer class="site-footer">
+        <p><strong>Disclaimer &amp; Terms of Use:</strong> OpenPokerLab is an independent, open-source educational platform. We are not affiliated with, endorsed by, or sponsored by any third-party poker rooms or software providers mentioned on this site. All product names, logos, and brands are property of their respective owners.</p>
+        <p>Poker involves financial risk. The software, content, and strategy guides provided on this site are for educational and informational purposes only and do not constitute financial advice. All open-source software is provided "as-is" without warranty of any kind. Please review the Terms of Service of your specific poker room regarding the use of third-party tools while playing.</p>
+        <p class="footer-18">&#128286; <strong>18+ Only.</strong> Please play responsibly. If you or someone you know has a gambling problem, seek help at <a href="https://www.gamblingtherapy.org" target="_blank" rel="noopener noreferrer">GamblingTherapy.org</a> or <a href="https://www.gambleaware.org/" target="_blank" rel="noopener noreferrer">GambleAware.org</a>.</p>
+        <p class="footer-copy">&copy; 2026 OpenPokerLab.org. All rights reserved. Built by the community, for the community.</p>
+    </footer>
 
 </body>
 </html>

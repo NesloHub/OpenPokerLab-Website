@@ -1174,3 +1174,112 @@ nav a:hover, nav a.active {
     padding-top: 15px;
 }
 
+
+/* ---------- Shared header and footer (moved out of menu.js) ---------- */
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.logo img {
+    height: 45px;
+    width: auto;
+    margin-right: 15px;
+    border-radius: 4px;
+}
+
+.site-footer {
+    margin-top: 60px;
+    padding: 40px 20px;
+    border-top: 1px solid #1a1a1a;
+    color: #666;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    text-align: center;
+    background-color: #050505;
+}
+
+.site-footer p {
+    max-width: 900px;
+    margin: 0 auto 15px auto;
+}
+
+.site-footer .footer-18 {
+    color: #888;
+    margin-bottom: 25px;
+}
+
+.site-footer .footer-copy {
+    margin-top: 20px;
+    font-size: 0.7rem;
+    color: #444;
+}
+
+.site-footer a {
+    color: var(--neon-green);
+    text-decoration: none;
+    border-bottom: 1px solid var(--neon-green);
+}
+
+/* ---------- Reusable card pieces (these used to be inline styles) ---------- */
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.download-link.wide {
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+}
+
+.download-link.ghost {
+    background: transparent;
+    border: 1px solid var(--neon-green);
+    color: var(--neon-green);
+}
+
+.software-text,
+.box-content.full {
+    max-width: 100%;
+}
+
+.tag.paid {
+    color: #ff9900;
+}
+
+/* ---------- Related tools row on the calculator pages ---------- */
+.related-tools {
+    max-width: 1100px;
+    margin: 26px auto 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    font-size: 0.85rem;
+    color: #7d7d7d;
+    letter-spacing: 0.5px;
+}
+
+.related-tools span {
+    color: #5c5c5c;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+}
+
+.related-tools a {
+    color: var(--neon-green);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(57, 255, 20, 0.35);
+}
+
+.related-tools a:hover {
+    border-bottom-color: var(--neon-green);
+}

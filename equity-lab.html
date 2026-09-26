@@ -5,10 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PokerEquity Lab v1.0.0 | OpenPokerLab.org - Free Texas Hold'em Equity Calculator</title>
     <meta name="description" content="PokerEquity Lab by OpenPokerLab is a free, open-source Windows equity and range calculator: 2 to 10 players, an exact or Monte Carlo engine, a 13x13 range matrix you paint with the mouse, paint weights, range presets and a flop/turn/river board - no installer, no runtime, 100% offline.">
+    <link rel="canonical" href="https://openpokerlab.org/equity-lab.html">
+    <!-- Social preview (Open Graph / Twitter) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://openpokerlab.org/equity-lab.html">
+    <meta property="og:title" content="PokerEquity Lab v1.0.0 | OpenPokerLab.org - Free Texas Hold&#x27;em Equity Calculator">
+    <meta property="og:description" content="PokerEquity Lab by OpenPokerLab is a free, open-source Windows equity and range calculator: 2 to 10 players, an exact or Monte Carlo engine, a 13x13 range matrix you paint with the mouse, paint...">
+    <meta property="og:image" content="https://openpokerlab.org/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://openpokerlab.org/equity-lab.html">
+    <meta name="twitter:title" content="PokerEquity Lab v1.0.0 | OpenPokerLab.org - Free Texas Hold&#x27;em Equity Calculator">
+    <meta name="twitter:description" content="PokerEquity Lab by OpenPokerLab is a free, open-source Windows equity and range calculator: 2 to 10 players, an exact or Monte Carlo engine, a 13x13 range matrix you paint with the mouse, paint...">
+    <meta name="twitter:image" content="https://openpokerlab.org/og-image.png">
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="fonts.css">
     <style>
         :root {
             --bg-base: #090d16;
@@ -1104,7 +1115,7 @@
     <!-- The real app window (static product shot) -->
     <section class="container app-shot" id="appshot">
         <div class="app-window">
-            <img src="poker-equity-lab.png" alt="PokerEquity Lab v1.0.0 window: the players and card palette on the left, the 13x13 range matrix with presets on the right, and the results in the status bar" class="app-window-img">
+            <img src="poker-equity-lab.webp" alt="PokerEquity Lab v1.0.0 window: the players and card palette on the left, the 13x13 range matrix with presets on the right, and the results in the status bar" class="app-window-img" width="1200" height="843">
         </div>
         <div class="app-statusbar">
             <span>Mode: Auto &middot; Runouts: 200000 &middot; Board: Preflop</span>
@@ -1580,7 +1591,7 @@
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                Yes. <a href="downloads/SHA256SUMS.txt" style="color: var(--primary);">SHA256SUMS.txt</a> on this page lists a fingerprint (SHA-256) of both files; the two files themselves are hosted on GitHub, because together they are bigger than this website may host. In a command prompt, run <code>certutil -hashfile "PokerEquityLab-1.0.0-win-x64.zip" SHA256</code> and compare the long string with the file. Windows may also warn that the program is not signed yet &mdash; that is the missing signature, not the fingerprint.
+                Yes. <a href="downloads/SHA256SUMS.txt" style="color: var(--primary);">SHA256SUMS.txt</a> on this page lists a fingerprint (SHA-256) of both files; the two files themselves are hosted on GitHub Releases (release v1.0.0), because together they are bigger than this website may host. In a command prompt, run <code>certutil -hashfile "PokerEquityLab-1.0.0-win-x64.zip" SHA256</code> and compare the long string with the file. Windows may also warn that the program is not signed yet &mdash; that is the missing signature, not the fingerprint.
             </div>
         </div>
 
@@ -1590,7 +1601,7 @@
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                Yes &mdash; the browser-based <a href="calculator.html" style="color: var(--primary);">Poker Equity Calculator</a> and the <a href="range-maker.html" style="color: var(--primary);">Interactive Range Maker</a> on this site cover quick pot odds, equities and range building without installing anything. PokerEquity Lab is the desktop version: two to ten players, exact counting, painted weights, ready-made ranges and a full board &mdash; all offline and much faster on the big spots.
+                Yes &mdash; the browser-based <a href="calculator.html" style="color: var(--primary);">Poker Equity Calculator</a> and the <a href="range-maker.html" style="color: var(--primary);">Interactive Range Maker</a> on this site cover quick pot odds, equities and range building without installing anything; there is also a page with ready-made <a href="ranges.html" style="color: var(--primary);">preflop range charts</a>. PokerEquity Lab is the desktop version: two to ten players, exact counting, painted weights, ready-made ranges and a full board &mdash; all offline and much faster on the big spots.
             </div>
         </div>
 
@@ -1600,7 +1611,7 @@
                 <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-                The download is for 64-bit Windows 10 (version 1809 or newer) and Windows 11. The program is built with a cross-platform toolkit, so it can also be compiled for Linux and macOS from the source code; OpenPokerLab publishes the Windows version first.
+                The download is for 64-bit Windows 10 (version 1809 or newer) and Windows 11. The program is built with a cross-platform toolkit, so it can also be compiled for Linux and macOS from the source code; OpenPokerLab publishes the Windows version first. The source code and the build scripts are public: <a href="https://github.com/NesloHub/PokerEquityLab" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">github.com/NesloHub/PokerEquityLab</a>.
             </div>
         </div>
 
@@ -1619,13 +1630,13 @@
     <section class="container" id="download">
         <div class="download-box">
             <h2>Download PokerEquity Lab v1.0.0</h2>
-            <p>Take the portable version if you would rather not install anything, or the installer if you want the program in your Start Menu with an uninstall button. Both work straight away: no account, no extra software, no admin rights. The two files are served from GitHub, because they are larger than this website is allowed to host.</p>
+            <p>Take the portable version if you would rather not install anything, or the installer if you want the program in your Start Menu with an uninstall button. Both work straight away: no account, no extra software, no admin rights. The two files are served from GitHub Releases (release v1.0.0), because together they are larger than this website is allowed to host.</p>
             <div class="hero-actions" style="margin-bottom: 20px; flex-wrap: wrap;">
-                <a href="https://raw.githubusercontent.com/NesloHub/OpenPokerLab-Website/34fb8f0/downloads/PokerEquityLab-1.0.0-win-x64.zip" class="btn-primary" style="font-size: 1.15rem; padding: 18px 40px;">
+                <a href="https://github.com/NesloHub/PokerEquityLab/releases/download/v1.0.0/PokerEquityLab-1.0.0-win-x64.zip" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size: 1.15rem; padding: 18px 40px;">
                     <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                     Download v1.0.0 Portable (.ZIP) &mdash; 42 MB
                 </a>
-                <a href="https://raw.githubusercontent.com/NesloHub/OpenPokerLab-Website/34fb8f0/downloads/PokerEquityLab-1.0.0-win-x64-setup.exe" class="btn-secondary" style="font-size: 1.05rem; padding: 18px 32px;">
+                <a href="https://github.com/NesloHub/PokerEquityLab/releases/download/v1.0.0/PokerEquityLab-1.0.0-win-x64-setup.exe" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size: 1.05rem; padding: 18px 32px;">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
                     Installer (.EXE) &mdash; 42.6 MB
                 </a>
