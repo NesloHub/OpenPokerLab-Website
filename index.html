@@ -23,409 +23,358 @@
 
     <!-- Stylesheets and Fonts -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-v2.css">
     <link rel="stylesheet" href="fonts.css">
     <link rel="icon" type="image/png" href="favicon.png">
 
     <!-- Specific Styling for the Front Page -->
-    <style>
-        .hero-section {
-            text-align: center;
-            padding: 100px 20px 80px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .hero-title {
-            font-size: 3.8rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-            color: #fff;
-            line-height: 1.1;
-        }
-
-        .hero-title .highlight {
-            color: var(--neon-green, #39ff14);
-            text-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: #c0c0c0;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            font-weight: 300;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .cta-btn {
-            padding: 16px 35px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-
-        .cta-primary {
-            background: var(--neon-green, #39ff14);
-            color: #000;
-            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
-        }
-
-        .cta-primary:hover {
-            background: #32e612;
-            box-shadow: 0 0 25px rgba(57, 255, 20, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .cta-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            border: 1px solid #333;
-        }
-
-        .cta-secondary:hover {
-            border-color: var(--neon-green, #39ff14);
-            color: var(--neon-green, #39ff14);
-            background: rgba(57, 255, 20, 0.05);
-            transform: translateY(-2px);
-        }
-
-        .features-grid {
-            display: grid;
-            /* Updated to fit 3 columns elegantly on desktop */
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: var(--container);
-            margin: 0 auto var(--space-6) auto;
-            padding: 0 20px;
-        }
-
-        .feature-box {
-            background: #0a0a0a;
-            border: 1px solid #1a1a1a;
-            padding: 40px 30px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .feature-box:hover {
-            border-color: #333;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .feature-box h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: #fff;
-            letter-spacing: 1px;
-        }
-
-        .feature-box p {
-            color: #b0b0b0;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            font-size: 0.95rem;
-            flex-grow: 1;
-        }
-
-        .feature-link {
-            color: var(--neon-green, #39ff14);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            display: inline-block;
-            transition: color 0.3s ease;
-        }
-        
-        .feature-link:hover {
-            color: #fff;
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            .hero-section {
-                padding: 60px 20px;
-            }
-        }
-/* Homepage: three steps and four main cards */
-        .features-grid {
-            grid-template-columns: repeat(4, 1fr);
-            max-width: var(--container);
-            margin: 0 auto 60px auto;
-        }
-
-        .start-steps {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-            max-width: var(--container);
-            margin: 0 auto 60px auto;
-            padding: 0 20px;
-        }
-
-        .start-step {
-            background: #0a0a0a;
-            border: 1px solid #1a1a1a;
-            border-radius: 6px;
-            padding: 26px 24px;
-            text-align: left;
-        }
-
-        .start-step .num {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: rgba(57, 255, 20, 0.1);
-            border: 1px solid rgba(57, 255, 20, 0.45);
-            color: var(--neon-green, #39ff14);
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .start-step h3 {
-            font-size: 1.05rem;
-            color: #fff;
-            margin: 0 0 8px 0;
-            letter-spacing: 1px;
-        }
-
-        .start-step p {
-            color: #a8a8a8;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin: 0 0 14px 0;
-        }
-
-        .start-step a {
-            color: var(--neon-green, #39ff14);
-            text-decoration: none;
-            font-size: 0.78rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .more-links {
-            max-width: var(--container);
-            margin: -30px auto 70px auto;
-            padding: 0 20px;
-            text-align: center;
-            color: #9a9a9a;
-            font-size: 0.85rem;
-        }
-
-        .more-links a {
-            color: #b0b0b0;
-            text-decoration: none;
-            border-bottom: 1px solid #2a2a2a;
-        }
-
-        .more-links a:hover {
-            color: var(--neon-green, #39ff14);
-            border-bottom-color: var(--neon-green, #39ff14);
-        }
-
-        @media (max-width: 1000px) {
-            .features-grid,
-            .start-steps {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 620px) {
-            .features-grid,
-            .start-steps {
-                grid-template-columns: 1fr;
-            }
-        }
-
-    </style>
 </head>
-<body class="content-page">
+<body class="content-page v2">
 
     <!-- Site header -->
-    <header>
-        <a href="index.html" class="logo">
-            <img src="logo.png" alt="OpenPokerLab logo" width="320" height="180">
-            OPENPOKER<span class="neon-text-small">LAB</span>
-        </a>
-        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <nav>
-            <ul id="nav-links">
-                <li><a href="index.html">HOME</a></li>
-                <li class="has-menu">
-                    <button type="button" class="nav-group" aria-expanded="false">LEARN<span class="caret">&#9662;</span></button>
-                    <ul class="submenu">
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="OpenPokerLab logo" width="320" height="180">
+                <span>OPENPOKER<em>LAB</em></span>
+            </a>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav>
+                <ul id="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="has-menu">
+                        <button type="button" class="nav-group" aria-expanded="false">Learn<span class="caret">&#9662;</span></button>
+                        <ul class="submenu">
+                            <li><a href="beginner.html">Beginner's Guide</a></li>
+                            <li><a href="glossary.html">Poker Glossary</a></li>
+                            <li><a href="strategy.html">Strategy Guides</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-menu">
+                        <button type="button" class="nav-group" aria-expanded="false">Tools<span class="caret">&#9662;</span></button>
+                        <ul class="submenu">
+                            <li><a href="calculator.html">Equity Calculator</a></li>
+                            <li><a href="ranges.html">Preflop Ranges</a></li>
+                            <li><a href="range-maker.html">Range Maker</a></li>
+                            <li><a href="bankroll.html">Bankroll Calculator</a></li>
+                            <li><a href="notemanager.html">Note Tool (web)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="software.html">Software</a></li>
+                    <li class="has-menu">
+                        <button type="button" class="nav-group" aria-expanded="false">Community<span class="caret">&#9662;</span></button>
+                        <ul class="submenu">
+                            <li><a href="content.html">Streams &amp; Creators</a></li>
+                            <li><a href="sites.html">Poker Rooms &amp; Rake</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="software.html" class="btn btn-accent nav-cta">Download</a>
+            </nav>
+        </div>
+    </header>
+
+    <script src="menu.js"></script>
+
+<!-- Hero -->
+    <section class="hero-v2">
+        <div class="hero-copy">
+            <span class="eyebrow"><span class="dot"></span>Free &middot; open source &middot; no account</span>
+            <h1>Play the frequencies you <em>actually</em> want to play.</h1>
+            <p class="hero-lead">
+                OpenPokerLab is a small, independent lab: three free Windows programs and a handful of fast web tools
+                for equity, ranges, bankroll and player notes. Nothing to sign up for, and nothing that touches your
+                poker client.
+            </p>
+            <div class="hero-actions">
+                <a href="software.html" class="btn btn-accent btn-lg">Download the software</a>
+                <a href="calculator.html" class="btn btn-ghost btn-lg">Try the equity calculator</a>
+            </div>
+            <div class="hero-stats">
+                <div><strong>3</strong><span>Windows programs</span></div>
+                <div><strong>5</strong><span>Web tools</span></div>
+                <div><strong>0</strong><span>Paywalls or accounts</span></div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="window-frame">
+                <div class="bar"><i></i><i></i><i></i></div>
+                <img src="pokervision.webp" alt="Poker Notes: the player list on the left, the tags and the notes editor on the right" width="1376" height="768">
+            </div>
+            <div class="floating-chip">
+                <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l14 8-14 8z"/></svg></span>
+                <span><strong>Poker Notes v2.1</strong>portable &middot; 38 MB &middot; free</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust strip -->
+    <section class="trust-strip">
+        <div>
+            <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 6H10a3 3 0 000 6h4a3 3 0 010 6H6"/></svg></span>
+            <div><strong>100% free</strong><span>No subscription and no premium tier - every tool on this site is free.</span></div>
+        </div>
+        <div>
+            <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></span>
+            <div><strong>Open source</strong><span>The source of every program is on GitHub, ready to read and build.</span></div>
+        </div>
+        <div>
+            <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l22 22M16.7 11.1A11 11 0 0119 12.6M5 12.6a11 11 0 015.2-2.4M10.7 5A16 16 0 0122.6 9M1.4 9a16 16 0 014.7-2.9M8.5 16.1a6 6 0 016.9 0M12 20h.01"/></svg></span>
+            <div><strong>Works offline</strong><span>The programs run on your machine and never call home.</span></div>
+        </div>
+        <div>
+            <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18v12H3zM8 20h8M12 16v4"/></svg></span>
+            <div><strong>Portable for Windows</strong><span>Unzip and run. No installer, no admin rights, no runtime.</span></div>
+        </div>
+    </section>
+
+    <!-- Start here -->
+    <section class="section">
+        <div class="section-head">
+            <div>
+                <span class="section-label">Start here</span>
+                <h2>Three steps, ten minutes, no cost</h2>
+                <p>You do not need a solver subscription to sharpen your game - start where you are today.</p>
+            </div>
+        </div>
+        <div class="steps-v2">
+            <a class="step-card" href="beginner.html">
+                <span class="step-number">1</span>
+                <h3>Learn the basics</h3>
+                <p>Hand rankings, table positions and the flow of a hand, in plain language - with a glossary whenever a word is new.</p>
+                <span class="card-arrow">Beginner's guide</span>
+            </a>
+            <a class="step-card" href="calculator.html">
+                <span class="step-number">2</span>
+                <h3>Try a tool in the browser</h3>
+                <p>Equity, ranges, bankroll and notes. Nothing to install, nothing to sign up for, everything in one click.</p>
+                <span class="card-arrow">Open the tools</span>
+            </a>
+            <a class="step-card" href="software.html">
+                <span class="step-number">3</span>
+                <h3>Install the software</h3>
+                <p>Poker Notes, PokerEquity Lab and PokerLab RNG - portable programs that stay out of your way while you play.</p>
+                <span class="card-arrow">See the software</span>
+            </a>
+        </div>
+    </section>
+
+<!-- Tools -->
+    <section class="section">
+        <div class="section-head">
+            <div>
+                <span class="section-label">Web tools</span>
+                <h2>Five tools that run in your browser</h2>
+                <p>No install, no account, no waiting: everything opens instantly and keeps your data on your own machine.</p>
+            </div>
+            <a class="section-link" href="calculator.html">Open the first tool &rarr;</a>
+        </div>
+        <div class="tool-grid">
+                        <a class="tool-card" href="calculator.html">
+                <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a1 1 0 011 1v16a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1zM8 7h8M8 11h2M12 11h2M8 15h2M12 15h2"/></svg></span>
+                <h3>Equity Calculator</h3>
+                <p>Preflop and postflop equity for up to ten players, straight from your browser. Fast Monte Carlo with a readable result.</p>
+                <span class="card-arrow">Open the calculator</span>
+            </a>
+            <a class="tool-card" href="ranges.html">
+                <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4zM4 10h16M10 4v16"/></svg></span>
+                <h3>Preflop Range Charts</h3>
+                <p>Ready-made 6-max GTO charts you can read at a glance - open, call and 3-bet ranges per position.</p>
+                <span class="card-arrow">View the charts</span>
+            </a>
+            <a class="tool-card" href="range-maker.html">
+                <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l4-1 9-9-3-3-9 9-1 4zM14 7l3 3"/></svg></span>
+                <h3>Range Maker</h3>
+                <p>Paint your own ranges on the 13x13 grid with frequency weights, then save them as JSON or share the text.</p>
+                <span class="card-arrow">Build a range</span>
+            </a>
+            <a class="tool-card" href="bankroll.html">
+                <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h16a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7zm0 0V6a2 2 0 012-2h11M17 13h.01"/></svg></span>
+                <h3>Bankroll Calculator</h3>
+                <p>See how much of a bankroll a stake really needs, and how deep the swings can go before the maths says stop.</p>
+                <span class="card-arrow">Check your bankroll</span>
+            </a>
+            <a class="tool-card" href="notemanager.html">
+                <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h9l5 5v13H5zM14 3v5h5M8 13h8M8 17h5"/></svg></span>
+                <h3>Note Tool (web)</h3>
+                <p>Tag players and keep your reads in the browser - the fastest way to try the note workflow before installing anything.</p>
+                <span class="card-arrow">Take a note</span>
+            </a>
+            <a class="tool-card" href="sites.html">
+                <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-6h6v6"/></svg></span>
+                <h3>Poker Rooms &amp; Rake</h3>
+                <p>A like-for-like comparison of the big rooms: rake, player pools and what the structure does to your win rate.</p>
+                <span class="card-arrow">Compare the rooms</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Desktop software -->
+    <section class="section">
+        <div class="section-head">
+            <div>
+                <span class="section-label">Desktop software</span>
+                <h2>Three programs, given away for free</h2>
+                <p>Portable Windows builds with no installer, no runtime and no account. Unzip, run, and delete the folder when you are done.</p>
+            </div>
+            <a class="section-link" href="software.html">All software &rarr;</a>
+        </div>
+        <div class="showcase-featured">
+            <div class="shot">
+                <img src="poker-equity-lab.webp" alt="PokerEquity Lab: players and the range matrix with the results" width="1200" height="843">
+            </div>
+            <div class="copy">
+                <div class="badge-row">
+                    <span class="badge badge-accent">Featured</span>
+                    <span class="badge">Windows</span>
+                    <span class="badge">42 MB</span>
+                </div>
+                <h3>PokerEquity Lab</h3>
+                <p>See how often each hand wins. Draw the ranges on a 13x13 matrix, add a board and press calculate.</p>
+                <ul class="spec-list">
+                    <li>Equity for 2 to 10 players - exact counting or Monte Carlo</li>
+                    <li>Range weights of 100 / 75 / 50 / 25 % with a range language</li>
+                    <li>Board builder and the made hand written out in words</li>
+                </ul>
+                <div class="card-actions">
+                    <a href="equity-lab.html" class="btn btn-ghost">Read the guide</a>
+                    <a href="https://github.com/NesloHub/PokerEquityLab/releases/download/v1.0.0/PokerEquityLab-1.0.0-win-x64.zip" target="_blank" rel="noopener noreferrer" class="btn btn-accent">Download v1.0.0</a>
+                </div>
+            </div>
+        </div>
+        <div class="showcase-row">
+            <article class="showcase-card">
+                <div class="shot"><img src="pokernotes.webp" alt="Poker Notes: the player list, tags and the notes editor" width="1150" height="760"></div>
+                <div class="copy">
+                    <div class="badge-row">
+                        <span class="badge badge-accent">Free</span>
+                        <span class="badge">38 MB</span>
+                    </div>
+                    <h3>Poker Notes</h3>
+                    <p>Write a read on any opponent while you play, tag it in your own colours and find it again in one keystroke. Optional OCR hover boxes show your notes on the table.</p>
+                    <div class="card-actions">
+                        <a href="pokervision.html" class="btn btn-ghost">Guide</a>
+                        <a href="https://github.com/NesloHub/PokerNoteManager/releases/download/v2.1.0/PokerNotes_v2.1_Portable.zip" target="_blank" rel="noopener noreferrer" class="btn btn-accent">Download v2.1</a>
+                    </div>
+                </div>
+            </article>
+            <article class="showcase-card">
+                <div class="shot"><img src="pokerrng.webp" alt="PokerLab RNG: a roll of 58 with the CHECK / FOLD answer" width="1200" height="750"></div>
+                <div class="copy">
+                    <div class="badge-row">
+                        <span class="badge badge-accent">Free</span>
+                        <span class="badge">37 MB</span>
+                    </div>
+                    <h3>PokerLab RNG</h3>
+                    <p>A small always-on-top number generator for mixed frequencies: set your frequency, roll 1-100 and read BET / RAISE or CHECK / FOLD in plain words.</p>
+                    <div class="card-actions">
+                        <a href="pokerlab-rng.html" class="btn btn-ghost">Guide</a>
+                        <a href="https://github.com/NesloHub/PokerLabRNG/releases/download/v1.0.0/PokerLab_RNG_v1.0.zip" target="_blank" rel="noopener noreferrer" class="btn btn-accent">Download v1.0</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+<!-- Learn and community -->
+    <section class="section">
+        <div class="section-head">
+            <div>
+                <span class="section-label">Learn &amp; community</span>
+                <h2>Understand the why, then watch the best</h2>
+                <p>The theory pages explain the reasoning behind a play; the community list points you at the people who do the same.</p>
+            </div>
+        </div>
+        <div class="learn-grid">
+            <a class="learn-card" href="beginner.html">
+                <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 012-2h13v18H6a2 2 0 01-2-2zM8 3v18"/></svg></span>
+                <h3>Learn the game</h3>
+                <p>The beginner's guide, a glossary of the terms and the strategy guides - from hand rankings to exploit play.</p>
+                <span class="card-arrow">Start learning</span>
+            </a>
+            <a class="learn-card" href="content.html">
+                <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l14 8-14 8z"/></svg></span>
+                <h3>Watch the right streamers</h3>
+                <p>A handpicked list of analytical YouTube and Twitch creators with a live status check, plus a rake comparison of the big rooms.</p>
+                <span class="card-arrow">Browse the list</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Closing call to action -->
+    <section class="cta-band">
+        <div class="cta-band-inner">
+            <h2>Everything here is free. Start with the tool you need today.</h2>
+            <p>Equity, ranges, bankroll and player notes - in the browser or as a portable program. No account, no tracking, no paywall.</p>
+            <div class="cta-band-actions">
+                <a href="calculator.html" class="btn btn-accent btn-lg">Open the equity calculator</a>
+                <a href="software.html" class="btn btn-ghost btn-lg">See the software</a>
+            </div>
+        </div>
+    </section>
+
+<footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <img src="logo.png" alt="OpenPokerLab logo" width="320" height="180">
+                    <span>OPENPOKER<em>LAB</em></span>
+                </a>
+                <p>Free, open-source poker tools. No account, no tracker and no paywall - just the numbers, the software and the reads.</p>
+                <div class="badge-row" style="margin-top: 18px;">
+                    <span class="badge badge-accent">100% free</span>
+                    <span class="badge">Open source</span>
+                    <span class="badge">Offline</span>
+                </div>
+            </div>
+            <nav class="footer-nav" aria-label="Site map">
+                <div>
+                    <h4>Learn</h4>
+                    <ul>
                         <li><a href="beginner.html">Beginner's Guide</a></li>
                         <li><a href="glossary.html">Poker Glossary</a></li>
                         <li><a href="strategy.html">Strategy Guides</a></li>
                     </ul>
-                </li>
-                <li class="has-menu">
-                    <button type="button" class="nav-group" aria-expanded="false">TOOLS<span class="caret">&#9662;</span></button>
-                    <ul class="submenu">
+                </div>
+                <div>
+                    <h4>Tools</h4>
+                    <ul>
                         <li><a href="calculator.html">Equity Calculator</a></li>
                         <li><a href="ranges.html">Preflop Ranges</a></li>
                         <li><a href="range-maker.html">Range Maker</a></li>
                         <li><a href="bankroll.html">Bankroll Calculator</a></li>
                         <li><a href="notemanager.html">Note Tool (web)</a></li>
                     </ul>
-                </li>
-                <li><a href="software.html">SOFTWARE</a></li>
-                <li class="has-menu">
-                    <button type="button" class="nav-group" aria-expanded="false">COMMUNITY<span class="caret">&#9662;</span></button>
-                    <ul class="submenu">
+                </div>
+                <div>
+                    <h4>Software</h4>
+                    <ul>
+                        <li><a href="software.html">All software</a></li>
+                        <li><a href="pokervision.html">Poker Notes (desktop)</a></li>
+                        <li><a href="equity-lab.html">PokerEquity Lab (desktop)</a></li>
+                        <li><a href="pokerlab-rng.html">PokerLab RNG (desktop)</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Community</h4>
+                    <ul>
                         <li><a href="content.html">Streams &amp; Creators</a></li>
                         <li><a href="sites.html">Poker Rooms &amp; Rake</a></li>
+                        <li><a href="index.html">Start page</a></li>
                     </ul>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <script src="menu.js"></script>
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <h1 class="hero-title">FREE TOOLS FOR <span class="highlight">BETTER DECISIONS.</span></h1>
-        <p class="hero-subtitle">
-            OpenPokerLab is a small, open-source collection of poker tools: three Windows programs, a browser
-            equity calculator, preflop ranges and a rake comparison. No account, no paywalls, and nothing that
-            reads your poker client.
-        </p>
-        <div class="cta-buttons">
-            <a href="calculator.html" class="cta-btn cta-primary">TRY THE EQUITY CALCULATOR</a>
-            <a href="software.html" class="cta-btn cta-secondary">DOWNLOAD THE SOFTWARE</a>
+                </div>
+            </nav>
         </div>
-    </section>
-
-    <!-- Start here: three steps -->
-    <section class="start-steps">
-        <div class="start-step">
-            <span class="num">1</span>
-            <h3>Learn the basics</h3>
-            <p>Hand rankings, table positions and the flow of a hand, in plain language.</p>
-            <a href="beginner.html">Start the beginner guide &rarr;</a>
+        <div class="footer-legal">
+            <p><strong>Disclaimer &amp; Terms of Use:</strong> OpenPokerLab is an independent, open-source educational platform. We are not affiliated with, endorsed by, or sponsored by any third-party poker rooms or software providers mentioned on this site. All product names, logos and brands are property of their respective owners.</p>
+            <p>Poker involves financial risk. The software, content and strategy guides on this site are for educational and informational purposes only and do not constitute financial advice. All open-source software is provided "as-is" without warranty of any kind. Please review the Terms of Service of your specific poker room regarding the use of third-party tools while playing.</p>
+            <p>&#128286; <strong>18+ Only.</strong> Please play responsibly. If you or someone you know has a gambling problem, seek help at <a href="https://www.gamblingtherapy.org" target="_blank" rel="noopener noreferrer">GamblingTherapy.org</a> or <a href="https://www.gambleaware.org/" target="_blank" rel="noopener noreferrer">GambleAware.org</a>.</p>
+            <p>&copy; 2026 OpenPokerLab.org. All rights reserved. Built by the community, for the community.</p>
         </div>
-        <div class="start-step">
-            <span class="num">2</span>
-            <h3>Try a tool in the browser</h3>
-            <p>Equity, ranges, bankroll and a note tool. Nothing to install, nothing to sign up for.</p>
-            <a href="calculator.html">Open the tools &rarr;</a>
-        </div>
-        <div class="start-step">
-            <span class="num">3</span>
-            <h3>Install the software</h3>
-            <p>Poker Notes, PokerEquity Lab and PokerLab RNG. Portable, free and completely offline.</p>
-            <a href="software.html">See the software &rarr;</a>
-        </div>
-    </section>
-
-    <!-- Four main areas -->
-    <section class="features-grid">
-        <div class="feature-box">
-            <h3>TOOLS</h3>
-            <p>Equity calculator, preflop ranges, the range maker, a bankroll calculator and the browser note tool - all free and all in your browser.</p>
-            <a href="calculator.html" class="feature-link">OPEN THE TOOLS &rarr;</a>
-        </div>
-        <div class="feature-box">
-            <h3>SOFTWARE</h3>
-            <p>Three open-source Windows programs: Poker Notes, PokerEquity Lab and PokerLab RNG. Unzip and run - no installer, no account, no internet.</p>
-            <a href="software.html" class="feature-link">SEE ALL SOFTWARE &rarr;</a>
-        </div>
-        <div class="feature-box">
-            <h3>LEARN</h3>
-            <p>The beginner guide, a glossary of the terms and the strategy guides - written for players who want to understand why a play works.</p>
-            <a href="beginner.html" class="feature-link">START LEARNING &rarr;</a>
-        </div>
-        <div class="feature-box">
-            <h3>COMMUNITY</h3>
-            <p>A handpicked list of strategy streamers with a live status check, plus a rake and player pool comparison of the big poker rooms.</p>
-            <a href="content.html" class="feature-link">BROWSE STREAMS &rarr;</a>
-        </div>
-    </section>
-
-    <p class="more-links">
-        Also on the site:
-        <a href="glossary.html">Poker glossary</a> &middot;
-        <a href="strategy.html">Strategy guides</a> &middot;
-        <a href="bankroll.html">Bankroll calculator</a> &middot;
-        <a href="notemanager.html">Note tool (web)</a> &middot;
-        <a href="sites.html">Poker rooms &amp; rake</a>
-    </p>
-
-    <!-- Site footer -->
-    <footer class="site-footer">
-        <nav class="footer-nav" aria-label="Site map">
-            <div>
-                <h4>Learn</h4>
-                <ul>
-                    <li><a href="beginner.html">Beginner's Guide</a></li>
-                    <li><a href="glossary.html">Poker Glossary</a></li>
-                    <li><a href="strategy.html">Strategy Guides</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Tools</h4>
-                <ul>
-                    <li><a href="calculator.html">Equity Calculator</a></li>
-                    <li><a href="ranges.html">Preflop Ranges</a></li>
-                    <li><a href="range-maker.html">Range Maker</a></li>
-                    <li><a href="bankroll.html">Bankroll Calculator</a></li>
-                    <li><a href="notemanager.html">Note Tool (web)</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Software</h4>
-                <ul>
-                    <li><a href="software.html">All software</a></li>
-                    <li><a href="pokervision.html">Poker Notes (desktop)</a></li>
-                    <li><a href="equity-lab.html">PokerEquity Lab (desktop)</a></li>
-                    <li><a href="pokerlab-rng.html">PokerLab RNG (desktop)</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Community</h4>
-                <ul>
-                    <li><a href="content.html">Streams &amp; Creators</a></li>
-                    <li><a href="sites.html">Poker Rooms &amp; Rake</a></li>
-                    <li><a href="index.html">Start page</a></li>
-                </ul>
-            </div>
-        </nav>
-        <p><strong>Disclaimer &amp; Terms of Use:</strong> OpenPokerLab is an independent, open-source educational platform. We are not affiliated with, endorsed by, or sponsored by any third-party poker rooms or software providers mentioned on this site. All product names, logos, and brands are property of their respective owners.</p>
-        <p>Poker involves financial risk. The software, content, and strategy guides provided on this site are for educational and informational purposes only and do not constitute financial advice. All open-source software is provided "as-is" without warranty of any kind. Please review the Terms of Service of your specific poker room regarding the use of third-party tools while playing.</p>
-        <p class="footer-18">&#128286; <strong>18+ Only.</strong> Please play responsibly. If you or someone you know has a gambling problem, seek help at <a href="https://www.gamblingtherapy.org" target="_blank" rel="noopener noreferrer">GamblingTherapy.org</a> or <a href="https://www.gambleaware.org/" target="_blank" rel="noopener noreferrer">GambleAware.org</a>.</p>
-        <p class="footer-copy">&copy; 2026 OpenPokerLab.org. All rights reserved. Built by the community, for the community.</p>
     </footer>
 
 </body>
