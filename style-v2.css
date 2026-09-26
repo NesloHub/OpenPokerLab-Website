@@ -269,8 +269,10 @@
     height: 12px;
 }
 
-.v2 li.has-menu:hover > ul.submenu,
-.v2 li.has-menu.open > ul.submenu {
+/* The show rules need the #nav-links id as well, otherwise the "display: none"
+   above (one id + two classes) wins over these class only selectors. */
+.v2 #nav-links li.has-menu:hover > ul.submenu,
+.v2 #nav-links li.has-menu.open > ul.submenu {
     display: flex;
 }
 
@@ -1382,7 +1384,7 @@
         width: 100%;
     }
 
-    .v2 li.has-menu.open > ul.submenu {
+    .v2 #nav-links li.has-menu.open > ul.submenu {
         display: flex;
     }
 
