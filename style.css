@@ -35,9 +35,10 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 45px; 
+    padding: 34px 48px; 
     position: relative;
     z-index: 100;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .logo {
@@ -61,24 +62,25 @@ header {
 nav ul {
     list-style: none;
     display: flex;
-    gap: 22px; 
+    gap: 34px; 
     align-items: center;
     flex-wrap: wrap;
 }
 
 nav a {
-    color: #888888; 
+    color: #9d9d9d; 
     text-decoration: none;
     font-weight: 400;
-    font-size: 0.8rem;
-    letter-spacing: 1.5px;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    padding-bottom: 6px;
+    transition: color 0.3s ease, box-shadow 0.3s ease;
     white-space: nowrap;
 }
 
 nav a:hover, nav a.active {
     color: var(--text-color); 
-    text-shadow: 0 0 10px var(--neon-green);
+    box-shadow: inset 0 -2px 0 var(--neon-green);
 }
 
 /* Hamburger menu button */
@@ -1413,6 +1415,62 @@ header nav ul.submenu a.active {
 
 .footer-nav a:hover {
     color: var(--neon-green);
+}
+
+/* ---------- Larger navigation tabs, and a bridge so the pointer can travel into the menu ---------- */
+nav ul li {
+    display: flex;
+    align-items: center;
+}
+
+nav a,
+button.nav-group {
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    padding-bottom: 6px;
+    display: inline-block;
+}
+
+button.nav-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 0;
+}
+
+button.nav-group .caret {
+    font-size: 0.6rem;
+    opacity: 1;
+    color: var(--neon-green);
+}
+
+button.nav-group:hover,
+li.has-menu.current > button.nav-group,
+li.has-menu.open > button.nav-group {
+    color: var(--text-color);
+    box-shadow: inset 0 -2px 0 var(--neon-green);
+}
+
+header nav ul.submenu {
+    top: calc(100% + 12px);
+    min-width: 250px;
+    padding: 10px 0;
+}
+
+/* invisible bridge: keeps the menu open while the pointer moves from the tab down to the panel */
+header nav ul.submenu::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -14px;
+    height: 14px;
+}
+
+header nav ul.submenu a {
+    font-size: 0.9rem;
+    padding: 12px 20px;
+    box-shadow: none;
 }
 
 /* ---------- Mobile: the dropdowns become plain groups ---------- */
