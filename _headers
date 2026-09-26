@@ -16,7 +16,7 @@
 /avatars/*
   Cache-Control: public, max-age=604800
 
-/pokernotes.webp
+/pokernotes-v21.webp
   Cache-Control: public, max-age=604800
 
 /poker-equity-lab.webp
@@ -25,7 +25,7 @@
 /pokerrng.webp
   Cache-Control: public, max-age=604800
 
-/pokervision.webp
+/pokervision-v21.webp
   Cache-Control: public, max-age=604800
 
 /logo.png
