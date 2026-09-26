@@ -21,28 +21,28 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="fonts.css">
     <style>
-        .rng-main { max-width: 1100px; margin: 0 auto; padding: 0 20px 60px 20px; }
+        .rng-main { max-width: var(--container); margin: 0 auto; padding: 0 20px 60px 20px; }
         .rng-section { margin-bottom: 46px; }
         .rng-section h2 { font-family: var(--font-main); font-size: 1.6rem; font-weight: 600; letter-spacing: 1px; color: #fff; margin-bottom: 14px; }
         .rng-section h3 { font-size: 1.05rem; color: #fff; margin: 18px 0 6px 0; }
-        .rng-section p, .rng-section li { color: #a9a9a9; line-height: 1.75; font-size: 0.98rem; }
+        .rng-section p, .rng-section li { color: #b8b8b8; line-height: 1.75; font-size: 0.98rem; }
         .rng-steps { counter-reset: step; list-style: none; padding: 0; }
-        .rng-steps > li { position: relative; padding-left: 44px; margin-bottom: 18px; color: #a9a9a9; line-height: 1.7; }
+        .rng-steps > li { position: relative; padding-left: 44px; margin-bottom: 18px; color: #b8b8b8; line-height: 1.7; }
         .rng-steps > li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: rgba(57, 255, 20, 0.12); color: var(--neon-green); border: 1px solid rgba(57, 255, 20, 0.5); font-weight: 600; text-align: center; line-height: 28px; }
         .rng-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
-        .rng-table th, .rng-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #1c1c1c; color: #a9a9a9; vertical-align: top; }
+        .rng-table th, .rng-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #1c1c1c; color: #b8b8b8; vertical-align: top; }
         .rng-table th { color: #fff; font-weight: 600; letter-spacing: 1px; font-size: 0.8rem; text-transform: uppercase; }
         .rng-table code { color: var(--neon-green); }
         .rng-shot { width: 100%; height: auto; max-width: 620px; display: block; margin: 0 auto; border: 1px solid #222; border-radius: 4px; }
-        .download-box { background: linear-gradient(135deg, rgba(14, 165, 233, 0.10), rgba(99, 102, 241, 0.10)); border: 1px solid rgba(56, 189, 248, 0.28); border-radius: 6px; padding: 32px; text-align: center; }
+        .download-box { background: linear-gradient(135deg, rgba(14, 165, 233, 0.10), rgba(99, 102, 241, 0.10)); border: 1px solid rgba(56, 189, 248, 0.28); border-radius: var(--radius); padding: var(--space-5); text-align: center; }
         .download-box h2 { margin-bottom: 10px; }
-        .dl-details { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: center; margin-top: 18px; font-size: 0.85rem; color: #8a8a8a; }
+        .dl-details { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: center; margin-top: 18px; font-size: 0.85rem; color: #a8a8a8; }
         .btn-primary, .btn-secondary { display: inline-flex; align-items: center; gap: 10px; padding: 16px 34px; border-radius: 4px; text-decoration: none; font-weight: 600; letter-spacing: 1px; }
         .btn-primary { background: var(--neon-green); color: #000; }
         .btn-secondary { background: transparent; color: var(--neon-green); border: 1px solid var(--neon-green); }
-        .faq-item { border: 1px solid #1c1c1c; border-radius: 4px; margin-bottom: 12px; overflow: hidden; background: #0b0b0b; }
+        .faq-item { border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; background: #0b0b0b; }
         .faq-question { display: flex; justify-content: space-between; gap: 12px; cursor: pointer; padding: 16px 18px; color: #fff; font-size: 0.95rem; }
-        .faq-answer { display: none; padding: 0 18px 16px 18px; color: #a9a9a9; line-height: 1.7; font-size: 0.92rem; }
+        .faq-answer { display: none; padding: 0 18px 16px 18px; color: #b8b8b8; line-height: 1.7; font-size: 0.92rem; }
     </style>
 </head>
 <body class="content-page">

@@ -44,12 +44,12 @@
         .header-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
         .header-container h2 { color: #fff; font-family: var(--font-main); font-weight: 400; letter-spacing: 2px; font-size: 1.5rem; margin: 0; }
         .backup-controls { display: flex; align-items: center; gap: 10px; }
-        .db-stats { color: #aaa; font-size: 0.9rem; margin-right: 15px; font-family: var(--font-main); }
+        .db-stats { color: #c0c0c0; font-size: 0.9rem; margin-right: 15px; font-family: var(--font-main); }
 
         /* Buttons */
         button { cursor: pointer; transition: all 0.2s; font-family: var(--font-main); }
         .action-btn { background-color: #1a1a1a; border: 1px solid #444; color: #ccc; padding: 8px 15px; border-radius: 4px; font-size: 0.85rem; }
-        .action-btn:hover { background-color: #333; color: #fff; border-color: #666; }
+        .action-btn:hover { background-color: #333; color: #fff; border-color: #9a9a9a; }
         .btn-blue { color: var(--neon-green); border-color: rgba(57, 255, 20, 0.3); }
         .btn-blue:hover { background-color: rgba(57, 255, 20, 0.1); color: var(--neon-green); border-color: var(--neon-green); }
         
@@ -73,7 +73,7 @@
         #active-table { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px; }
         
         .player-card { background-color: #111; border-radius: 6px; padding: 20px; border: 1px solid #222; display: flex; flex-direction: column; gap: 15px; transition: border-color 0.3s ease; }
-        .player-card:hover { border-color: #444; }
+        .player-card:hover { border-color: #8f8f8f; }
         .card-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #222; padding-bottom: 12px; }
         
         .player-img-container { width: 100%; max-height: 140px; overflow: hidden; border-radius: 4px; margin-bottom: 10px; display: flex; justify-content: center; background-color: #000; border: 1px solid #222; }
@@ -81,13 +81,13 @@
 
         .player-name-container { flex: 1; }
         .player-name-input { background: transparent; border: 1px dashed transparent; color: #fff; font-size: 1.25rem; font-weight: bold; width: 100%; padding: 4px 6px; border-radius: 4px; box-sizing: border-box; }
-        .player-name-input:hover { border-color: #444; }
+        .player-name-input:hover { border-color: #8f8f8f; }
         .player-name-input:focus { outline: none; border-color: var(--neon-green); background: #1a1a1a; }
 
         .card-actions { display: flex; align-items: center; gap: 12px; padding-top: 2px; }
         .delete-db-btn { background: none; border: none; color: #ff4d4d; font-size: 1.1rem; opacity: 0.5; padding: 0; }
         .delete-db-btn:hover { opacity: 1; transform: scale(1.1); }
-        .remove-btn { background: none; border: none; color: #666; font-size: 1.6rem; line-height: 1; padding: 0; }
+        .remove-btn { background: none; border: none; color: #9a9a9a; font-size: 1.6rem; line-height: 1; padding: 0; }
         .remove-btn:hover { color: #fff; transform: scale(1.1); }
 
         /* Tags */
@@ -96,7 +96,7 @@
         .tag-btn.active { opacity: 1; border-color: #fff !important; transform: scale(1.05); }
 
         textarea { width: 100%; height: 120px; background-color: #1a1a1a; border: 1px solid #333; color: #e0e0e0; border-radius: 4px; padding: 12px; font-family: inherit; resize: vertical; box-sizing: border-box; font-size: 0.95rem; line-height: 1.5;}
-        textarea:focus { outline: none; border-color: #555; }
+        textarea:focus { outline: none; border-color: #8f8f8f; }
 
         /* Modals */
         .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
@@ -112,15 +112,15 @@
 
         /* Database Browser specific */
         .db-player-row { display: flex; align-items: center; gap: 15px; background: #1a1a1a; padding: 12px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #222; transition: border-color 0.2s;}
-        .db-player-row:hover { border-color: #555; }
+        .db-player-row:hover { border-color: #8f8f8f; }
         .db-player-img { width: 45px; height: 45px; background: #000; border-radius: 4px; object-fit: contain; border: 1px solid #333; }
         .db-player-info { flex: 1; }
         .db-player-name { font-size: 1.1rem; font-weight: bold; color: #fff; margin-bottom: 4px; }
-        .db-player-details { font-size: 0.8rem; color: #888; }
+        .db-player-details { font-size: 0.8rem; color: #a8a8a8; }
         #db-list-container { max-height: 50vh; overflow-y: auto; padding-right: 10px; }
         
         /* Guide Text Section */
-        .guide-section { background: #0a0a0a; border: 1px solid #1a1a1a; padding: 40px; border-radius: 8px; line-height: 1.7; color: #aaa; max-width: 1200px; margin: 0 auto; }
+        .guide-section { background: #0a0a0a; border: 1px solid #1a1a1a; padding: 40px; border-radius: 8px; line-height: 1.7; color: #c0c0c0; max-width: var(--container); margin: 0 auto; }
         .guide-section h3 { color: var(--text-color); font-weight: 400; font-size: 1.4rem; letter-spacing: 1px; margin: 35px 0 15px 0; border-bottom: 1px solid #222; padding-bottom: 10px; }
         .guide-section h3:first-child { margin-top: 0; }
         .guide-section h4 { color: #fff; font-weight: 600; font-size: 1.1rem; margin: 25px 0 10px 0; }
@@ -218,7 +218,7 @@
                 <datalist id="players-datalist"></datalist>
                 <button class="add-btn" onclick="addPlayer()">Add to Board</button>
                 <!-- Den nye Database Browser knap -->
-                <button class="action-btn" onclick="openDbBrowser()" style="padding: 12px 20px; margin-left: 5px; border-color: #555;">📇 Browse DB</button>
+                <button class="action-btn" onclick="openDbBrowser()" style="padding: 12px 20px; margin-left: 5px; border-color: #8f8f8f;">📇 Browse DB</button>
                 <input type="file" id="import-table-file" style="display:none" accept=".json" onchange="importTableFromCSharp(event)">
 <button class="action-btn" onclick="document.getElementById('import-table-file').click()" style="padding: 12px 20px; margin-left: 5px; border-color: var(--neon-green); color: var(--neon-green);">🤖 Load C# Table</button>
                 <span class="paste-instruction">📸 Tip: Press Ctrl+V to paste!</span>
@@ -313,7 +313,7 @@
                 <input type="color" id="new-tag-color" value="#39ff14" title="Choose color">
                 <button class="add-btn" style="padding: 10px 15px;" onclick="addNewTag()">Add</button>
             </div>
-            <p style="font-size:0.8rem; color:#666; margin-top:15px; text-align:center;">Note: Deleting a tag removes it from all players automatically.</p>
+            <p style="font-size:0.8rem; color:#9a9a9a; margin-top:15px; text-align:center;">Note: Deleting a tag removes it from all players automatically.</p>
         </div>
     </div>
 
@@ -512,7 +512,7 @@
             const sortedNames = Object.keys(db).sort((a, b) => a.localeCompare(b));
 
             if (sortedNames.length === 0) {
-                container.innerHTML = '<p style="color:#666; text-align:center; padding: 20px;">Your database is empty. Paste a screenshot to get started!</p>';
+                container.innerHTML = '<p style="color:#9a9a9a; text-align:center; padding: 20px;">Your database is empty. Paste a screenshot to get started!</p>';
                 return;
             }
 
@@ -526,7 +526,7 @@
                 // Visning af billede (eller placeholder, hvis der ikke er noget)
                 let imgHtml = player.image 
                     ? `<img src="${player.image}" class="db-player-img">`
-                    : `<div class="db-player-img" style="display:flex; justify-content:center; align-items:center; color:#444; font-size:0.7rem;">No Img</div>`;
+                    : `<div class="db-player-img" style="display:flex; justify-content:center; align-items:center; color:#8f8f8f; font-size:0.7rem;">No Img</div>`;
 
                 // Knap logik - skifter tekst, hvis spilleren allerede er på brættet
                 let btnHtml = isOnBoard 

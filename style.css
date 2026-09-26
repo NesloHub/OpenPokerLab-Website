@@ -68,7 +68,7 @@ nav ul {
 }
 
 nav a {
-    color: #9d9d9d; 
+    color: #b8b8b8; 
     text-decoration: none;
     font-weight: 400;
     font-size: 0.95rem;
@@ -164,7 +164,7 @@ nav a:hover, nav a.active {
         display: block;
         padding: 6px 0;
         letter-spacing: 2px;
-        color: #bbb;
+        color: #c8c8c8;
     }
 
     header nav a:hover, header nav a.active {
@@ -237,7 +237,7 @@ nav a:hover, nav a.active {
 }
 
 .subtitle {
-    color: #888;
+    color: #a8a8a8;
     font-weight: 300;
     letter-spacing: 2px;
     font-size: 0.9rem;
@@ -245,7 +245,7 @@ nav a:hover, nav a.active {
 }
 
 .strategy-resources {
-    max-width: 1000px;
+    max-width: var(--container);
     margin: 0 auto;
     padding: 20px 40px 80px 40px;
 }
@@ -301,13 +301,13 @@ nav a:hover, nav a.active {
 
 .box-content h4 {
     font-weight: 300;
-    color: #aaa;
+    color: #c0c0c0;
     font-size: 1rem;
     margin-bottom: 15px;
 }
 
 .box-content p {
-    color: #666;
+    color: #9a9a9a;
     font-size: 0.9rem;
     line-height: 1.6;
     font-weight: 300;
@@ -458,7 +458,7 @@ nav a:hover, nav a.active {
 
 .hero-mission {
     margin-top: 25px;
-    color: #666;
+    color: #9a9a9a;
     font-size: 0.85rem;
     letter-spacing: 4px;
     font-weight: 300;
@@ -654,7 +654,7 @@ nav a:hover, nav a.active {
 }
 
 .content-card p {
-    color: #666;
+    color: #9a9a9a;
     font-size: 0.9rem;
     line-height: 1.6;
     font-weight: 300;
@@ -677,7 +677,7 @@ nav a:hover, nav a.active {
     height: 10px;
     border-radius: 50%;
     margin-left: 8px;
-    background-color: #555; /* Neutral grå imens den loader */
+    background-color: #8f8f8f; /* Neutral grå imens den loader */
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
     transition: all 0.4s ease;
 }
@@ -792,7 +792,7 @@ nav a:hover, nav a.active {
 
 .weight-btn {
     background: #151515;
-    color: #888;
+    color: #a8a8a8;
     border: 1px solid #333;
     padding: 6px 14px;
     font-size: 0.8rem;
@@ -805,7 +805,7 @@ nav a:hover, nav a.active {
 
 .weight-btn:hover {
     color: #fff;
-    border-color: #555;
+    border-color: #8f8f8f;
 }
 
 .weight-btn.active {
@@ -892,7 +892,7 @@ nav a:hover, nav a.active {
 .board-label {
     font-size: 0.85rem;
     letter-spacing: 2px;
-    color: #888;
+    color: #a8a8a8;
     text-transform: uppercase;
     margin-bottom: 15px;
     font-weight: 600;
@@ -1024,7 +1024,7 @@ nav a:hover, nav a.active {
     display: flex;
     justify-content: space-between;
     font-size: 0.85rem;
-    color: #aaa;
+    color: #c0c0c0;
     font-family: monospace;
 }
 
@@ -1117,7 +1117,7 @@ nav a:hover, nav a.active {
 .picker-close {
     background: transparent;
     border: none;
-    color: #888;
+    color: #a8a8a8;
     font-size: 1.5rem;
     cursor: pointer;
 }
@@ -1197,7 +1197,7 @@ nav a:hover, nav a.active {
     margin-top: 60px;
     padding: 40px 20px;
     border-top: 1px solid #1a1a1a;
-    color: #666;
+    color: #9a9a9a;
     font-size: 0.75rem;
     line-height: 1.6;
     text-align: center;
@@ -1210,14 +1210,14 @@ nav a:hover, nav a.active {
 }
 
 .site-footer .footer-18 {
-    color: #888;
+    color: #a8a8a8;
     margin-bottom: 25px;
 }
 
 .site-footer .footer-copy {
     margin-top: 20px;
     font-size: 0.7rem;
-    color: #444;
+    color: #8f8f8f;
 }
 
 .site-footer a {
@@ -1266,12 +1266,12 @@ nav a:hover, nav a.active {
     align-items: center;
     gap: 8px 16px;
     font-size: 0.85rem;
-    color: #7d7d7d;
+    color: #9a9a9a;
     letter-spacing: 0.5px;
 }
 
 .related-tools span {
-    color: #5c5c5c;
+    color: #8f8f8f;
     text-transform: uppercase;
     font-size: 0.72rem;
     letter-spacing: 1.5px;
@@ -1320,7 +1320,7 @@ button.nav-group {
     font-weight: 400;
     font-size: 0.85rem;
     letter-spacing: 2px;
-    color: #888888;
+    color: #a8a8a8;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -1368,7 +1368,7 @@ header nav ul.submenu a {
     padding: 10px 18px;
     font-size: 0.82rem;
     letter-spacing: 1px;
-    color: #9a9a9a;
+    color: #b0b0b0;
 }
 
 header nav ul.submenu a:hover,
@@ -1392,7 +1392,7 @@ header nav ul.submenu a.active {
     font-size: 0.72rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #8a8a8a;
+    color: #a8a8a8;
     font-weight: 600;
 }
 
@@ -1406,7 +1406,7 @@ header nav ul.submenu a.active {
 }
 
 .footer-nav a {
-    color: #666;
+    color: #9a9a9a;
     text-decoration: none;
     font-size: 0.8rem;
     letter-spacing: 0.5px;
@@ -1483,7 +1483,7 @@ header nav ul.submenu a {
     button.nav-group {
         font-size: 1rem;
         letter-spacing: 2px;
-        color: #bbb;
+        color: #c8c8c8;
         padding: 6px 0;
         width: 100%;
         justify-content: space-between;
@@ -1508,5 +1508,196 @@ header nav ul.submenu a {
     header nav ul.submenu a {
         padding: 6px 0;
         font-size: 0.9rem;
+    }
+}
+
+/* ==========================================================================
+   DESIGN SYSTEM (readability refresh)
+   One container width, one spacing scale, one type scale and two text colours.
+   ========================================================================== */
+:root {
+    --container: 1180px;
+    --container-narrow: 760px;
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+    --space-5: 48px;
+    --space-6: 72px;
+    --text-strong: #ffffff;
+    --text-body: #b8b8b8;
+    --text-dim: #8f8f8f;
+    --surface: #0b0b0b;
+    --line: #1e1e1e;
+    --radius: 8px;
+    --fs-h1: 2.6rem;
+    --fs-h2: 1.75rem;
+    --fs-h3: 1.12rem;
+    --fs-body: 1rem;
+    --fs-small: 0.9rem;
+    --fs-tiny: 0.82rem;
+}
+
+body {
+    font-size: var(--fs-body);
+    line-height: 1.75;
+    color: var(--text-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+    color: var(--text-strong);
+    line-height: 1.25;
+}
+
+p {
+    color: var(--text-body);
+    line-height: 1.75;
+}
+
+strong {
+    color: #dedede;
+}
+
+code {
+    color: var(--neon-green);
+    background-color: rgba(57, 255, 20, 0.06);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* --- page header: calmer titles, less letter spacing -------------------- */
+.page-header {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-3) var(--space-4) var(--space-3);
+    text-align: center;
+}
+
+.elegant-title-small {
+    font-size: var(--fs-h1);
+    font-weight: 300;
+    letter-spacing: 4px;
+    margin-left: 0;
+    margin-bottom: var(--space-2);
+}
+
+.subtitle {
+    color: var(--text-dim);
+    font-size: var(--fs-h3);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    line-height: 1.7;
+}
+
+/* --- one width for the content wrappers --------------------------------- */
+.strategy-main,
+.content-container,
+.content-section,
+.range-container,
+.glossary-container,
+.rng-main,
+.software-dual-container,
+.guide-section,
+.features-grid,
+.start-steps,
+.more-links,
+.related-tools,
+.strategy-resources {
+    width: 100%;
+    max-width: var(--container);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+}
+
+.strategy-resources {
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-6);
+}
+
+/* --- section rhythm ----------------------------------------------------- */
+.content-section,
+.glossary-grid,
+.software-dual-container,
+.strategy-resources,
+.features-grid,
+.start-steps,
+.faq-section {
+    margin-bottom: var(--space-6);
+}
+
+/* --- one card look ------------------------------------------------------ */
+.feature-box,
+.resource-box,
+.software-card,
+.software-card-compact,
+.term-card,
+.start-step,
+.faq-item,
+.guide-callout,
+.download-box,
+.content-card,
+.feature-card,
+.stat-card,
+.stat-box,
+.maker-card,
+.player-card,
+.highlight-box,
+.range-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background-color: var(--surface);
+    padding: var(--space-4);
+}
+
+.term-card,
+.highlight-box {
+    padding: var(--space-3);
+}
+
+.download-box {
+    padding: var(--space-5);
+}
+
+/* --- text inside cards -------------------------------------------------- */
+.feature-box h3,
+.software-card h3,
+.start-step h3,
+.range-card h3,
+.term-card .term-title {
+    font-size: var(--fs-h3);
+    letter-spacing: 0.5px;
+}
+
+.feature-box p,
+.software-card p,
+.start-step p,
+.term-def,
+.guide-callout p,
+.content-card p {
+    color: var(--text-body);
+    font-size: var(--fs-small);
+    line-height: 1.75;
+}
+
+.tag {
+    font-size: var(--fs-tiny);
+    letter-spacing: 1.5px;
+}
+
+/* --- smaller screens ---------------------------------------------------- */
+@media (max-width: 900px) {
+    :root {
+        --fs-h1: 2rem;
+        --fs-h2: 1.5rem;
+        --fs-h3: 1.05rem;
+    }
+
+    .page-header {
+        padding-top: var(--space-5);
     }
 }

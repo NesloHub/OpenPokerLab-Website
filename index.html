@@ -51,7 +51,7 @@
 
         .hero-subtitle {
             font-size: 1.25rem;
-            color: #aaa;
+            color: #c0c0c0;
             line-height: 1.6;
             margin-bottom: 40px;
             font-weight: 300;
@@ -106,10 +106,10 @@
         .features-grid {
             display: grid;
             /* Updated to fit 3 columns elegantly on desktop */
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto 100px auto;
+            max-width: var(--container);
+            margin: 0 auto var(--space-6) auto;
             padding: 0 20px;
         }
 
@@ -139,7 +139,7 @@
         }
 
         .feature-box p {
-            color: #777;
+            color: #b0b0b0;
             line-height: 1.6;
             margin-bottom: 25px;
             font-size: 0.95rem;
@@ -172,7 +172,7 @@
 /* Homepage: three steps and four main cards */
         .features-grid {
             grid-template-columns: repeat(4, 1fr);
-            max-width: 1180px;
+            max-width: var(--container);
             margin: 0 auto 60px auto;
         }
 
@@ -180,7 +180,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 22px;
-            max-width: 1180px;
+            max-width: var(--container);
             margin: 0 auto 60px auto;
             padding: 0 20px;
         }
@@ -216,7 +216,7 @@
         }
 
         .start-step p {
-            color: #8a8a8a;
+            color: #a8a8a8;
             font-size: 0.9rem;
             line-height: 1.6;
             margin: 0 0 14px 0;
@@ -232,16 +232,16 @@
         }
 
         .more-links {
-            max-width: 1180px;
+            max-width: var(--container);
             margin: -30px auto 70px auto;
             padding: 0 20px;
             text-align: center;
-            color: #7d7d7d;
+            color: #9a9a9a;
             font-size: 0.85rem;
         }
 
         .more-links a {
-            color: #9a9a9a;
+            color: #b0b0b0;
             text-decoration: none;
             border-bottom: 1px solid #2a2a2a;
         }
