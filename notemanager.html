@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poker Note Manager | OpenPokerLab</title>
-    <meta name="description" content="A lightning-fast, legal, web-based app designed to give you a HUD without breaking ToS.">
+    <title>Note Tool (web): browser player notes | OpenPokerLab</title>
+    <meta name="description" content="A free browser-based note tool: tag players, write your reads and keep them in your browser. No install, no account and nothing leaves your computer.">
     <link rel="canonical" href="https://openpokerlab.org/notemanager.html">
     <!-- Social preview (Open Graph / Twitter) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://openpokerlab.org/notemanager.html">
-    <meta property="og:title" content="Poker Note Manager | OpenPokerLab">
-    <meta property="og:description" content="A lightning-fast, legal, web-based app designed to give you a HUD without breaking ToS.">
+    <meta property="og:title" content="Note Tool (web): browser player notes | OpenPokerLab">
+    <meta property="og:description" content="A free browser-based note tool: tag players, write your reads and keep them in your browser. No install, no account and nothing leaves your computer.">
     <meta property="og:image" content="https://openpokerlab.org/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://openpokerlab.org/notemanager.html">
-    <meta name="twitter:title" content="Poker Note Manager | OpenPokerLab">
-    <meta name="twitter:description" content="A lightning-fast, legal, web-based app designed to give you a HUD without breaking ToS.">
+    <meta name="twitter:title" content="Note Tool (web): browser player notes | OpenPokerLab">
+    <meta name="twitter:description" content="A free browser-based note tool: tag players, write your reads and keep them in your browser. No install, no account and nothing leaves your computer.">
     <meta name="twitter:image" content="https://openpokerlab.org/og-image.png">
     
     <link rel="stylesheet" href="style.css">
@@ -148,7 +148,7 @@
 <body class="content-page">
 
     <!-- Header -->
-        <header>
+    <header>
         <a href="index.html" class="logo">
             <img src="logo.png" alt="OpenPokerLab logo" width="320" height="180">
             OPENPOKER<span class="neon-text-small">LAB</span>
@@ -161,23 +161,39 @@
         <nav>
             <ul id="nav-links">
                 <li><a href="index.html">HOME</a></li>
-                <li><a href="beginner.html">BEGINNER</a></li>
-                <li><a href="calculator.html">CALCULATOR</a></li>
-                <li><a href="ranges.html">RANGES</a></li>
-                <li><a href="glossary.html">GLOSSARY</a></li>
+                <li class="has-menu">
+                    <button type="button" class="nav-group" aria-expanded="false">LEARN<span class="caret">&#9662;</span></button>
+                    <ul class="submenu">
+                        <li><a href="beginner.html">Beginner's Guide</a></li>
+                        <li><a href="glossary.html">Poker Glossary</a></li>
+                        <li><a href="strategy.html">Strategy Guides</a></li>
+                    </ul>
+                </li>
+                <li class="has-menu">
+                    <button type="button" class="nav-group" aria-expanded="false">TOOLS<span class="caret">&#9662;</span></button>
+                    <ul class="submenu">
+                        <li><a href="calculator.html">Equity Calculator</a></li>
+                        <li><a href="ranges.html">Preflop Ranges</a></li>
+                        <li><a href="range-maker.html">Range Maker</a></li>
+                        <li><a href="bankroll.html">Bankroll Calculator</a></li>
+                        <li><a href="notemanager.html">Note Tool (web)</a></li>
+                    </ul>
+                </li>
                 <li><a href="software.html">SOFTWARE</a></li>
-                <li><a href="strategy.html">STRATEGY</a></li>
-                <li><a href="bankroll.html">BANKROLL</a></li>
-                <li><a href="content.html">CONTENT</a></li>
-                <li><a href="sites.html">SITES</a></li>
-                <li><a href="notemanager.html">NOTE MANAGER</a></li>
+                <li class="has-menu">
+                    <button type="button" class="nav-group" aria-expanded="false">COMMUNITY<span class="caret">&#9662;</span></button>
+                    <ul class="submenu">
+                        <li><a href="content.html">Streams &amp; Creators</a></li>
+                        <li><a href="sites.html">Poker Rooms &amp; Rake</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
 
     <!-- Page Title -->
     <div class="page-header">
-        <h1 class="elegant-title-small">NOTE MANAGER</h1>
+        <h1 class="elegant-title-small">NOTE TOOL <span class="title-highlight">(WEB)</span></h1>
         <p class="subtitle">The Ultimate (and Legal) Note-Taking Tool</p>
     </div>
 
@@ -318,7 +334,44 @@
     </div>
 
     <!-- Footer -->
-        <footer class="site-footer">
+    <footer class="site-footer">
+        <nav class="footer-nav" aria-label="Site map">
+            <div>
+                <h4>Learn</h4>
+                <ul>
+                    <li><a href="beginner.html">Beginner's Guide</a></li>
+                    <li><a href="glossary.html">Poker Glossary</a></li>
+                    <li><a href="strategy.html">Strategy Guides</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Tools</h4>
+                <ul>
+                    <li><a href="calculator.html">Equity Calculator</a></li>
+                    <li><a href="ranges.html">Preflop Ranges</a></li>
+                    <li><a href="range-maker.html">Range Maker</a></li>
+                    <li><a href="bankroll.html">Bankroll Calculator</a></li>
+                    <li><a href="notemanager.html">Note Tool (web)</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Software</h4>
+                <ul>
+                    <li><a href="software.html">All software</a></li>
+                    <li><a href="pokervision.html">Poker Notes (desktop)</a></li>
+                    <li><a href="equity-lab.html">PokerEquity Lab (desktop)</a></li>
+                    <li><a href="pokerlab-rng.html">PokerLab RNG (desktop)</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="content.html">Streams &amp; Creators</a></li>
+                    <li><a href="sites.html">Poker Rooms &amp; Rake</a></li>
+                    <li><a href="index.html">Start page</a></li>
+                </ul>
+            </div>
+        </nav>
         <p><strong>Disclaimer &amp; Terms of Use:</strong> OpenPokerLab is an independent, open-source educational platform. We are not affiliated with, endorsed by, or sponsored by any third-party poker rooms or software providers mentioned on this site. All product names, logos, and brands are property of their respective owners.</p>
         <p>Poker involves financial risk. The software, content, and strategy guides provided on this site are for educational and informational purposes only and do not constitute financial advice. All open-source software is provided "as-is" without warranty of any kind. Please review the Terms of Service of your specific poker room regarding the use of third-party tools while playing.</p>
         <p class="footer-18">&#128286; <strong>18+ Only.</strong> Please play responsibly. If you or someone you know has a gambling problem, seek help at <a href="https://www.gamblingtherapy.org" target="_blank" rel="noopener noreferrer">GamblingTherapy.org</a> or <a href="https://www.gambleaware.org/" target="_blank" rel="noopener noreferrer">GambleAware.org</a>.</p>

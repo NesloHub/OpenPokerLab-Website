@@ -1303,3 +1303,152 @@ img {
     width: auto;
     border-radius: 4px;
 }
+
+/* ---------- Navigation groups with dropdown menus ---------- */
+header nav ul li.has-menu {
+    position: relative;
+}
+
+button.nav-group {
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: #888888;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: color 0.4s ease;
+}
+
+button.nav-group:hover,
+li.has-menu.open > button.nav-group,
+li.has-menu.current > button.nav-group {
+    color: var(--text-color);
+}
+
+button.nav-group .caret {
+    font-size: 0.6rem;
+    opacity: 0.7;
+    transform: translateY(1px);
+}
+
+header nav ul.submenu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: -14px;
+    min-width: 230px;
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 8px 0;
+    list-style: none;
+    background-color: #0a0a0a;
+    border: 1px solid #1f1f1f;
+    border-radius: 5px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+}
+
+li.has-menu:hover > ul.submenu,
+li.has-menu.open > ul.submenu {
+    display: flex;
+}
+
+header nav ul.submenu a {
+    display: block;
+    padding: 10px 18px;
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+    color: #9a9a9a;
+}
+
+header nav ul.submenu a:hover,
+header nav ul.submenu a.active {
+    color: #fff;
+    background-color: #131313;
+}
+
+/* ---------- Footer site map ---------- */
+.footer-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 26px;
+    max-width: 1000px;
+    margin: 0 auto 34px auto;
+    text-align: left;
+}
+
+.footer-nav h4 {
+    margin: 0 0 10px 0;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    font-weight: 600;
+}
+
+.footer-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.footer-nav a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    border-bottom: 0;
+}
+
+.footer-nav a:hover {
+    color: var(--neon-green);
+}
+
+/* ---------- Mobile: the dropdowns become plain groups ---------- */
+@media (max-width: 1100px) {
+    li.has-menu {
+        position: static;
+        width: 100%;
+    }
+
+    button.nav-group {
+        font-size: 1rem;
+        letter-spacing: 2px;
+        color: #bbb;
+        padding: 6px 0;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    header nav ul.submenu {
+        position: static;
+        display: none;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        padding: 4px 0 4px 16px;
+        min-width: 0;
+        width: 100%;
+        border-radius: 0;
+    }
+
+    li.has-menu.open > ul.submenu {
+        display: flex;
+    }
+
+    header nav ul.submenu a {
+        padding: 6px 0;
+        font-size: 0.9rem;
+    }
+}
