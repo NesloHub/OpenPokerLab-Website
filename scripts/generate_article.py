@@ -2,21 +2,23 @@
 """Generate one original poker article per run and publish it to the static site.
 
 Pipeline:
-  1. Collect fresh items from the RSS/Atom feeds listed in sources.py.
-  2. Skip items already covered (tracked in articles/state.json).
-  3. Ask an LLM (DeepSeek by default) to write an original article based on
-     those facts, linking back to the original sources.
+  1. Pick the next strategy topic from topics.py (tracked in articles/state.json).
+  2. Gather research material for that topic: search the web, fetch the top
+     results and extract the readable text of each page.
+  3. Ask an LLM (DeepSeek by default) to write an original, in-depth article
+     about the topic, using the material only as background.
   4. Render the article with scripts/layout.html, update articles/manifest.json,
      rebuild articles.html and regenerate sitemap.xml.
 
-Designed for GitHub Actions: the API key is read from the environment, and the
-run exits successfully without publishing anything when there is nothing new, so
-a quiet day never shows up as a failed job.
+Designed for GitHub Actions: keys are read from the environment, and the run
+exits successfully when there is nothing to do.
 
 Environment variables:
-  LLM_API_KEY   (required) e.g. a DeepSeek key
-  LLM_BASE_URL  (optional) default https://api.deepseek.com
-  LLM_MODEL     (optional) default deepseek-chat
+  LLM_API_KEY     (required) e.g. a DeepSeek key
+  LLM_BASE_URL    (optional) default https://api.deepseek.com
+  LLM_MODEL       (optional) default deepseek-chat
+  SEARCH_API_KEY  (optional) enables a real search API (Brave/Tavily/Serper)
+  SEARCH_PROVIDER (optional) brave | tavily | serper (default: duckduckgo)
 """
 
 from __future__ import annotations
@@ -26,12 +28,17 @@ import html
 import json
 import os
 import re
+import time
 from pathlib import Path
+import xml.etree.ElementTree as ET
+from urllib.parse import parse_qs, urlparse
 
-import feedparser
 import requests
+from bs4 import BeautifulSoup
 
-from sources import RSS_FEEDS, USER_AGENT, STATIC_PAGES
+from sources import (MAX_PAGES, MAX_PER_DOMAIN, PAGE_CHARS, REDDIT_SUBS,
+                     RESULTS_PER_TOPIC, STATIC_PAGES, USER_AGENT)
+from topics import TOPICS
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT = SCRIPT_DIR.parent
@@ -43,12 +50,12 @@ INDEX_FILE = ROOT / "articles.html"
 SITEMAP_FILE = ROOT / "sitemap.xml"
 
 SITE_URL = "https://openpokerlab.org"
-MAX_ITEMS = 8          # how many fresh items to send to the model
-MAX_STATE_LINKS = 800  # how many already-covered links to remember
 
 LLM_API_KEY = os.environ.get("LLM_API_KEY", "").strip()
 LLM_BASE_URL = os.environ.get("LLM_BASE_URL", "").strip() or "https://api.deepseek.com"
 LLM_MODEL = os.environ.get("LLM_MODEL", "").strip() or "deepseek-chat"
+SEARCH_API_KEY = os.environ.get("SEARCH_API_KEY", "").strip()
+SEARCH_PROVIDER = os.environ.get("SEARCH_PROVIDER", "").strip().lower() or "duckduckgo"
 
 ARTICLE_HEAD_EXTRA = """    <style>
         .article-main { max-width: 780px; margin: 0 auto; padding: 40px 20px 80px; }
@@ -80,10 +87,11 @@ INDEX_HEAD_EXTRA = """    <style>
     </style>"""
 
 SYSTEM_PROMPT = (
-    "You are the editor of OpenPokerLab, an educational poker website for players "
-    "who care about strategy and the poker ecosystem. You write concise, original, "
-    "well-sourced articles. You never plagiarise: you summarise and add context in "
-    "your own words. You always answer with valid JSON."
+    "You are the lead writer of OpenPokerLab, an educational poker website. You "
+    "write original, accurate, in-depth strategy articles for microstakes cash-game "
+    "players. You never plagiarise: you explain concepts in your own words and never "
+    "copy sentences from your research material. You never invent statistics or "
+    "quotes. You always answer with valid JSON."
 )
 
 
@@ -105,68 +113,228 @@ def save_json(path: Path, data) -> None:
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
-def strip_html(text: str) -> str:
-    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", text or "")).strip()
-
-
 def slugify(text: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", (text or "").lower()).strip("-")
     return slug[:70] or "poker-article"
 
 
-def collect_items():
-    """Read every configured feed and return a flat list of news items."""
-    items = []
-    for feed in RSS_FEEDS:
-        name, url = feed["name"], feed["url"]
+def _site_name(url: str) -> str:
+    try:
+        host = urlparse(url).netloc
+        return host[4:] if host.startswith("www.") else (host or url)
+    except Exception:
+        return url
+
+
+def _resolve_ddg_url(href: str) -> str:
+    if not href:
+        return ""
+    if href.startswith("//"):
+        href = "https:" + href
+    if "uddg=" in href:
+        params = parse_qs(urlparse(href).query)
+        if params.get("uddg"):
+            return params["uddg"][0]
+    return href
+
+
+def _search_duckduckgo(query: str, limit: int):
+    response = requests.post(
+        "https://html.duckduckgo.com/html/",
+        data={"q": query},
+        headers={"User-Agent": USER_AGENT},
+        timeout=30,
+    )
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    results = []
+    for anchor in soup.select("a.result__a"):
+        url = _resolve_ddg_url(anchor.get("href", ""))
+        title = anchor.get_text(" ", strip=True)
+        if url and title:
+            results.append({"title": title, "url": url})
+        if len(results) >= limit:
+            break
+    return results
+
+
+def _search_brave(query, limit, api_key):
+    response = requests.get(
+        "https://api.search.brave.com/res/v1/web/search",
+        params={"q": query, "count": limit},
+        headers={"Accept": "application/json", "X-Subscription-Token": api_key},
+        timeout=30,
+    )
+    response.raise_for_status()
+    items = (response.json().get("web") or {}).get("results", [])[:limit]
+    return [{"title": i.get("title", ""), "url": i.get("url", "")} for i in items if i.get("url")]
+
+
+def _search_tavily(query, limit, api_key):
+    response = requests.post(
+        "https://api.tavily.com/search",
+        json={"api_key": api_key, "query": query, "max_results": limit},
+        timeout=60,
+    )
+    response.raise_for_status()
+    items = response.json().get("results", [])[:limit]
+    return [{"title": i.get("title", ""), "url": i.get("url", "")} for i in items if i.get("url")]
+
+
+def _search_serper(query, limit, api_key):
+    response = requests.post(
+        "https://google.serper.dev/search",
+        json={"q": query, "num": limit},
+        headers={"X-API-KEY": api_key, "Content-Type": "application/json"},
+        timeout=30,
+    )
+    response.raise_for_status()
+    items = response.json().get("organic", [])[:limit]
+    return [{"title": i.get("title", ""), "url": i.get("link", "")} for i in items if i.get("link")]
+
+
+def _search_reddit(query: str, limit: int):
+    """Keyless fallback: Reddit's public search feed, restricted to poker subs."""
+    results = []
+    seen = set()
+    per_sub = max(3, limit // max(1, len(REDDIT_SUBS)))
+    for sub in REDDIT_SUBS:
         try:
-            parsed = feedparser.parse(url, agent=USER_AGENT)
-        except Exception as exc:  # network, DNS, TLS, ...
-            log(f"skip {name}: {exc}")
+            response = requests.get(
+                f"https://www.reddit.com/r/{sub}/search.rss",
+                params={"q": query, "restrict_sr": 1, "sort": "relevance", "limit": per_sub},
+                headers={"User-Agent": USER_AGENT},
+                timeout=30,
+            )
+            response.raise_for_status()
+            root = ET.fromstring(response.content)
+        except Exception as exc:
+            log(f"reddit /r/{sub} search failed: {exc}")
             continue
-        if getattr(parsed, "bozo", 0) and not parsed.entries:
-            log(f"skip {name}: feed unavailable")
-            continue
-        for entry in parsed.entries[:10]:
-            link = (entry.get("link") or "").strip()
-            title = strip_html(entry.get("title", ""))
-            if not link or not title:
+        ns = {"a": "http://www.w3.org/2005/Atom"}
+        for entry in root.findall("a:entry", ns):
+            link_node = entry.find("a:link", ns)
+            url = link_node.get("href") if link_node is not None else ""
+            title = (entry.findtext("a:title", default="", namespaces=ns) or "").strip()
+            if not url or "/comments/" not in url or url in seen:
                 continue
-            published = ""
-            if entry.get("published_parsed"):
-                published = dt.datetime(*entry.published_parsed[:6]).strftime("%b %d, %Y")
-            items.append({
-                "source": name,
-                "title": title,
-                "link": link,
-                "summary": strip_html(entry.get("summary", ""))[:600],
-                "published": published,
-            })
-    return items
+            seen.add(url)
+            results.append({"title": title or url, "url": url})
+            if len(results) >= limit:
+                return results
+        time.sleep(1)
+    return results
 
 
-def build_prompt(items) -> str:
+def web_search(query: str):
+    """Find candidate pages for a query, preferring a configured search API."""
+    if SEARCH_API_KEY and SEARCH_PROVIDER in ("brave", "tavily", "serper"):
+        try:
+            if SEARCH_PROVIDER == "brave":
+                return _search_brave(query, RESULTS_PER_TOPIC, SEARCH_API_KEY)
+            if SEARCH_PROVIDER == "tavily":
+                return _search_tavily(query, RESULTS_PER_TOPIC, SEARCH_API_KEY)
+            if SEARCH_PROVIDER == "serper":
+                return _search_serper(query, RESULTS_PER_TOPIC, SEARCH_API_KEY)
+        except Exception as exc:
+            log(f"search provider {SEARCH_PROVIDER} failed: {exc} - falling back to duckduckgo")
+    try:
+        results = _search_reddit(query, RESULTS_PER_TOPIC)
+        if results:
+            log(f"reddit search returned {len(results)} results")
+            return results
+    except Exception as exc:
+        log(f"reddit search failed: {exc}")
+    try:
+        return _search_duckduckgo(query, RESULTS_PER_TOPIC)
+    except Exception as exc:
+        log(f"duckduckgo search failed: {exc}")
+        return []
+
+
+def fetch_page_text(url: str) -> str:
+    """Fetch a page and return its readable text (or '' when unusable)."""
+    try:
+        response = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=30)
+        response.raise_for_status()
+        if "html" not in response.headers.get("Content-Type", "").lower():
+            return ""
+        soup = BeautifulSoup(response.text, "html.parser")
+        for tag in soup(["script", "style", "nav", "header", "footer", "aside", "form", "noscript"]):
+            tag.decompose()
+        container = soup.find("article") or soup.find("main") or soup
+        return re.sub(r"\s+", " ", container.get_text(" ", strip=True)).strip()
+    except Exception as exc:
+        log(f"skip page {url}: {exc}")
+        return ""
+
+
+def gather_research(topic):
+    """Search for a topic and return usable sources with extracted text."""
+    results = web_search(topic["query"])
+    log(f"search returned {len(results)} candidate pages")
+    sources = []
+    seen_urls = set()
+    per_site = {}
+    for result in results:
+        url = result["url"]
+        site = _site_name(url)
+        if not url or url in seen_urls:
+            continue
+        seen_urls.add(url)
+        text = fetch_page_text(url)
+        if len(text) < 400:
+            continue
+        # cap pages per domain so no single site dominates the article
+        if per_site.get(site, 0) >= MAX_PER_DOMAIN:
+            continue
+        per_site[site] = per_site.get(site, 0) + 1
+        sources.append({
+            "name": site,
+            "title": result.get("title") or site,
+            "url": url,
+            "excerpt": text[:PAGE_CHARS],
+        })
+        if len(sources) >= MAX_PAGES:
+            break
+    return sources
+
+
+def pick_topic(used_topics):
+    for topic in TOPICS:
+        if topic["title"] not in used_topics:
+            return topic
+    return None
+
+
+def build_prompt(topic, sources) -> str:
     blocks = []
-    for it in items:
+    for src in sources:
         blocks.append(
-            f"- Source: {it['source']}\n"
-            f"  Title: {it['title']}\n"
-            f"  Link: {it['link']}\n"
-            f"  Excerpt: {it['summary']}"
+            f"- Source: {src['name']} ({src['url']})\n"
+            f"  Title: {src['title']}\n"
+            f"  Content: {src['excerpt']}"
         )
-    joined = "\n".join(blocks)
+    joined = "\n\n".join(blocks)
     return (
-        "Here are today's latest poker news items:\n\n"
+        f"Topic: {topic['title']}\n"
+        f"Angle: {topic.get('angle', '')}\n\n"
+        "Below is research material collected from several poker websites. Treat it "
+        "as background knowledge only.\n\n"
         f"{joined}\n\n"
-        "Write one original, well-structured article in English that ties these "
-        "developments together for a poker audience. Rules:\n"
-        "- Summarise and explain in your own words; never copy source sentences.\n"
-        "- 600-800 words, using HTML with <h2>, <h3>, <p>, <ul>/<li> only "
-        "(no <html>, <head>, <body> or <h1>).\n"
-        "- Stay factual and neutral and never invent statistics or quotes.\n"
+        "Write ONE original, in-depth educational strategy article in English about "
+        "the topic above, aimed at microstakes cash-game players. Rules:\n"
+        "- Explain everything in your own words and synthesise across the sources; "
+        "never copy sentences or phrases from the material.\n"
+        "- Do not invent statistics, solver numbers or quotes, and do not mention "
+        "the source websites in the body text.\n"
+        "- 900-1300 words with a real structure: a short intro, 3-6 sections with "
+        "<h2>, concrete examples, and a 'Key takeaways' bullet list at the end.\n"
+        "- Use HTML with <h2>, <h3>, <p>, <ul>/<li> only (no <html>, <head>, "
+        "<body> or <h1>).\n"
         "- Answer with JSON only, using the keys: title, description, slug, "
         "body_html, sources. \"sources\" is a list of {\"name\", \"url\"} objects "
-        "pointing at the original links above."
+        "for the pages you actually used."
     )
 
 
@@ -301,19 +469,23 @@ def write_sitemap(manifest) -> None:
 
 def main() -> int:
     ARTICLES_DIR.mkdir(parents=True, exist_ok=True)
-    state = load_json(STATE_FILE, {"used_links": []})
-    used = set(state.get("used_links", []))
+    state = load_json(STATE_FILE, {"used_topics": []})
+    used_topics = set(state.get("used_topics", []))
     manifest = load_json(MANIFEST_FILE, [])
 
-    items = collect_items()
-    fresh = [item for item in items if item["link"] not in used]
-    log(f"collected {len(items)} items, {len(fresh)} new")
-    if not fresh:
-        log("nothing new to publish - done")
+    topic = pick_topic(used_topics)
+    if topic is None:
+        log("all topics covered - add more in scripts/topics.py")
         return 0
-    fresh = fresh[:MAX_ITEMS]
+    log(f"topic: {topic['title']}")
 
-    article = call_llm(build_prompt(fresh))
+    sources = gather_research(topic)
+    log(f"gathered {len(sources)} usable sources")
+    if not sources:
+        log("WARNING: no research material found - search may be blocked or offline")
+        return 0
+
+    article = call_llm(build_prompt(topic, sources))
     title = (article.get("title") or "").strip()
     description = (article.get("description") or "").strip()
     body_html = (article.get("body_html") or "").strip()
@@ -326,15 +498,15 @@ def main() -> int:
     seen_urls = set()
     for src in article.get("sources", []) or []:
         url = (src.get("url") or "").strip()
-        name = (src.get("name") or url).strip()
+        name = (src.get("name") or _site_name(url)).strip()
         if url and url not in seen_urls:
             seen_urls.add(url)
             source_entries.append((name, url))
     if not source_entries:
-        for item in fresh:
-            if item["link"] not in seen_urls:
-                seen_urls.add(item["link"])
-                source_entries.append((item["source"], item["link"]))
+        for src in sources:
+            if src["url"] not in seen_urls:
+                seen_urls.add(src["url"])
+                source_entries.append((src["name"], src["url"]))
 
     sources_html = "\n".join(
         '                <li><a href="{}" target="_blank" rel="noopener noreferrer">{}</a></li>'.format(
@@ -372,9 +544,8 @@ def main() -> int:
     })
     save_json(MANIFEST_FILE, manifest)
 
-    for item in fresh:
-        used.add(item["link"])
-    save_json(STATE_FILE, {"used_links": list(used)[-MAX_STATE_LINKS:]})
+    used_topics.add(topic["title"])
+    save_json(STATE_FILE, {"used_topics": sorted(used_topics)})
 
     write_index(manifest)
     write_sitemap(manifest)

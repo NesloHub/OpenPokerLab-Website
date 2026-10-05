@@ -1,20 +1,21 @@
 """Offline self-test of the render pipeline (no network, no LLM).
 
 Run:  python scripts/selftest.py
-It stubs feedparser/requests so it can import generate_article without the
-third-party packages installed, then rebuilds articles.html + sitemap.xml and
-renders a sample article to scripts/_sample.html for inspection.
+It stubs bs4/requests so it can import generate_article without the third-party
+packages installed, then rebuilds articles.html + sitemap.xml and renders a
+sample article to scripts/_sample.html for inspection.
 """
 import sys
 import types
 from pathlib import Path
 
 # --- stub the third-party modules so the import works offline -------------
-feedparser = types.ModuleType("feedparser")
-feedparser.parse = lambda *args, **kwargs: None
-sys.modules["feedparser"] = feedparser
+bs4 = types.ModuleType("bs4")
+bs4.BeautifulSoup = object
+sys.modules["bs4"] = bs4
 
 requests = types.ModuleType("requests")
+requests.get = lambda *args, **kwargs: None
 requests.post = lambda *args, **kwargs: None
 sys.modules["requests"] = requests
 
@@ -25,11 +26,8 @@ import generate_article as g  # noqa: E402
 
 g.ARTICLES_DIR.mkdir(parents=True, exist_ok=True)
 
-# Rebuild the index + sitemap from the (empty) manifest.
-g.write_index([])
-g.write_sitemap([])
-
 # Render a sample article page and check no placeholders are left behind.
+# (This intentionally does NOT touch the real articles.html / sitemap.xml.)
 page = g.render_page(
     BASE="../",
     TITLE="Sample Title",

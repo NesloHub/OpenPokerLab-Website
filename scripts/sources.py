@@ -1,26 +1,29 @@
-"""Content sources for the daily article generator.
+"""Configuration for the daily article generator.
 
-Only public RSS/Atom feeds are used. Add or remove entries here to change what
-the generator reads. Every feed is best-effort: a source that is down, moved or
-rate-limited is skipped so a single broken feed never breaks the whole run.
+The generator picks a strategy topic (see topics.py), gathers research material
+from the web and asks an LLM to write an original article about it. Add or edit
+topics in topics.py; tune the research behaviour here.
 """
 
-# RSS / Atom feeds from poker news outlets and community sources.
-# NOTE: feed URLs change over time. If a source stops returning items it is
-# simply skipped, but it is worth verifying the list now and then.
-RSS_FEEDS = [
-    {"name": "PokerNews", "url": "https://www.pokernews.com/news.rss"},
-    {"name": "CardPlayer", "url": "https://www.cardplayer.com/poker-news/rss"},
-    {"name": "PokerStars Blog", "url": "https://www.pokerstars.com/blog/feed/"},
-    {"name": "PokerStrategy", "url": "https://www.pokerstrategy.com/news/rss/"},
-    {"name": "PokerListings", "url": "https://www.pokerlistings.com/feed"},
-    {"name": "Pokerfuse", "url": "https://pokerfuse.com/feed/"},
-    {"name": "Reddit r/poker", "url": "https://www.reddit.com/r/poker/top/.rss?t=day"},
-    {"name": "Reddit r/poker (new)", "url": "https://www.reddit.com/r/poker/new/.rss"},
-]
-
-# A polite User-Agent. Reddit in particular rejects the library default.
+# A polite User-Agent. Some sites reject the default of the HTTP library.
 USER_AGENT = "OpenPokerLabBot/1.0 (+https://openpokerlab.org)"
+
+# --- research behaviour ----------------------------------------------------
+# How many search results to consider, and how many pages to actually fetch and
+# keep as source material for the article.
+RESULTS_PER_TOPIC = 8
+MAX_PAGES = 5
+
+# Maximum number of pages kept from a single domain, so a search that returns
+# mostly one site (e.g. Reddit) still spreads across a few viewpoints.
+MAX_PER_DOMAIN = 3
+
+# Subreddits used by the keyless Reddit search fallback.
+REDDIT_SUBS = ["poker", "Poker_Theory"]
+
+# Maximum characters of extracted page text kept per source. Lower = smaller
+# prompt (cheaper), higher = more material for the model to work from.
+PAGE_CHARS = 2500
 
 # Pages that always belong in sitemap.xml, as (path, priority, lastmod).
 # Articles are added on top of these on every run.
