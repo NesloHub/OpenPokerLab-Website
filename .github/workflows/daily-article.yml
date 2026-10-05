@@ -1,0 +1,48 @@
+name: Daily poker article
+
+on:
+  schedule:
+    # Every day at 07:00 UTC. Change to e.g. "0 7 * * 1" for Mondays only.
+    - cron: "0 7 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-article
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Generate article
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ vars.LLM_BASE_URL }}
+          LLM_MODEL: ${{ vars.LLM_MODEL }}
+        run: python scripts/generate_article.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "openpokerlab-bot"
+          git config user.email "bot@openpokerlab.org"
+          git add articles articles.html sitemap.xml
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "content: auto-generated article $(date -u +%F)"
+            git push
+          fi
